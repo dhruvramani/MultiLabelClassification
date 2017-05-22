@@ -62,11 +62,9 @@ class DataSet(object):
         X, Y = func()
         batch_size = self.config.batch_size
         total = len(X)
-        self.start = 0
-        while self.start < batch_size :
+        while self.start < total :
             end = min(self.start + batch_size, total)
             x = X[self.start : end, :]
             y = Y[self.start : end, :]
             self.start += 1
-            print(self.start)
-            yield (x, y, total//batch_size)
+            yield (x, y, int(total))

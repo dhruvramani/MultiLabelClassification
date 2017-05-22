@@ -34,28 +34,25 @@ class Model(object):
         i = 0
         self.epoch_count += 1
         for X, Y, tot in self.data.next_batch(data):
-            if i > tot :
-                i = 0
+            if i >= tot :
                 break
             feed_dict = {self.x : X, self.y : Y, self.keep_prob : self.config.solver.dropout}
             _, loss, Y_pred = sess.run([self.train, self.loss, self.y_pred], feed_dict = feed_dict)
             err.append(loss) 
-            output = "Epoch ({}), Run ({}/{}) : Loss = {}".format(self.epoch_count, i, tot, loss)
+            output = "Epoch ({}) Batch({}) : Loss = {}".format(self.epoch_count, i // self.config.batch_size , loss)
             with open("../stdout/{}_train.log".format(self.config.project_name), "a+") as log:
                 log.write(output + "\n")
             print("   {}".format(output), end='\r')
-            i += 1
+            i += self.config.batch_size
         return np.mean(err)
 
     def run_eval(self, sess, data):
-        y, y_pred = list(), list()
+        y, y_pred, loss_, metrics = list(), list(), 0.0, None
         for X, Y, tot in self.data.next_batch(data):
             feed_dict = {self.x : X, self.y : Y, self.keep_prob : 1}
-            loss, Y_pred = sess.run([self.loss, self.y_pred], feed_dict = feed_dict)
-            y.append(Y)
-            y_pred.append(Y_pred)
-        metrics = evaluate(predictions = np.array(y_pred), labels = np.array(y))
-        return loss, metrics
+            loss_, Y_pred = sess.run([self.loss, self.y_pred], feed_dict = feed_dict)
+            metrics = evaluate(predictions = np.array(Y_pred), labels = np.array(Y))
+        return loss_ / self.config.batch_size, metrics
     ''' 
      TODO
      def add_summaries(self, sess):
@@ -80,8 +77,8 @@ class Model(object):
         patience_increase = self.config.patience_increase
         improvement_threshold = self.config.improvement_threshold
         best_validation_loss = 1e6
-
-        step, best_step, losses, learning_rate = 1, -1, list(), self.config.solver.learning_rate
+        self.epoch_count = 0
+        step, best_step, losses, learning_rate = self.epoch_count, -1, list(), self.config.solver.learning_rate
         while step <= max_epochs :
             start_time = time.time()
             average_loss = self.run_epoch(sess, "train")
@@ -107,6 +104,7 @@ class Model(object):
                             print("=> Learning rate dropped to {}".format(learning_rate))
                     else :
                         patience -= 1
+            step = self.epoch_count
         print("=> Best epoch : {}".format(best_step))
         test_loss, test_metrics = self.run_epoch(sess, "train")
         return {"train" : best_validation_loss, "test" : test_loss}

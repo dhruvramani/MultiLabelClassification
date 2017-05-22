@@ -48,7 +48,6 @@ def evaluate(predictions, labels, threshold=0, multi_label=True):
     #predictions are logits here and binarized labels
     assert predictions.shape == labels.shape, "Shapes: %s, %s" % (predictions.shape, labels.shape,)
     metrics = dict()
-    print(type(predictions), type(labels))
     #metrics['cross_entropy'] = -np.mean(labels * np.log(predictions + 1e-8))
 
     if not multi_label:
@@ -62,7 +61,6 @@ def evaluate(predictions, labels, threshold=0, multi_label=True):
             metrics['average_precision'], metrics['ranking_loss'], metrics['pak'], metrics['hamming_loss'] \
             = 0, 0, 0, 0, 0, 0, 0, 0
     else:
-        print(labels, predictions)
         metrics['accuracy'] = accuracy_score(np.argmax(labels, axis=1), np.argmax(predictions, axis=1))
         if threshold:
             for i in range(predictions.shape[0]):
@@ -82,9 +80,9 @@ def evaluate(predictions, labels, threshold=0, multi_label=True):
         metrics['coverage'] = coverage_error(labels, predictions)
         metrics['average_precision'] = label_ranking_average_precision_score(labels, predictions)
         metrics['ranking_loss'] = label_ranking_loss(labels, predictions)
-        metrics['pak'] = patk(predictions, labels)
+        #metrics['pak'] = patk(predictions, labels)
         metrics['hamming_loss'] = hamming_loss(labels, predictions)
-        metrics['micro_precision'], metrics['micro_recall'], metrics['micro_f1'], metrics['macro_precision'], \
-            metrics['macro_recall'], metrics['macro_f1'] = bipartition_scores(labels, predictions)
+        #metrics['micro_precision'], metrics['micro_recall'], metrics['micro_f1'], metrics['macro_precision'], \
+         #   metrics['macro_recall'], metrics['macro_f1'] = bipartition_scores(labels, predictions)
 
     return metrics
