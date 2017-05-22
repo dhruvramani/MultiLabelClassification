@@ -48,11 +48,13 @@ class Model(object):
 
     def run_eval(self, sess, data):
         y, y_pred, loss_, metrics = list(), list(), 0.0, None
+        accuracy = 0.0
         for X, Y, tot in self.data.next_batch(data):
             feed_dict = {self.x : X, self.y : Y, self.keep_prob : 1}
             loss_, Y_pred = sess.run([self.loss, self.y_pred], feed_dict = feed_dict)
             metrics = evaluate(predictions = np.array(Y_pred), labels = np.array(Y))
-        return loss_ / self.config.batch_size, metrics
+            accuracy += metrics['accuracy']
+        return loss_ / self.config.batch_size, accuracy / self.config.batch_size
     ''' 
      TODO
      def add_summaries(self, sess):
@@ -85,8 +87,8 @@ class Model(object):
             duration = time.time() - start_time
 
             if step % self.config.epoch_freq == 0 :
-                val_loss, metrics = self.run_eval(sess, "validation")
-                print("--- Epoch : average_loss = {}".format(average_loss))
+                val_loss, accuracy = self.run_eval(sess, "validation")
+                print("--- Epoch : average_loss = {}, accuracy = {}".format(average_loss, accuracy))
                 if val_loss < best_validation_loss :
                     if val_loss < best_validation_loss * improvement_threshold :
                         self.saver.save(sess, self.config.ckptdir_path + "model_best.ckpt")
