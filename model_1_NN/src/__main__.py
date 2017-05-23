@@ -16,9 +16,10 @@ class Model(object):
         self.config = config
         self.data = DataSet(config)
         self.add_placeholders()
-        self.net = Network(config, self.x, self.keep_prob)
+        self.net = Network(config)
         self.optimizer = self.config.solver.optimizer
-        self.y_pred = self.net.prediction()
+        self.y_pred = self.net.prediction(self.x, self.keep_prob)
+        self.predict = self.net.predict(self.x)
         self.loss = self.net.loss(self.y_pred, self.y)
         self.train = self.net.train_step(self.loss)
         self.saver = tf.train.Saver()
@@ -37,7 +38,7 @@ class Model(object):
             if i >= tot :
                 break
             feed_dict = {self.x : X, self.y : Y, self.keep_prob : self.config.solver.dropout}
-            _, loss, Y_pred = sess.run([self.train, self.loss, self.y_pred], feed_dict = feed_dict)
+            _, loss, Y_pred = sess.run([self.train, self.loss, self.predict], feed_dict = feed_dict)
             err.append(loss) 
             output = "Epoch ({}) Batch({}) : Loss = {}".format(self.epoch_count, i // self.config.batch_size , loss)
             with open("../stdout/{}_train.log".format(self.config.project_name), "a+") as log:
@@ -49,9 +50,10 @@ class Model(object):
     def run_eval(self, sess, data):
         y, y_pred, loss_, metrics = list(), list(), 0.0, None
         accuracy = 0.0
-        for X, Y, tot in self.data.next_batch(data):
+        next_batch = self.data.next_batch(data)
+        for X, Y, tot in next_batch:
             feed_dict = {self.x : X, self.y : Y, self.keep_prob : 1}
-            loss_, Y_pred = sess.run([self.loss, self.y_pred], feed_dict = feed_dict)
+            loss_, Y_pred = sess.run([self.loss, self.predict], feed_dict = feed_dict)
             metrics = evaluate(predictions = np.array(Y_pred), labels = np.array(Y))
             accuracy += metrics['accuracy']
         return loss_ / self.config.batch_size, accuracy / self.config.batch_size
@@ -88,7 +90,7 @@ class Model(object):
 
             if step % self.config.epoch_freq == 0 :
                 val_loss, accuracy = self.run_eval(sess, "validation")
-                print("--- Epoch : average_loss = {}, accuracy = {}".format(average_loss, accuracy))
+                print("--- Training : average_loss = {}, Validation : Accuracy = {}".format(average_loss, accuracy))
                 if val_loss < best_validation_loss :
                     if val_loss < best_validation_loss * improvement_threshold :
                         self.saver.save(sess, self.config.ckptdir_path + "model_best.ckpt")
@@ -108,8 +110,8 @@ class Model(object):
                         patience -= 1
             step = self.epoch_count
         print("=> Best epoch : {}".format(best_step))
-        test_loss, test_metrics = self.run_epoch(sess, "train")
-        return {"train" : best_validation_loss, "test" : test_loss}
+        test_loss, test_accuracy = self.run_eval(sess, "test")
+        return {"train" : best_validation_loss, "test_loss" : test_loss, "test_accuracy" : test_accuracy}
 
 def init_model(config):
     tf.reset_default_graph()
@@ -141,8 +143,8 @@ def train_model(config):
 def main():
     args = Parser().get_parser().parse_args()
     config = Config(args)
-    train_model(config)
-
+    loss_dict = train_model(config)
+    print("\033[92m=> Best Train Loss : {}, Test Loss : {}, Test Accuracy : {}\033[0m".format(loss_dict["train"], loss_dict["test_loss"], loss_dict["test_accuracy"]))
 if __name__ == '__main__' :
     np.random.seed(1234)
     main() # Phew!

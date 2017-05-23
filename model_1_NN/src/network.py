@@ -5,10 +5,10 @@ from config import Config
 
 class Network(object):
 
-    def __init__(self, config, x, keep_prob):
+    def __init__(self, config):
         tf.set_random_seed(1234)
         self.config = config
-        self.X, self.W1, self.W2, self.b1, self.b2 = self.init_variable(x, keep_prob)
+        self.W1, self.W2, self.b1, self.b2 = self.init_variable()
 
     def weight_variable(self, shape, name):
         return tf.Variable(tf.truncated_normal(shape = shape, stddev = 1.0 / shape[0]), name = name)
@@ -27,15 +27,19 @@ class Network(object):
         optimizer = self.config.solver.optimizer
         return optimizer(self.config.solver.learning_rate).minimize(loss)
 
-    def init_variable(self, x, keep_prob):
-        X  = tf.nn.dropout(x, keep_prob)
+    def init_variable(self):
         W1 = self.weight_variable([self.config.features_dim, self.config.solver.hidden_dim], "weight_1")
         b1 = self.bias_variable([self.config.solver.hidden_dim], "bias_1")
         W2 = self.weight_variable([self.config.solver.hidden_dim, self.config.labels_dim], "weight_2")
         b2 = self.bias_variable([self.config.labels_dim], "bias_2")
-        return X, W1, W2, b1, b2
+        return W1, W2, b1, b2
 
-    def prediction(self):
-        hidden = tf.nn.relu(tf.matmul(self.X, self.W1) + self.b1)
+    def predict(self, X):
+        hidden = tf.nn.relu(tf.matmul(X, self.W1) + self.b1)
         y_pred = tf.nn.sigmoid(tf.matmul(hidden, self.W2) + self.b2)
+        return y_pred
+    
+    def prediction(self, X, keep_prob):
+        hidden = tf.nn.dropout(tf.nn.relu(tf.matmul(X, self.W1) + self.b1), keep_prob)
+        y_pred = tf.matmul(hidden, self.W2) + self.b2
         return y_pred

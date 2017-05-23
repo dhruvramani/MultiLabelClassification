@@ -44,6 +44,35 @@ def cm_precision_recall(prediction, truth):
     recall = (cm[0] / (cm[0] + cm[3] + 0.000001))
     return cm, precision, recall
 
+def bipartition_scores(labels, predictions):
+    """ Computes bipartitation metrics for a given multilabel predictions and labels
+        Args:
+          logits: Logits tensor, float - [batch_size, NUM_LABELS].
+          labels: Labels tensor, int32 - [batch_size, NUM_LABELS].
+        Returns:
+          bipartiation: an array with micro_precision, micro_recall, micro_f1,macro_precision, macro_recall, macro_f1"""
+    sum_cm = np.zeros((4))
+    macro_precision = 0
+    macro_recall = 0
+    for i in range(labels.shape[1]):
+        truth = labels[:, i]
+        prediction = predictions[:, i]
+        cm, precision, recall = cm_precision_recall(prediction, truth)
+        sum_cm += cm
+        macro_precision += precision
+        macro_recall += recall
+
+    macro_precision = macro_precision / labels.shape[1]
+    macro_recall = macro_recall / labels.shape[1]
+    # print(macro_recall, macro_precision)
+    macro_f1 = 2 * (macro_precision) * (macro_recall) / (macro_precision + macro_recall + 0.000001)
+
+    micro_precision = sum_cm[0] / (sum_cm[0] + sum_cm[2] + 0.000001)
+    micro_recall = sum_cm[0] / (sum_cm[0] + sum_cm[3] + 0.000001)
+    micro_f1 = 2 * (micro_precision) * (micro_recall) / (micro_precision + micro_recall + 0.000001)
+    bipartiation = np.asarray([micro_precision, micro_recall, micro_f1, macro_precision, macro_recall, macro_f1])
+    return bipartiation
+
 def evaluate(predictions, labels, threshold=0, multi_label=True):
     #predictions are logits here and binarized labels
     assert predictions.shape == labels.shape, "Shapes: %s, %s" % (predictions.shape, labels.shape,)
@@ -76,12 +105,12 @@ def evaluate(predictions, labels, threshold=0, multi_label=True):
         #print("Predicted: ", predictions)
         #print("Truth: ", labels)
 
-        metrics['bae'] = 0
-        metrics['coverage'] = coverage_error(labels, predictions)
-        metrics['average_precision'] = label_ranking_average_precision_score(labels, predictions)
-        metrics['ranking_loss'] = label_ranking_loss(labels, predictions)
+        #metrics['bae'] = 0
+        #metrics['coverage'] = coverage_error(labels, predictions)
+        #metrics['average_precision'] = label_ranking_average_precision_score(labels, predictions)
+        #metrics['ranking_loss'] = label_ranking_loss(labels, predictions)
         #metrics['pak'] = patk(predictions, labels)
-        metrics['hamming_loss'] = hamming_loss(labels, predictions)
+        #metrics['hamming_loss'] = hamming_loss(labels, predictions)
         #metrics['micro_precision'], metrics['micro_recall'], metrics['micro_f1'], metrics['macro_precision'], \
          #   metrics['macro_recall'], metrics['macro_f1'] = bipartition_scores(labels, predictions)
 

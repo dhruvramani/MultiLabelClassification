@@ -4,7 +4,7 @@ import numpy as np
 class DataSet(object):
     def __init__(self, config):
         self.config = config
-        self.start = 0
+        self.train, self.test, self.validation = None, None, None
         self.path = self.config.dataset_path
 
     def get_features(self, path):
@@ -30,26 +30,40 @@ class DataSet(object):
         return data[: , self.config.features_dim : self.config.features_dim + self.config.labels_dim]
 
     def get_train(self):
-        X = self.get_features(self.config.train_path)
-        Y = self.get_labels(self.config.train_path)
+        if self.train == None:
+            X = self.get_features(self.config.train_path)
+            Y = self.get_labels(self.config.train_path)
+            length = X.shape[0]
+            X, Y = X[0 : int(0.8 * length) , :], Y[0 : int(0.8 * length), :]
+            self.train = X, Y
+        else :
+            X, Y = self.train
         np.random.shuffle(X)
         np.random.shuffle(Y)
-        length = X.shape[0]
         print("=> Training-Set Generated")
-        return X[0 : int(0.8 * length) , :], Y[0 : int(0.8 * length), :]
+        return X, Y
 
     def get_validation(self):
-        X = self.get_features(self.config.train_path)
-        Y = self.get_labels(self.config.train_path)
+        if self.validation == None:
+            X = self.get_features(self.config.train_path)
+            Y = self.get_labels(self.config.train_path)
+            length = X.shape[0]
+            X, Y = X[0 : int(0.2 * length) , :], Y[0 : int(0.2 * length), :]
+            self.validation = X, Y
+        else :
+            X, Y = self.validation
         np.random.shuffle(X)
         np.random.shuffle(Y)
-        length = X.shape[0]
         print("=> Validation-Set Generated")
-        return X[int(0.8 * length) : , :], Y[int(0.8 * length) : , :]
+        return X, Y
 
     def get_test(self):
-        X = self.get_features(self.config.test_path)
-        Y = self.get_labels(self.config.test_path)
+        if self.test == None:
+            X = self.get_features(self.config.train_path)
+            Y = self.get_labels(self.config.train_path)
+            self.test = X, Y
+        else :
+            X, Y = self.test
         np.random.shuffle(X)
         np.random.shuffle(Y)
         print("=> Test-Set Generated")
@@ -60,11 +74,12 @@ class DataSet(object):
             raise ValueError
         func = {"train" : self.get_train, "test": self.get_test, "validation": self.get_validation}[data.lower()]
         X, Y = func()
+        start = 0
         batch_size = self.config.batch_size
         total = len(X)
-        while self.start < total :
-            end = min(self.start + batch_size, total)
-            x = X[self.start : end, :]
-            y = Y[self.start : end, :]
-            self.start += 1
+        while start < total :
+            end = min(start + batch_size, total)
+            x = X[start : end, :]
+            y = Y[start : end, :]
+            start += 1
             yield (x, y, int(total))
