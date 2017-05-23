@@ -25,7 +25,7 @@ class Network(object):
 
     def train_step(self, loss):
         optimizer = self.config.solver.optimizer
-        return optimizer().minimize(loss)
+        return optimizer(self.config.solver.learning_rate).minimize(loss)
 
     def init_variable(self, x, keep_prob):
         X  = tf.nn.dropout(x, keep_prob)
