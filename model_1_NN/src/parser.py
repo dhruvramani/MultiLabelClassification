@@ -12,7 +12,6 @@ class Parser(object):
         parser.add_argument("--lr", default = 0.01, help = "Learning Rate", type = float)
         parser.add_argument("--hidden", default = 1000, help = "Number of Units in the Hidden Layer", type = int)
         parser.add_argument("--batch_size", default = 128, help = "Batch Size", type = int)
-        parser.add_argument("--dropin", default = 0.5, help = "Dropout Probab. for Input", type = float)
         parser.add_argument("--dropout", default = 0.5, help = "Dropout Probab. for Pre-Final Layer", type = float)
         parser.add_argument("--max_epochs", default = 200, help = "Maximum Number of Epochs", type = int)
         parser.add_argument("--patience", default = 2, help = "Patience", type = int)

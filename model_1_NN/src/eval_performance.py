@@ -90,7 +90,12 @@ def evaluate(predictions, labels, threshold=0, multi_label=True):
             metrics['average_precision'], metrics['ranking_loss'], metrics['pak'], metrics['hamming_loss'] \
             = 0, 0, 0, 0, 0, 0, 0, 0
     else:
-        metrics['accuracy'] = accuracy_score(np.argmax(labels, axis=1), np.argmax(predictions, axis=1))
+        accuracy = 0.0
+        for i in range(labels.shape[0]):
+            accuracy += float(np.array_equal(np.round(predictions), labels))
+        accuracy = accuracy / labels.shape[0]
+        metrics['accuracy'] = accuracy #accuracy_score(np.argmax(labels, axis=1), np.argmax(predictions, axis=1)) 
+        print("Predicted Accuracy")
         if threshold:
             for i in range(predictions.shape[0]):
                 predictions[i, :][predictions[i, :] >= threshold] = 1

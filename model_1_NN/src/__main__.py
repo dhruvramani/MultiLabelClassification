@@ -21,6 +21,7 @@ class Model(object):
         self.y_pred = self.net.prediction(self.x, self.keep_prob)
         self.predict = self.net.predict(self.x)
         self.loss = self.net.loss(self.y_pred, self.y)
+        self.accuracy = self.net.accuracy(self.predict, self.y)
         self.train = self.net.train_step(self.loss)
         self.saver = tf.train.Saver()
         self.init = tf.global_variables_initializer()
@@ -53,9 +54,10 @@ class Model(object):
         next_batch = self.data.next_batch(data)
         for X, Y, tot in next_batch:
             feed_dict = {self.x : X, self.y : Y, self.keep_prob : 1}
-            loss_, Y_pred = sess.run([self.loss, self.predict], feed_dict = feed_dict)
-            metrics = evaluate(predictions = np.array(Y_pred), labels = np.array(Y))
-            accuracy += metrics['accuracy']
+            loss_, Y_pred, accuracy_val = sess.run([self.loss, self.predict, self.accuracy], feed_dict = feed_dict)
+            #metrics = evaluate(predictions = np.array(Y_pred), labels = np.array(Y))
+            #print("Came into depth of run_eval")
+            accuracy += accuracy_val #metrics['accuracy']
         return loss_ / self.config.batch_size, accuracy / self.config.batch_size
     ''' 
      TODO
@@ -144,7 +146,10 @@ def main():
     args = Parser().get_parser().parse_args()
     config = Config(args)
     loss_dict = train_model(config)
-    print("\033[92m=> Best Train Loss : {}, Test Loss : {}, Test Accuracy : {}\033[0m".format(loss_dict["train"], loss_dict["test_loss"], loss_dict["test_accuracy"]))
+    output = "=> Best Train Loss : {}, Test Loss : {}, Test Accuracy : {}".format(loss_dict["train"], loss_dict["test_loss"], loss_dict["test_accuracy"])
+    with open("test_log.log", "a+") as f:
+        f.write(output)
+    print("\033[92m{}\033[0m".format(output))
 if __name__ == '__main__' :
     np.random.seed(1234)
     main() # Phew!

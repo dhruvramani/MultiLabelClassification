@@ -34,6 +34,9 @@ class Network(object):
         b2 = self.bias_variable([self.config.labels_dim], "bias_2")
         return W1, W2, b1, b2
 
+    def accuracy(self, y_pred, y):
+        return tf.reduce_mean(tf.cast(tf.equal(tf.round(y_pred), y), tf.float32))
+
     def predict(self, X):
         hidden = tf.nn.relu(tf.matmul(X, self.W1) + self.b1)
         y_pred = tf.nn.sigmoid(tf.matmul(hidden, self.W2) + self.b2)

@@ -54,7 +54,7 @@ class DataSet(object):
             X, Y = self.validation
         np.random.shuffle(X)
         np.random.shuffle(Y)
-        print("=> Validation-Set Generated")
+        print("\n=> Validation-Set Generated")
         return X, Y
 
     def get_test(self):
