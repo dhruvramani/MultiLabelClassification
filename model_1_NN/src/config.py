@@ -16,7 +16,8 @@ class Config(object):
         self.improvement_threshold = args.improvement_threshold
         self.save_after = args.save_after
         self.epoch_freq = args.epoch_freq
-
+        self.debug = args.debug
+        
         class Solver(object):
             def __init__(self, t_args):
                 self.learning_rate = t_args.lr

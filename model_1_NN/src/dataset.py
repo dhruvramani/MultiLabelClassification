@@ -40,7 +40,7 @@ class DataSet(object):
             X, Y = self.train
         np.random.shuffle(X)
         np.random.shuffle(Y)
-        print("=> Training-Set Generated")
+        #print("=> Training-Set Generated")
         return X, Y
 
     def get_validation(self):
