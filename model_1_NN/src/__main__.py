@@ -101,7 +101,7 @@ class Model(object):
                     print(output)
                     if val_loss < best_validation_loss :
                         if val_loss < best_validation_loss * improvement_threshold :
-                            self.saver.save(sess, self.config.ckptdir_path + "results/model_best.ckpt")
+                            self.saver.save(sess, self.config.ckptdir_path + "model_best.ckpt")
                             best_validation_loss = val_loss
                             best_step = step
                     else :
