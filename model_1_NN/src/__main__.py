@@ -93,15 +93,15 @@ class Model(object):
             if not self.config.debug :
                 if step % self.config.epoch_freq == 0 :
                     val_loss, accuracy, metrics = self.run_eval(sess, "validation")
-                    output =  "   Training   : average_loss = {} | Validation : Accuracy = {}".format(average_loss, accuracy)
-                    output += "\n   Validation : Coverage = {}, Average Precision = {}, Micro Precision = {}, Micro Recall = {}, Micro F Score = {}".format(metrics['coverage'], metrics['average_precision'], metrics['micro_precision'], metrics['micro_recall'], metrics['micro_f1'])
-                    output += "\n   Validation : Macro Precision = {}, Macro Recall = {}, Macro F Score = {}".format(metrics['macro_precision'], metrics['macro_recall'], metrics['macro_f1'])
+                    output =  "=> Training : \naverage_loss = {} | Validation : Accuracy = {}".format(average_loss, accuracy)
+                    output += "\n=> Validation : \nCoverage = {}, Average Precision = {}\n Micro Precision = {}, Micro Recall = {}, Micro F Score = {}".format(metrics['coverage'], metrics['average_precision'], metrics['micro_precision'], metrics['micro_recall'], metrics['micro_f1'])
+                    output += "\n Macro Precision = {}, Macro Recall = {}, Macro F Score = {}".format(metrics['macro_precision'], metrics['macro_recall'], metrics['macro_f1'])
                     with open("../stdout/validation.log", "a+") as f:
                         f.write(output)
                     print(output)
                     if val_loss < best_validation_loss :
                         if val_loss < best_validation_loss * improvement_threshold :
-                            self.saver.save(sess, self.config.ckptdir_path + "model_best.ckpt")
+                            self.saver.save(sess, self.config.ckptdir_path + "results/model_best.ckpt")
                             best_validation_loss = val_loss
                             best_step = step
                     else :
@@ -119,7 +119,11 @@ class Model(object):
             step = self.epoch_count
         print("=> Best epoch : {}".format(best_step))
         test_loss, test_accuracy, test_metrics = self.run_eval(sess, "test")
-        return {"test_loss" : test_loss, "test_accuracy" : test_accuracy, 'test_metrics' : test_metrics} #'''{"train" : best_validation_loss,''' 
+        returnDict = {"test_loss" : test_loss, "test_accuracy" : test_accuracy, 'test_metrics' : test_metrics}
+        if self.config.debug == False:
+            returnDict["train"] =  best_validation_loss
+        return returnDict
+
 
 def init_model(config):
     tf.reset_default_graph()
@@ -153,12 +157,15 @@ def main():
     config = Config(args)
     loss_dict = train_model(config)
     metrics = loss_dict['test_metrics']
-    output = "=> Best Train Loss : {}, Test Loss : {}, Test Accuracy : {}".format(loss_dict["train"], loss_dict["test_loss"], loss_dict["test_accuracy"])
+    if self.config.debug == False:
+        output = "=> Best Train Loss : {}, Test Loss : {}, Test Accuracy : {}".format(loss_dict["train"], loss_dict["test_loss"], loss_dict["test_accuracy"])
+    else : 
+        output = "=> Test Loss : {}, Test Accuracy : {}".format(loss_dict["test_loss"], loss_dict["test_accuracy"])
     output += "\n=> Test : Coverage = {}, Average Precision = {}, Micro Precision = {}, Micro Recall = {}, Micro F Score = {}".format(metrics['coverage'], metrics['average_precision'], metrics['micro_precision'], metrics['micro_recall'], metrics['micro_f1'])
     output += "\n=> Test : Macro Precision = {}, Macro Recall = {}, Macro F Score = {}".format(metrics['macro_precision'], metrics['macro_recall'], metrics['macro_f1'])
     with open("test_log.log", "a+") as f:
         f.write(output)
-    print("\033[92m{}\033[0m".format(output))
+    print("\033[1m\033[92m{}\033[0m\033[0m".format(output))
 if __name__ == '__main__' :
     np.random.seed(1234)
     main() # Phew!

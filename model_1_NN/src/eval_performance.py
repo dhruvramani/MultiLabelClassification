@@ -52,7 +52,7 @@ def bipartition_scores(labels, predictions):
     sum_cm = np.zeros((4))
     macro_precision = 0
     macro_recall = 0
-    print("----Before Loop", end="\r")
+    print("\033[94m   Before Loop\033[0m", end="\r")
     for i in range(labels.shape[1]):
         truth = labels[:, i]
         prediction = predictions[:, i]
@@ -60,9 +60,9 @@ def bipartition_scores(labels, predictions):
         sum_cm += cm
         macro_precision += precision
         macro_recall += recall
-        print("Inside Loop",end="\r")
+        print("\033[92m   Inside Loop\033[0m",end="\r")
 
-    print("-----Exited Loop", end="\r")
+    print("\033[93m   Exited Loop\033[0m", end="\r")
     macro_precision = macro_precision / labels.shape[1]
     macro_recall = macro_recall / labels.shape[1]
     # print(macro_recall, macro_precision)
@@ -72,7 +72,7 @@ def bipartition_scores(labels, predictions):
     micro_recall = sum_cm[0] / (sum_cm[0] + sum_cm[3] + 0.000001)
     micro_f1 = 2 * (micro_precision) * (micro_recall) / (micro_precision + micro_recall + 0.000001)
     bipartiation = np.asarray([micro_precision, micro_recall, micro_f1, macro_precision, macro_recall, macro_f1])
-    print("Going to Return", end="\r")
+    print("   Going to Return", end="\r")
     return bipartiation
 
 def evaluate(predictions, labels, threshold=0, multi_label=True):
@@ -128,7 +128,6 @@ def evaluate(predictions, labels, threshold=0, multi_label=True):
         metrics['hamming_loss'] = hamming_loss(labels, predictions)
         metrics['micro_precision'], metrics['micro_recall'], metrics['micro_f1'], metrics['macro_precision'], \
             metrics['macro_recall'], metrics['macro_f1'] = bipartition_scores(labels, predictions)
-
     return metrics
 
 #if __name__ == '__main__':
