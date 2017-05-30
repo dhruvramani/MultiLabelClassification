@@ -5,8 +5,9 @@ from config import Config
 
 class Network(object):
 
-    def __init__(self, config):
+    def __init__(self, config, summarizer):
         tf.set_random_seed(1234)
+        self.summarizer = summarizer
         self.config = config
         self.W1, self.W2, self.b1, self.b2 = self.init_variable()
 
@@ -15,10 +16,6 @@ class Network(object):
 
     def bias_variable(self, shape, name):
         return tf.Variable(tf.constant(0.1, shape = shape), name = name)
-
-    def variable_summaries(self, var, name):
-        with tf.name_sope('summaries'):
-            tf.summary.histogram(name, var)
 
     def loss(self, y_pred, y):
         return tf.reduce_mean(tf.nn.sigmoid_cross_entropy_with_logits(logits = y_pred, labels = y))
@@ -32,6 +29,10 @@ class Network(object):
         b1 = self.bias_variable([self.config.solver.hidden_dim], "bias_1")
         W2 = self.weight_variable([self.config.solver.hidden_dim, self.config.labels_dim], "weight_2")
         b2 = self.bias_variable([self.config.labels_dim], "bias_2")
+        self.summarizer.histogram('weight_1', W1)
+        self.summarizer.histogram('weight_2', W2)
+        self.summarizer.histogram('bias_1', b1)
+        self.summarizer.histogram('bias_2', b2)
         return W1, W2, b1, b2
 
     def accuracy(self, y_pred, y):

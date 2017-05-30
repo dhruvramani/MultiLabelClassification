@@ -16,12 +16,15 @@ class Model(object):
         self.config = config
         self.data = DataSet(config)
         self.add_placeholders()
-        self.net = Network(config)
+        self.summarizer = tf.summary
+        self.net = Network(config, self.summarizer)
         self.optimizer = self.config.solver.optimizer
         self.y_pred = self.net.prediction(self.x, self.keep_prob)
         self.predict = self.net.predict(self.x)
         self.loss = self.net.loss(self.y_pred, self.y)
         self.accuracy = self.net.accuracy(self.predict, self.y)
+        self.summarizer.scalar("loss", self.loss)
+        self.summarizer.scalar("accuracy", self.accuracy)
         self.train = self.net.train_step(self.loss)
         self.saver = tf.train.Saver()
         self.init = tf.global_variables_initializer()
@@ -35,11 +38,15 @@ class Model(object):
         err = list()
         i = 0
         self.epoch_count += 1
+        writer = self.summarizer.FileWriter("../results/tensorboard")
+        merged_summary = self.summarizer.merge_all()
         for X, Y, tot in self.data.next_batch(data):
             if i >= tot :
                 break
             feed_dict = {self.x : X, self.y : Y, self.keep_prob : self.config.solver.dropout}
             _, loss, Y_pred = sess.run([self.train, self.loss, self.predict], feed_dict = feed_dict)
+            summ = sess.run(merged_summary, feed_dict = {self.x : X, self.y: Y, self.keep_prob : 1})
+            writer.add_summary(summ)
             err.append(loss) 
             output = "Epoch ({}) Batch({}) : Loss = {}".format(self.epoch_count, i // self.config.batch_size , loss)
             with open("../stdout/{}_train.log".format(self.config.project_name), "a+") as log:
@@ -57,9 +64,9 @@ class Model(object):
             loss_, Y_pred, accuracy_val = sess.run([self.loss, self.predict, self.accuracy], feed_dict = feed_dict)
             metrics = evaluate(predictions = np.array(Y_pred), labels = np.array(Y))
             accuracy += accuracy_val #metrics['accuracy']
-        return loss_ / self.config.batch_size, accuracy / self.config.batch_size, metrics
-    ''' 
-     TODO
+        return loss_ / self.config.batch_size, accuracy / self.config.batch_size, metrics 
+    '''
+    TODO
      def add_summaries(self, sess):
         # Instantiate a SummaryWriter to output summaries and the Graph.
         summary_writer_train = tf.summary.FileWriter(self.config.logs_dir + "train", sess.graph)
@@ -68,7 +75,6 @@ class Model(object):
         summary_writers = {'train': summary_writer_train, 'val': summary_writer_val, 'test': summary_writer_test}
         return summary_writers
     '''
-
     def fit(self, sess):
         '''
          - Patience Method : 
@@ -146,7 +152,7 @@ def init_model(config):
     sess = sm.prepare_session("", init_op = model.init, saver = model.saver, checkpoint_dir = load_ckpt_dir, config = tf_config)
     if config.load == True :
         saver = tf.train.Saver()
-        sess_ = tf.Session()
+        sess_ = tf.Session(config=tf.ConfigProto(allow_soft_placement=True, log_device_placement=True))
         saver.restore(sess_, config.ckptdir_path + "model_best.ckpt")
         return model, sess_
     return model, sess
@@ -173,7 +179,7 @@ def main():
         output = "=> Test Loss : {}, Test Accuracy : {}".format(loss_dict["test_loss"], loss_dict["test_accuracy"])
     output += "\n=> Test : Coverage = {}, Average Precision = {}, Micro Precision = {}, Micro Recall = {}, Micro F Score = {}".format(metrics['coverage'], metrics['average_precision'], metrics['micro_precision'], metrics['micro_recall'], metrics['micro_f1'])
     output += "\n=> Test : Macro Precision = {}, Macro Recall = {}, Macro F Score = {}".format(metrics['macro_precision'], metrics['macro_recall'], metrics['macro_f1'])
-    with open("test_log.log", "a+") as f:
+    with open("../stdout/test_log.log", "a+") as f:
         f.write(output)
     print("\033[1m\033[92m{}\033[0m\033[0m".format(output))
 if __name__ == '__main__' :
