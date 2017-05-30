@@ -21,6 +21,7 @@ class Parser(object):
         parser.add_argument("--epoch_freq", default = 1, help = "Epoch Frequency", type = int)
         parser.add_argument("--debug", default = False, type = self.str_to_bool, help = "Debug Mode")
         parser.add_argument("--retrain", default = False, type = self.str_to_bool, help = "Retrain Flag")
+        parser.add_argument("--load", default  = False, type = self.str_to_bool, help = "Load Model to calculate accuracy")
         self.parser = parser
 
     def str_to_bool(self, text):

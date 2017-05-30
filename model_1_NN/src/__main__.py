@@ -87,6 +87,8 @@ class Model(object):
         self.epoch_count = 0
         step, best_step, losses, learning_rate = self.epoch_count, -1, list(), self.config.solver.learning_rate
         while step <= max_epochs :
+            if(self.config.load == True):
+                break
             start_time = time.time()
             average_loss = self.run_epoch(sess, "train")
             duration = time.time() - start_time
@@ -135,17 +137,25 @@ def init_model(config):
     tf_config.gpu_options.allow_growth = True
     sm = tf.train.SessionManager()
 
-    if config.retrain:
+    if config.retrain or config.load == True:
         print("=> Loading model from checkpoint")
         load_ckpt_dir = config.ckptdir_path
     else:
         print("=> No model loaded from checkpoint")
         load_ckpt_dir = ''
     sess = sm.prepare_session("", init_op = model.init, saver = model.saver, checkpoint_dir = load_ckpt_dir, config = tf_config)
+    if config.load == True :
+        saver = tf.train.Saver()
+        sess_ = tf.Session()
+        saver.restore(sess_, config.ckptdir_path + "model_best.ckpt")
+        return model, sess_
     return model, sess
 
 def train_model(config):
-    print("\033[92m=>\033[0m Training Model")
+    if config.load == True:
+        print("\033[92m=>\033[0m Testing Model")
+    else: 
+        print("\033[92m=>\033[0m Training Model")
     model, sess = init_model(config)
     with sess:
         #summary_writers = model.add_summaries(sess)
@@ -157,7 +167,7 @@ def main():
     config = Config(args)
     loss_dict = train_model(config)
     metrics = loss_dict['test_metrics']
-    if self.config.debug == False:
+    if config.debug == False:
         output = "=> Best Train Loss : {}, Test Loss : {}, Test Accuracy : {}".format(loss_dict["train"], loss_dict["test_loss"], loss_dict["test_accuracy"])
     else : 
         output = "=> Test Loss : {}, Test Accuracy : {}".format(loss_dict["test_loss"], loss_dict["test_accuracy"])
