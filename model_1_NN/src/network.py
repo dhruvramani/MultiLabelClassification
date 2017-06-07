@@ -12,7 +12,7 @@ class Network(object):
         self.W1, self.W2, self.b1, self.b2 = self.init_variable()
 
     def weight_variable(self, shape, name):
-        return tf.Variable(tf.truncated_normal(shape = shape, stddev = 1.0 / shape[0]), name = name)
+        return tf.get_variable(name = name, shape = shape,  initializer = tf.contrib.layers.xavier_initializer())
 
     def bias_variable(self, shape, name):
         return tf.Variable(tf.constant(0.1, shape = shape), name = name)
