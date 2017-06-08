@@ -24,8 +24,8 @@ class Model(object):
         self.predict = self.net.predict(self.x)
         self.loss = self.net.loss(self.y_pred, self.y)
         self.accuracy = self.net.accuracy(self.predict, self.y)
-        self.summarizer.scalar("loss", self.loss)
         self.summarizer.scalar("accuracy", self.accuracy)
+        self.summarizer.scalar("loss", self.loss)
         self.train = self.net.train_step(self.loss)
         self.saver = tf.train.Saver()
         self.init = tf.global_variables_initializer()
@@ -35,15 +35,9 @@ class Model(object):
         self.y = tf.placeholder(tf.float32, shape=[None, self.config.labels_dim])
         self.keep_prob = tf.placeholder(tf.float32)
 
-    def run_epoch(self, sess, data):
+    def run_epoch(self, sess, data, summarizer):
         err = list()
         i = 0
-        self.epoch_count += 1
-        if self.config.load or self.config.debug:
-            path_ = "../results/tensorboard"
-        else :
-            path_ = "../bin/results/tensorboard"
-        writer = self.summarizer.FileWriter(path_)
         merged_summary = self.summarizer.merge_all()
         for X, Y, tot in self.data.next_batch(data):
             if i >= tot :
@@ -57,7 +51,7 @@ class Model(object):
                     log.write(output + "\n")
                 print("   {}".format(output), end='\r')
             summ = sess.run(merged_summary, feed_dict={self.x : X, self.y: Y, self.keep_prob : 1})
-            writer.add_summary(summ)
+            summarizer.add_summary(summ)
             i += self.config.batch_size
         return np.mean(err)
 
@@ -72,7 +66,18 @@ class Model(object):
             accuracy += accuracy_val #metrics['accuracy']
         return loss_ / self.config.batch_size, accuracy / self.config.batch_size, metrics 
     
-    def fit(self, sess):
+    def add_summaries(self, sess):
+        if self.config.load or self.config.debug:
+            path_ = "../results/tensorboard"
+        else :
+            path_ = "../bin/results/tensorboard"
+        summary_writer_train = tf.summary.FileWriter(path_ + "/train", sess.graph)
+        summary_writer_val = tf.summary.FileWriter(path_ + "/val", sess.graph)
+        summary_writer_test = tf.summary.FileWriter(path_+ "/test", sess.graph)
+        summary_writers = {'train': summary_writer_train, 'val': summary_writer_val, 'test': summary_writer_test}
+        return summary_writers
+
+    def fit(self, sess, summarizer):
         '''
          - Patience Method : 
          + Train for particular no. of epochs, and based on the frequency, evaluate the model using validation data.
@@ -81,22 +86,23 @@ class Model(object):
          + If learning rate is lesser than a certain 
         '''
         max_epochs = self.config.max_epochs
-        if self.config.debug == True:
-            max_epochs = 5
         patience = self.config.patience
         patience_increase = self.config.patience_increase
         improvement_threshold = self.config.improvement_threshold
         best_validation_loss = 1e6
         self.epoch_count = 0
-        step, best_step, losses, learning_rate = self.epoch_count, -1, list(), self.config.solver.learning_rate
-        while step <= max_epochs :
+        best_step, losses, learning_rate = -1, list(), self.config.solver.learning_rate
+        while self.epoch_count < max_epochs :
             if(self.config.load == True):
                 break
+            self.epoch_count += 1
             start_time = time.time()
-            average_loss = self.run_epoch(sess, "train")
+            average_loss = self.run_epoch(sess, "train", summarizer['train'])
             duration = time.time() - start_time
+            if self.config.debug == True:
+                _,__ = self.run_epoch(sess, "validation", summarizer['val']), self.run_epoch(sess, "test", summarizer['test'])
             if not self.config.debug :
-                if step % self.config.epoch_freq == 0 :
+                if self.epoch_count % self.config.epoch_freq == 0 :
                     val_loss, accuracy, metrics = self.run_eval(sess, "validation")
                     output =  "=> Training : \naverage_loss = {} | Validation : Accuracy = {}".format(average_loss, accuracy)
                     output += "\n=> Validation : \nCoverage = {}, Average Precision = {}\n Micro Precision = {}, Micro Recall = {}, Micro F Score = {}".format(metrics['coverage'], metrics['average_precision'], metrics['micro_precision'], metrics['micro_recall'], metrics['micro_f1'])
@@ -108,7 +114,7 @@ class Model(object):
                         if val_loss < best_validation_loss * improvement_threshold :
                             self.saver.save(sess, self.config.ckptdir_path + "model_best.ckpt")
                             best_validation_loss = val_loss
-                            best_step = step
+                            best_step = self.epoch_count
                     else :
                         if patience < 1:
                             self.saver.restore(sess, self.config.ckptdir_path + "model_best.ckpt")
@@ -121,7 +127,6 @@ class Model(object):
                                 print("=> Learning rate dropped to {}".format(learning_rate))
                         else :
                             patience -= 1
-            step = self.epoch_count
         print("=> Best epoch : {}".format(best_step))
         if self.config.debug == True:
             sys.exit()
@@ -163,8 +168,8 @@ def train_model(config):
         print("\033[92m=>\033[0m Training Model")
     model, sess = init_model(config)
     with sess:
-        #summary_writers = model.add_summaries(sess)
-        loss_dict = model.fit(sess)
+        summary_writers = model.add_summaries(sess)
+        loss_dict = model.fit(sess, summary_writers)
         return loss_dict
 
 def main():
