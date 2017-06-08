@@ -36,7 +36,7 @@ class Config(object):
         project_path = utils.path_exists(self.codebase_root_path)
         project_prefix_path = utils.path_exists(os.path.join(self.codebase_root_path, self.project_name, self.folder_suffix))
         dataset_path = utils.path_exists(os.path.join(self.codebase_root_path, "../data", self.dataset_name))
-        ckptdir_path = utils.path_exists(os.path.join(self.codebase_root_path, "results"))
+        ckptdir_path = utils.path_exists(os.path.join(self.codebase_root_path, "bin"))
         train_path = os.path.join(dataset_path, self.dataset_name + "-train.arff")
         test_path = os.path.join(dataset_path, self.dataset_name + "-test.arff")
 

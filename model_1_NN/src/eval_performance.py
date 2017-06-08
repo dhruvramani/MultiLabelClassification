@@ -65,7 +65,6 @@ def bipartition_scores(labels, predictions):
     print("\033[93m   Exited Loop\033[0m", end="\r")
     macro_precision = macro_precision / labels.shape[1]
     macro_recall = macro_recall / labels.shape[1]
-    # print(macro_recall, macro_precision)
     macro_f1 = 2 * (macro_precision) * (macro_recall) / (macro_precision + macro_recall + 0.000001)
 
     micro_precision = sum_cm[0] / (sum_cm[0] + sum_cm[2] + 0.000001)
@@ -89,8 +88,6 @@ def evaluate(predictions, labels, threshold=0, multi_label=True):
     '''
     assert predictions.shape == labels.shape, "Shapes: %s, %s" % (predictions.shape, labels.shape,)
     metrics = dict()
-    #metrics['cross_entropy'] = -np.mean(labels * np.log(predictions + 1e-8))
-
     if not multi_label:
         metrics['bae'] = BAE(labels, predictions)
         labels, predictions = np.argmax(labels, axis=1), np.argmax(predictions, axis=1)
@@ -102,18 +99,11 @@ def evaluate(predictions, labels, threshold=0, multi_label=True):
             metrics['average_precision'], metrics['ranking_loss'], metrics['pak'], metrics['hamming_loss'] \
             = 0, 0, 0, 0, 0, 0, 0, 0
     else:
-        '''
-        accuracy = 0.0
-        for i in range(labels.shape[0]):
-            accuracy += float(np.array_equal(np.round(predictions), labels))
-        accuracy = accuracy / labels.shape[0]
-        '''
-        #metrics['accuracy'] = accuracy_score(np.argmax(labels, axis=1), np.argmax(predictions, axis=1)) #accuracy
         if threshold:
             for i in range(predictions.shape[0]):
                 predictions[i, :][predictions[i, :] >= threshold] = 1
                 predictions[i, :][predictions[i, :] < threshold] = 0
-        else: # TOP K
+        else: 
             for i in range(predictions.shape[0]):
                 k = np.sum(labels[i])
                 pos = predictions[i].argsort()
@@ -124,11 +114,7 @@ def evaluate(predictions, labels, threshold=0, multi_label=True):
         metrics['coverage'] = coverage_error(labels, predictions)
         metrics['average_precision'] = label_ranking_average_precision_score(labels, predictions)
         metrics['ranking_loss'] = label_ranking_loss(labels, predictions)
-        #metrics['pak'] = patk(predictions, labels)
         metrics['hamming_loss'] = hamming_loss(labels, predictions)
         metrics['micro_precision'], metrics['micro_recall'], metrics['micro_f1'], metrics['macro_precision'], \
             metrics['macro_recall'], metrics['macro_f1'] = bipartition_scores(labels, predictions)
     return metrics
-
-#if __name__ == '__main__':
- #   bipartition_scores(np.array([[1, 0, 0, 1, 0],[1, 1, 0, 1 ,1]]), np.array([[1, 0, 0, 1, 0],[1, 1, 0, 1 ,1]]))
