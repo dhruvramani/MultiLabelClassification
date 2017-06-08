@@ -38,8 +38,8 @@ class DataSet(object):
             self.train = X, Y
         else :
             X, Y = self.train
-        np.random.shuffle(X)
-        np.random.shuffle(Y)
+        #np.random.shuffle(X)
+        #np.random.shuffle(Y)
         #print("=> Training-Set Generated")
         return X, Y
 
@@ -52,8 +52,8 @@ class DataSet(object):
             self.validation = X, Y
         else :
             X, Y = self.validation
-        np.random.shuffle(X)
-        np.random.shuffle(Y)
+        #np.random.shuffle(X)
+        #np.random.shuffle(Y)
         print("\n=> Validation-Set Generated")
         return X, Y
 
@@ -64,8 +64,8 @@ class DataSet(object):
             self.test = X, Y
         else :
             X, Y = self.test
-        np.random.shuffle(X)
-        np.random.shuffle(Y)
+        #np.random.shuffle(X)
+        #np.random.shuffle(Y)
         print("=> Test-Set Generated")
         return X, Y
 
@@ -76,8 +76,8 @@ class DataSet(object):
         X, Y = func()
         start = 0
         batch_size = self.config.batch_size
-        total = len(X)
-        while start < total :
+        total = int(len(X)/ batch_size) # fix the last batch
+        while start < total:
             end = min(start + batch_size, total)
             x = X[start : end, :]
             y = Y[start : end, :]
