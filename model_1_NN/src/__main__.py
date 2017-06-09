@@ -73,8 +73,8 @@ class Model(object):
                     loss_ =  sess.run(self.loss, feed_dict=feed_dict)
                 else :
                     loss_, Y_pred, accuracy_val = sess.run([self.loss, self.predict, self.accuracy], feed_dict=feed_dict)
-            metrics = evaluate(predictions=np.array(Y_pred), labels=np.array(Y))
-            accuracy += accuracy_val #metrics['accuracy']
+                    metrics = evaluate(predictions=np.array(Y_pred), labels=np.array(Y))
+                    accuracy += accuracy_val #metrics['accuracy']
             loss += loss_
             i += 1
         return loss / self.config.batch_size, accuracy / self.config.batch_size, metrics
@@ -119,7 +119,7 @@ class Model(object):
             if not self.config.debug :
                 if self.epoch_count % self.config.epoch_freq == 0 :
                     val_loss, _, _ = self.run_eval(sess, "validation", summarizer['val'], tr_step)
-                    output =  "=> Training : \naverage_loss = {} | Validation : Accuracy = {}".format(average_loss, accuracy)
+                    output =  "=> Training : \Loss = {} | Validation : Loss = {}".format(average_loss, val_loss)
                     with open("../stdout/validation.log", "a+") as f:
                         f.write(output)
                     print(output)
