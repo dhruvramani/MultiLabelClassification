@@ -5,7 +5,7 @@ class Parser(object):
     def __init__(self):
         parser=argparse.ArgumentParser()
         parser.add_argument("--path", default="../", help="Base Path for the Folder")
-        parser.add_argument("--project", default="model_1_NN", help="Project Folder")
+        parser.add_argument("--project", default="Percepton", help="Project Folder")
         parser.add_argument("--folder_suffix", default="Default", help="Folder Name Suffix")
         parser.add_argument("--dataset", default="delicious", help="Name of the Dataset")
         parser.add_argument("--opt", default="adam", help="Optimizer : adam, rmsprop, sgd")
