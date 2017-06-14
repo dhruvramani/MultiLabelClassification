@@ -9,6 +9,8 @@ from config import Config
 from network import Network
 from dataset import DataSet
 from eval_performance import evaluate
+from tensorflow.python import debug as tf_debug
+
 os.environ['TF_CPP_MIN_LOG_LEVEL'] = '3'
 
 class Model(object):
@@ -21,6 +23,8 @@ class Model(object):
         self.net = Network(config, self.summarizer)
         self.optimizer = self.config.solver.optimizer
         self.predict = self.net.predict(self.x)
+        self.output_loss = self.net.output_loss(self.x, self.y)
+        self.label_embedding_loss = self.net.label_embedding_loss(self.x, self.y, self.lagrange_const)
         self.loss = self.net.loss(self.x, self.y, self.lagrange_const, self.alpha)
         self.accuracy = self.net.accuracy(self.predict, self.y)
         self.summarizer.scalar("accuracy", self.accuracy)
@@ -41,14 +45,18 @@ class Model(object):
         i = 0
         merged_summary = self.summarizer.merge_all()
         for X, Y, tot in self.data.next_batch(data):
+            print("{} : {}, {}".format(data, X.shape[0], Y.shape[0]))
+            if(X.shape[0] != self.config.batch_size or Y.shape[0] != self.config.batch_size):
+                continue
             feed_dict = {self.x : X, self.y : Y, self.keep_prob : self.config.solver.dropout, self.lagrange_const : self.config.solver.lagrange_const, self.alpha : self.config.solver.alpha}
             if not self.config.load:
-                summ, _, loss, Y_pred = sess.run([merged_summary, self.train, self.loss, self.predict], feed_dict=feed_dict)
+                summ, _, loss, output_loss, label_embedding_loss, Y_pred = sess.run([merged_summary, self.train, self.loss, self.output_loss, self.label_embedding_loss, self.predict], feed_dict=feed_dict)
                 err.append(loss) 
+                print("O : {}, La : {}".format(output_loss, label_embedding_loss))
                 output = "Epoch ({}) Batch({}) : Loss = {}".format(self.epoch_count, i // self.config.batch_size , loss)
                 with open("../stdout/{}_train.log".format(self.config.project_name), "a+") as log:
                     log.write(output + "\n")
-                print("   {}".format(output), end='\r')
+                print("   {}".format(output))#, end='\r')
             step = int(epoch*tot + i)
             summarizer.add_summary(summ, step)
             i += 1
@@ -61,6 +69,9 @@ class Model(object):
         next_batch = self.data.next_batch(data)
         i = 0
         for X, Y, tot in next_batch:
+            print("{} : {}, {}".format(data, X.shape[0], Y.shape[0]))
+            if(X.shape[0] != self.config.batch_size or Y.shape[0] != self.config.batch_size):
+                continue
             feed_dict = {self.x: X, self.y: Y, self.keep_prob: 1, self.lagrange_const : self.config.solver.lagrange_const, self.alpha : self.config.solver.alpha}
             if i == tot-1 and summary_writer is not None:
                 print('Writing summary')
@@ -75,7 +86,7 @@ class Model(object):
                 else :
                     loss_, Y_pred, accuracy_val = sess.run([self.loss, self.predict, self.accuracy], feed_dict=feed_dict)
                     metrics = evaluate(predictions=np.array(Y_pred), labels=np.array(Y))
-                    accuracy += accuracy_val #metrics['accuracy']
+                    accuracy += accuracy_val
             loss += loss_
             i += 1
         return loss / self.config.batch_size, accuracy / self.config.batch_size, metrics
@@ -174,6 +185,8 @@ def init_model(config):
         sess_ = tf.Session(config=tf.ConfigProto(allow_soft_placement=True, log_device_placement=True))
         saver.restore(sess_, config.ckptdir_path + "/resultsmodel_best.ckpt")
         return model, sess_
+    sess = tf_debug.LocalCLIDebugWrapperSession(sess)
+    sess.add_tensor_filter("has_inf_or_nan", tf_debug.has_inf_or_nan)
     return model, sess
 
 def train_model(config):

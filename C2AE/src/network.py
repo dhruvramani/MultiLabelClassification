@@ -13,9 +13,10 @@ class Network(object):
         self.Wx1, self.Wx2, self.Wx3, self.bx1, self.bx2, self.bx3 = self.init_Fx_variable()
 
     def weight_variable(self, shape, name):
-        return tf.get_variable(name=name, shape=shape,  initializer=tf.contrib.layers.xavier_initializer())
+        return tf.get_variable(name=name, shape=shape, initializer=tf.contrib.layers.xavier_initializer())
 
     def bias_variable(self, shape, name):
+        # Most of them don't change
         return tf.Variable(tf.constant(0.1, shape=shape), name=name)
 
     def init_Fx_variable(self):
@@ -74,25 +75,32 @@ class Network(object):
 
     def label_embedding_loss(self, X, Y, lagrange_const):
         Fx, Fe = self.Fx(X), self.Fe(Y)
-        idenX, idenE = tf.constant(np.identity(self.config.batch_size), dtype=tf.float32), tf.constant(np.identity(self.config.batch_size), dtype=tf.float32)
-        loss = tf.reduce_sum(tf.squared_difference(Fx, Fe) ,reduction_indices=1) + lagrange_const * ((tf.matmul(Fx, tf.transpose(Fx)) - idenX) + (tf.matmul(Fe, tf.transpose(Fe)) - idenE))
+        idenX, idenE = tf.constant(np.identity(self.config.batch_size), dtype=tf.float32), \
+                       tf.constant(np.identity(self.config.batch_size), dtype=tf.float32)
+        # Square returns 0
+        loss = tf.reduce_mean(tf.square(Fx - Fe)) + \ 
+               lagrange_const * (tf.reduce_mean(tf.matmul(Fx, tf.transpose(Fx)) - idenX) + \
+                                 tf.reduce_mean(tf.matmul(Fe, tf.transpose(Fe)) - idenE))
         return loss
 
     def output_loss(self, X, Y):
-        Ei = list()
-        b = self.config.batch_size
-        prediction_ = tf.split(self.predict(X), b, axis = 0)
-        Y_ = tf.split(Y, b, axis = 0)
-        for i in range(self.config.batch_size):
-            mask = tf.cast(tf.logical_and(tf.cast(Y_[i][0], tf.bool), tf.logical_not(tf.cast(tf.transpose(Y_[i][0]), tf.bool))), tf.float32)
-            y1, y0 = tf_count(Y_, 1.0), tf_count(Y_, 0.0)
-            Ei.append((1/(y1 * y0)) * (tf.reduce_sum(tf.exp(-tf.multiply(mask, prediction_[i][0] - tf.transpose(prediction_[i][0]))))))
-        Ei = np.array(Ei)
-        return np.sum(Ei)
+        Ei = 0.0
+        prediction = self.predict(X)
+        for i in range(self.config.batch_size - 1):
+            prediction_ = tf.slice(prediction, [i, 0], [1, self.config.labels_dim])
+            Y_          = tf.slice(Y,          [i, 0], [1, self.config.labels_dim])
+            mask = tf.cast(tf.logical_and(tf.cast(Y_[0], tf.bool), \
+                   tf.logical_not(tf.cast(tf.transpose(Y_[0]), tf.bool))), tf.float32)
+            y1 = tf.reduce_sum(Y_[0])
+            y0 = self.config.labels_dim - y1
+            temp = (1/(y1 * y0)) * (tf.reduce_sum(tf.exp(-tf.multiply(mask, prediction_[0] - tf.transpose(prediction_[0])))))
+            temp = tf.Print(temp, [temp, tf.reduce_sum(mask)], message='-----------temp: ')
+            Ei += tf.cond(tf.logical_or(tf.is_inf(temp), tf.is_nan(temp)), lambda : tf.constant(0.0), lambda : temp)
+        return Ei 
 
     def loss(self, X, Y, lagrange_const, alpha):
-        total_loss = self.label_embedding_loss(X, Y, lagrange_const) + alpha * self.output_loss(X, Y)
-        return total_loss
+        total_loss = self.label_embedding_loss(X, Y, lagrange_const) + alpha * self.output_loss(X, Y) 
+        return total_loss / self.config.batch_size
 
     def train_step(self, loss):
         optimizer = self.config.solver.optimizer

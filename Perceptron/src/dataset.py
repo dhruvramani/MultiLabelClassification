@@ -59,8 +59,8 @@ class DataSet(object):
 
     def get_test(self):
         if self.test == None:
-            X = self.get_features(self.config.train_path)
-            Y = self.get_labels(self.config.train_path)
+            X = self.get_features(self.config.test_path)
+            Y = self.get_labels(self.config.test_path)
             self.test = X, Y
         else :
             X, Y = self.test
