@@ -9,7 +9,7 @@ class Parser(object):
         parser.add_argument("--folder_suffix", default="Default", help="Folder Name Suffix")
         parser.add_argument("--dataset", default="delicious", help="Name of the Dataset")
         parser.add_argument("--opt", default="adam", help="Optimizer : adam, rmsprop, sgd")
-        parser.add_argument("--lr", default=0.001, help="Learning Rate", type=float)
+        parser.add_argument("--lr", default=0.1, help="Learning Rate", type=float)
         parser.add_argument("--hidden", default=512, help="Number of Units in the Hidden Layer", type=int)
         parser.add_argument("--batch_size", default=80, help="Batch Size", type=int)
         parser.add_argument("--dropout", default=0.5, help="Dropout Probab. for Pre-Final Layer", type=float)

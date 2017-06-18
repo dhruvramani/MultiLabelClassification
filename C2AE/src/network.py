@@ -26,12 +26,14 @@ class Network(object):
         bx2 = self.bias_variable([self.config.solver.hidden_dim], "bias_x_2")
         Wx3 = self.weight_variable([self.config.solver.hidden_dim, self.config.label_embedding_dim], "weight_x_3")
         bx3 = self.bias_variable([self.config.label_embedding_dim], "bias_x_3")
+        '''
         self.summarizer.histogram('weight_x_1', Wx1)
         self.summarizer.histogram('weight_x_2', Wx2)
         self.summarizer.histogram('weight_x_3', Wx3)
         self.summarizer.histogram('bias_x_1', bx1)
         self.summarizer.histogram('bias_x_2', bx2)
         self.summarizer.histogram('bias_x_3', bx3)
+        '''
         return Wx1, Wx2, Wx3, bx1, bx2, bx3
 
     def init_Fe_variable(self):
@@ -39,10 +41,12 @@ class Network(object):
         We2 = self.weight_variable([self.config.solver.hidden_dim, self.config.label_embedding_dim], "weight_e_2")
         be1 = self.bias_variable([self.config.solver.hidden_dim], "bias_e_1")
         be2 = self.bias_variable([self.config.label_embedding_dim], "bias_e_2")
+        '''
         self.summarizer.histogram('weight_e_1', We1)
         self.summarizer.histogram('weight_e_2', We2)
         self.summarizer.histogram('bias_e_1', be1)
         self.summarizer.histogram('bias_e_2', be2)
+        '''
         return We1, We2, be1, be2
 
     def init_Fd_variable(self):
@@ -50,37 +54,45 @@ class Network(object):
         Wd2 = self.weight_variable([self.config.solver.hidden_dim, self.config.labels_dim], "weight_d_2")
         bd1 = self.bias_variable([self.config.solver.hidden_dim], "bias_d_1")
         bd2 = self.bias_variable([self.config.labels_dim], "bias_d_2")
+        '''
         self.summarizer.histogram('weight_d_1', Wd1)
         self.summarizer.histogram('weight_d_2', Wd2)
         self.summarizer.histogram('bias_d_1', bd1)
         self.summarizer.histogram('bias_d_2', bd2)
+        '''
         return Wd1, Wd2, bd1, bd2
 
+    def leakyRelu(self, X, alpha=0.0001):
+        return tf.maximum(alpha * X, X)
+
     def Fx(self, X):
-        h1 = tf.nn.relu(tf.matmul(X, self.Wx1) + self.bx1)
-        h2 = tf.nn.relu(tf.matmul(h1, self.Wx2) + self.bx2)
-        return tf.nn.relu(tf.matmul(h2, self.Wx3) + self.bx3)
+        h1 = self.leakyRelu(tf.matmul(X, self.Wx1) + self.bx1)
+        h2 = self.leakyRelu(tf.matmul(h1, self.Wx2) + self.bx2)
+        return self.leakyRelu(tf.matmul(h2, self.Wx3) + self.bx3)
 
     def Fe(self, Y):
-        h1 = tf.nn.relu(tf.matmul(Y, self.We1 + self.be1))
-        return tf.nn.relu(tf.matmul(h1, self.We2) + self.be2)
+        h1 = self.leakyRelu(tf.matmul(Y, self.We1 + self.be1))
+        return self.leakyRelu(tf.matmul(h1, self.We2) + self.be2)
 
     def Fd(self, X):        
         labels_embedding = self.Fx(X)
-        h1 = tf.nn.relu(tf.matmul(labels_embedding, self.Wd1) + self.bd1)
+        h1 = self.leakyRelu(tf.matmul(labels_embedding, self.Wd1) + self.bd1)
         return tf.matmul(h1, self.Wd2) + self.bd2
 
     def predict(self, X):
         return tf.nn.sigmoid(self.Fd(X))
 
+    def foo(self, X, Y):
+        Fx, Fe = self.Fx(X), self.Fe(Y)
+        return tf.reduce_mean(tf.square(Fx - Fe))
+
     def label_embedding_loss(self, X, Y, lagrange_const):
         Fx, Fe = self.Fx(X), self.Fe(Y)
         idenX, idenE = tf.constant(np.identity(self.config.batch_size), dtype=tf.float32), \
                        tf.constant(np.identity(self.config.batch_size), dtype=tf.float32)
-        # Square returns 0
-        loss = tf.reduce_mean(tf.square(Fx - Fe)) + \ 
-               lagrange_const * (tf.reduce_mean(tf.matmul(Fx, tf.transpose(Fx)) - idenX) + \
-                                 tf.reduce_mean(tf.matmul(Fe, tf.transpose(Fe)) - idenE))
+        loss = tf.reduce_mean(tf.square(Fx - Fe)) + \
+               lagrange_const * (tf.reduce_mean(tf.square(tf.matmul(Fx, tf.transpose(Fx)) - idenX)) + \
+                                 tf.reduce_mean(tf.square(tf.matmul(Fe, tf.transpose(Fe)) - idenE)))
         return loss
 
     def output_loss(self, X, Y):
@@ -100,7 +112,7 @@ class Network(object):
 
     def loss(self, X, Y, lagrange_const, alpha):
         total_loss = self.label_embedding_loss(X, Y, lagrange_const) + alpha * self.output_loss(X, Y) 
-        return total_loss / self.config.batch_size
+        return total_loss #/ self.config.batch_size
 
     def train_step(self, loss):
         optimizer = self.config.solver.optimizer

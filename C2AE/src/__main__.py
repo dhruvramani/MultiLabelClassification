@@ -25,6 +25,7 @@ class Model(object):
         self.predict = self.net.predict(self.x)
         self.output_loss = self.net.output_loss(self.x, self.y)
         self.label_embedding_loss = self.net.label_embedding_loss(self.x, self.y, self.lagrange_const)
+        self.foo = self.net.foo(self.x, self.y)
         self.loss = self.net.loss(self.x, self.y, self.lagrange_const, self.alpha)
         self.accuracy = self.net.accuracy(self.predict, self.y)
         self.summarizer.scalar("accuracy", self.accuracy)
@@ -34,8 +35,8 @@ class Model(object):
         self.init = tf.global_variables_initializer()
 
     def add_placeholders(self):
-        self.x = tf.placeholder(tf.float32, shape=[None, self.config.features_dim])
-        self.y = tf.placeholder(tf.float32, shape=[None, self.config.labels_dim])
+        self.x = tf.placeholder(tf.float32, shape=[self.config.batch_size, self.config.features_dim])
+        self.y = tf.placeholder(tf.float32, shape=[self.config.batch_size, self.config.labels_dim])
         self.lagrange_const = tf.placeholder(tf.float32)
         self.alpha = tf.placeholder(tf.float32)
         self.keep_prob = tf.placeholder(tf.float32)
@@ -43,43 +44,41 @@ class Model(object):
     def run_epoch(self, sess, data, summarizer, epoch):
         err = list()
         i = 0
+        X_, Y_ = None, None
         merged_summary = self.summarizer.merge_all()
         for X, Y, tot in self.data.next_batch(data):
-            print("{} : {}, {}".format(data, X.shape[0], Y.shape[0]))
+            feed_dict = {self.x : X, self.y : Y, self.keep_prob : self.config.solver.dropout, self.lagrange_const : self.config.solver.lagrange_const, self.alpha : self.config.solver.alpha}
             if(X.shape[0] != self.config.batch_size or Y.shape[0] != self.config.batch_size):
                 continue
-            feed_dict = {self.x : X, self.y : Y, self.keep_prob : self.config.solver.dropout, self.lagrange_const : self.config.solver.lagrange_const, self.alpha : self.config.solver.alpha}
             if not self.config.load:
-                summ, _, loss, output_loss, label_embedding_loss, Y_pred = sess.run([merged_summary, self.train, self.loss, self.output_loss, self.label_embedding_loss, self.predict], feed_dict=feed_dict)
+                summ, _, loss, Y_pred = sess.run([merged_summary, self.train, self.loss, self.predict], feed_dict=feed_dict)
                 err.append(loss) 
-                print("O : {}, La : {}".format(output_loss, label_embedding_loss))
                 output = "Epoch ({}) Batch({}) : Loss = {}".format(self.epoch_count, i // self.config.batch_size , loss)
                 with open("../stdout/{}_train.log".format(self.config.project_name), "a+") as log:
                     log.write(output + "\n")
-                print("   {}".format(output))#, end='\r')
-            step = int(epoch*tot + i)
-            summarizer.add_summary(summ, step)
+                print("   {}".format(output), end='\r')
+            X_, Y_ = X, Y
             i += 1
-        return np.mean(err), step
+        summarizer.add_summary(summ, int(epoch))
+        print(sess.run(self.foo, feed_dict={self.x : X_, self.y : Y_}))
+        return np.mean(err)
 
-    def run_eval(self, sess, data, summary_writer=None, step=0):
+    def run_eval(self, sess, data, summary_writer=None, epoch=0):
         y, y_pred, loss_, metrics = list(), list(), 0.0, None
         accuracy, loss = 0.0, 0.0
         merged_summary = self.summarizer.merge_all()
         next_batch = self.data.next_batch(data)
         i = 0
         for X, Y, tot in next_batch:
-            print("{} : {}, {}".format(data, X.shape[0], Y.shape[0]))
-            if(X.shape[0] != self.config.batch_size or Y.shape[0] != self.config.batch_size):
+            if(X.shape[0] != self.config.batch_size or Y.shape[0] != self.config.batch_size ):
                 continue
             feed_dict = {self.x: X, self.y: Y, self.keep_prob: 1, self.lagrange_const : self.config.solver.lagrange_const, self.alpha : self.config.solver.alpha}
             if i == tot-1 and summary_writer is not None:
-                print('Writing summary')
                 if data == "validation":
                     summ, loss_ =  sess.run([merged_summary, self.loss], feed_dict=feed_dict)
                 else :
                     summ, loss_, Y_pred, accuracy_val = sess.run([merged_summary, self.loss, self.predict, self.accuracy], feed_dict=feed_dict)
-                summary_writer.add_summary(summ, step)
+                summary_writer.add_summary(summ, epoch)
             else:
                 if data == "validation":
                     loss_ =  sess.run(self.loss, feed_dict=feed_dict)
@@ -122,7 +121,7 @@ class Model(object):
             if(self.config.load == True):
                 break
             start_time = time.time()
-            average_loss, tr_step = self.run_epoch(sess, "train", summarizer['train'], self.epoch_count)
+            average_loss = self.run_epoch(sess, "train", summarizer['train'], self.epoch_count)
             print('Out of training epoch')
             duration = time.time() - start_time
             #if self.config.debug == True:
@@ -130,7 +129,7 @@ class Model(object):
             #test_loss = self.run_epoch(sess, "test", summarizer['test'], self.epoch_count)
             if not self.config.debug :
                 if self.epoch_count % self.config.epoch_freq == 0 :
-                    val_loss, _, _ = self.run_eval(sess, "validation", summarizer['val'], tr_step)
+                    val_loss, _, _ = self.run_eval(sess, "validation", summarizer['val'], self.epoch_count)
                     output =  "=> Training : \Loss = {} | Validation : Loss = {}".format(average_loss, val_loss)
                     with open("../stdout/validation.log", "a+") as f:
                         f.write(output)
@@ -156,7 +155,7 @@ class Model(object):
         print("=> Best epoch : {}".format(best_step))
         if self.config.debug == True:
             sys.exit()
-        test_loss, test_accuracy, test_metrics = self.run_eval(sess, "test", summarizer['test'], tr_step)
+        test_loss, test_accuracy, test_metrics = self.run_eval(sess, "test", summarizer['test'])
         returnDict = {"test_loss" : test_loss, "test_accuracy" : test_accuracy, 'test_metrics' : test_metrics}
         if self.config.debug == False:
             returnDict["train"] =  best_validation_loss
@@ -185,8 +184,8 @@ def init_model(config):
         sess_ = tf.Session(config=tf.ConfigProto(allow_soft_placement=True, log_device_placement=True))
         saver.restore(sess_, config.ckptdir_path + "/resultsmodel_best.ckpt")
         return model, sess_
-    sess = tf_debug.LocalCLIDebugWrapperSession(sess)
-    sess.add_tensor_filter("has_inf_or_nan", tf_debug.has_inf_or_nan)
+    #sess = tf_debug.LocalCLIDebugWrapperSession(sess)
+    #sess.add_tensor_filter("has_inf_or_nan", tf_debug.has_inf_or_nan)
     return model, sess
 
 def train_model(config):
