@@ -15,3 +15,9 @@
 => Test : Coverage = 983.0, Average Precision = 0.03871945522868353,
 => Test : Micro Precision = 0.14285713605442207, Micro Recall = 0.14285713605442207, Micro F Score = 0.14285663605617208
 => Test : Macro Precision = 0.003051878942017294, Macro Recall = 0.003051878942017294, Macro F Score = 0.00305137902392062
+=> Best Train Loss : 0.006307858893705998, Test Loss : 35.63775646686554, Test Accuracy : 0.17538139689713717
+=> Test : Coverage = 983.0, Average Precision = 0.04856317395727365, Micro Precision = 0.15999999680000007, Micro Recall = 0.15999999680000007, Micro F Score = 0.15999949680156259
+=> Test : Macro Precision = 0.00610375890132706, Macro Recall = 0.004069173957274669, Macro F Score = 0.004882528144809689=> Best Train Loss : 0.0031462613187613897, Test Loss : 51.151883363723755, Test Accuracy : 0.1753427437506616
+=> Test : Coverage = 983.0, Average Precision = 0.03139776195320448, Micro Precision = 0.07999999840000004, Micro Recall = 0.07999999840000004, Micro F Score = 0.07999949840312502
+=> Test : Macro Precision = 0.004069171922689726, Macro Recall = 0.0020345869786373345, Macro F Score = 0.002712337814337416
+=> Test : p@K values : [ 0.  0.  0.]

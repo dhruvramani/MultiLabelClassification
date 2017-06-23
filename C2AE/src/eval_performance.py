@@ -1,3 +1,5 @@
+# DQN, Double DQN, A3C, action conditional video predictions, AlphaGo
+import sys
 import numpy as np
 from collections import Counter
 from sklearn.metrics import label_ranking_average_precision_score
@@ -12,10 +14,14 @@ def patk(predictions, labels):
     y = y[pos]
     for j in range(3):
         k = K[j]
-        pak[j] += (np.sum(y[:k]) / k)
+        pak[j] += (np.sum(y[:k])/ k)
     pak = pak / predictions.shape[0]
-    return pak
+    return pak * 100.0
 
+'''
+def precision_at_k(predictions, labels, k):
+    act_set = 
+'''
 def cm_precision_recall(prediction, truth):
     """Evaluate confusion matrix, precision and recall for given set of labels and predictions
      Args
@@ -111,6 +117,7 @@ def evaluate(predictions, labels, threshold=0, multi_label=True):
                 predictions[i][pos[-int(k):]] = 1
 
         metrics['bae'] = 0
+        metrics['patk'] = patk(predictions, labels)
         metrics['coverage'] = coverage_error(labels, predictions)
         metrics['average_precision'] = label_ranking_average_precision_score(labels, predictions)
         metrics['ranking_loss'] = label_ranking_loss(labels, predictions)

@@ -1,6 +1,7 @@
 import utils
 import numpy as np
 import tensorflow as tf
+from config import Config
 
 class Network(object):
 
@@ -8,96 +9,84 @@ class Network(object):
         tf.set_random_seed(1234)
         self.summarizer = summarizer
         self.config = config
-        self.We1, self.We2, self.be1, self.be2 = self.init_Fe_variable()
-        self.Wd1, self.Wd2, self.bd1, self.bd2 = self.init_Fd_variable()
-        self.Wx1, self.Wx2, self.Wx3, self.bx1, self.bx2, self.bx3 = self.init_Fx_variable()
+        self.Wx1, self.Wx2, self.Wx3, self.bx1, self.bx2, self.bx3 = self.init_Fx_variables()
+        self.We1, self.We2, self.be1, self.be2 = self.init_Fe_variables()
+        self.Wd1, self.Wd2, self.bd1, self.bd2 = self.init_Fd_variables()
 
     def weight_variable(self, shape, name):
-        return tf.get_variable(name=name, shape=shape, initializer=tf.contrib.layers.xavier_initializer())
+        return tf.get_variable(name=name, shape=shape,  initializer=tf.contrib.layers.xavier_initializer())
 
     def bias_variable(self, shape, name):
-        # Most of them don't change
         return tf.Variable(tf.constant(0.1, shape=shape), name=name)
 
-    def init_Fx_variable(self):
-        Wx1 = self.weight_variable([self.config.features_dim, self.config.solver.hidden_dim], "weight_x_1")
-        bx1 = self.bias_variable([self.config.solver.hidden_dim], "bias_x_1")
-        Wx2 = self.weight_variable([self.config.solver.hidden_dim, self.config.solver.hidden_dim], "weight_x_2")
-        bx2 = self.bias_variable([self.config.solver.hidden_dim], "bias_x_2")
-        Wx3 = self.weight_variable([self.config.solver.hidden_dim, self.config.label_embedding_dim], "weight_x_3")
-        bx3 = self.bias_variable([self.config.label_embedding_dim], "bias_x_3")
-        '''
-        self.summarizer.histogram('weight_x_1', Wx1)
-        self.summarizer.histogram('weight_x_2', Wx2)
-        self.summarizer.histogram('weight_x_3', Wx3)
-        self.summarizer.histogram('bias_x_1', bx1)
-        self.summarizer.histogram('bias_x_2', bx2)
-        self.summarizer.histogram('bias_x_3', bx3)
-        '''
-        return Wx1, Wx2, Wx3, bx1, bx2, bx3
+    def init_Fx_variables(self):
+        W1 = self.weight_variable([self.config.features_dim, self.config.solver.hidden_dim], "weight_x1")
+        W2 = self.weight_variable([self.config.solver.hidden_dim, self.config.solver.hidden_dim], "weight_x2")
+        W3 = self.weight_variable([self.config.solver.hidden_dim, self.config.solver.latent_embedding_dim], "weight_x3")
+        b1 = self.bias_variable([self.config.solver.hidden_dim], "bias_x1")
+        b2 = self.bias_variable([self.config.solver.hidden_dim], "bias_x2")
+        b3 = self.bias_variable([self.config.solver.latent_embedding_dim], "bias_x3")
+        return W1, W2, W3, b1, b2, b3
 
-    def init_Fe_variable(self):
-        We1 = self.weight_variable([self.config.labels_dim, self.config.solver.hidden_dim], "weight_e_1")
-        We2 = self.weight_variable([self.config.solver.hidden_dim, self.config.label_embedding_dim], "weight_e_2")
-        be1 = self.bias_variable([self.config.solver.hidden_dim], "bias_e_1")
-        be2 = self.bias_variable([self.config.label_embedding_dim], "bias_e_2")
-        '''
-        self.summarizer.histogram('weight_e_1', We1)
-        self.summarizer.histogram('weight_e_2', We2)
-        self.summarizer.histogram('bias_e_1', be1)
-        self.summarizer.histogram('bias_e_2', be2)
-        '''
-        return We1, We2, be1, be2
+    def init_Fe_variables(self):
+        W1 = self.weight_variable([self.config.labels_dim, self.config.solver.hidden_dim], "weight_e1")
+        W2 = self.weight_variable([self.config.solver.hidden_dim, self.config.solver.latent_embedding_dim], "weight_e2")
+        b1 = self.bias_variable([self.config.solver.hidden_dim], "bias_e1")
+        b2 = self.bias_variable([self.config.solver.latent_embedding_dim], "bias_e2") 
+        return W1, W2, b1, b2
 
-    def init_Fd_variable(self):
-        Wd1 = self.weight_variable([self.config.label_embedding_dim, self.config.solver.hidden_dim], "weight_d_1")
-        Wd2 = self.weight_variable([self.config.solver.hidden_dim, self.config.labels_dim], "weight_d_2")
-        bd1 = self.bias_variable([self.config.solver.hidden_dim], "bias_d_1")
-        bd2 = self.bias_variable([self.config.labels_dim], "bias_d_2")
-        '''
-        self.summarizer.histogram('weight_d_1', Wd1)
-        self.summarizer.histogram('weight_d_2', Wd2)
-        self.summarizer.histogram('bias_d_1', bd1)
-        self.summarizer.histogram('bias_d_2', bd2)
-        '''
-        return Wd1, Wd2, bd1, bd2
+    def init_Fd_variables(self):
+        W1 = self.weight_variable([self.config.solver.latent_embedding_dim, self.config.solver.hidden_dim], "weight_d1")
+        W2 = self.weight_variable([self.config.solver.hidden_dim, self.config.labels_dim], "weight_d2")
+        b1 = self.bias_variable([self.config.solver.hidden_dim], "bias_d1")
+        b2 = self.bias_variable([self.config.labels_dim], "bias_d2")
+        return W1, W2, b1, b2
 
-    def leakyRelu(self, X, alpha=0.0001):
-        return tf.maximum(alpha * X, X)
+    def accuracy(self, y_pred, y):
+        return tf.reduce_mean(tf.cast(tf.equal(tf.round(y_pred), y), tf.float32))
 
-    def Fx(self, X):
-        h1 = self.leakyRelu(tf.matmul(X, self.Wx1) + self.bx1)
-        h2 = self.leakyRelu(tf.matmul(h1, self.Wx2) + self.bx2)
-        return self.leakyRelu(tf.matmul(h2, self.Wx3) + self.bx3)
+    def Fx(self, X, keep_prob):
+        hidden1 = tf.nn.dropout(tf.nn.relu(tf.matmul(X, self.Wx1) + self.bx1), keep_prob)
+        hidden2 = tf.nn.dropout(tf.nn.relu(tf.matmul(hidden1, self.Wx2) + self.bx2), keep_prob)
+        hidden3 = tf.nn.dropout(tf.nn.relu(tf.matmul(hidden2, self.Wx3) + self.bx3), keep_prob)
+        return hidden3
 
-    def Fe(self, Y):
-        h1 = self.leakyRelu(tf.matmul(Y, self.We1 + self.be1))
-        return self.leakyRelu(tf.matmul(h1, self.We2) + self.be2)
+    def Fe(self, Y, keep_prob):
+        hidden1 = tf.nn.dropout(tf.nn.relu(tf.matmul(Y, self.We1)) + self.be1, keep_prob)
+        pred = tf.nn.dropout(tf.nn.relu(tf.matmul(hidden1, self.We2) + self.be2), keep_prob)
+        return pred
 
-    def Fd(self, X):        
-        labels_embedding = self.Fx(X)
-        h1 = self.leakyRelu(tf.matmul(labels_embedding, self.Wd1) + self.bd1)
-        return tf.matmul(h1, self.Wd2) + self.bd2
+    def Fd(self, input, keep_prob):
+        hidden1 = tf.nn.dropout(tf.nn.relu(tf.matmul(input, self.Wd1) + self.bd1), keep_prob)
+        y_pred = tf.matmul(hidden1, self.Wd2) + self.bd2
+        return y_pred
 
-    def predict(self, X):
-        return tf.nn.sigmoid(self.Fd(X))
+    def prediction(self, X, keep_prob):
+        Fx = self.Fx(X, keep_prob)
+        return self.Fd(Fx, keep_prob)
 
-    def foo(self, X, Y):
-        Fx, Fe = self.Fx(X), self.Fe(Y)
-        return tf.reduce_mean(tf.square(Fx - Fe))
+    def embedding_loss(self, features, labels, keep_prob):
+        Fx = self.Fx(features, keep_prob)
+        Fe = self.Fe(labels, keep_prob)
+        return tf.reduce_sum(tf.square(Fx - Fe))
 
-    def label_embedding_loss(self, X, Y, lagrange_const):
-        Fx, Fe = self.Fx(X), self.Fe(Y)
-        idenX, idenE = tf.constant(np.identity(self.config.batch_size), dtype=tf.float32), \
-                       tf.constant(np.identity(self.config.batch_size), dtype=tf.float32)
-        loss = tf.reduce_mean(tf.square(Fx - Fe)) + \
-               lagrange_const * (tf.reduce_mean(tf.square(tf.matmul(Fx, tf.transpose(Fx)) - idenX)) + \
-                                 tf.reduce_mean(tf.square(tf.matmul(Fe, tf.transpose(Fe)) - idenE)))
-        return loss
-
-    def output_loss(self, X, Y):
+    '''
+    def output_loss(self, X, Y, keep_prob):
         Ei = 0.0
-        prediction = self.predict(X)
+        prediction = 1.0 / (1 + np.exp(-self.prediction(X, keep_prob)))
+        for i in xrange(Y.shape[0] - 1):
+            prediction_, Y_ = prediction[i : i+1, :], Y[i : i+1, :]
+            mask = np.logical_and(Y_, np.logical_not(Y_.T)).astype(float)
+            y1 = np.sum(Y_)
+            y0 = Y_.shape[1] - Y1
+            temp = (1/y1 * y0) * np.sum(np.exp(-np.multiply(mask, prediction_ - prediction_.T)))
+            if(not np.isinf(temp) or not np.isnan(temp)):
+                Ei += temp
+        return Ei
+
+    def output_loss(self, X, Y, keep_prob):
+        Ei = 0.0
+        prediction = tf.nn.sigmoid(self.prediction(X, keep_prob))
         for i in range(self.config.batch_size - 1):
             prediction_ = tf.slice(prediction, [i, 0], [1, self.config.labels_dim])
             Y_          = tf.slice(Y,          [i, 0], [1, self.config.labels_dim])
@@ -109,20 +98,17 @@ class Network(object):
             temp = tf.Print(temp, [temp, tf.reduce_sum(mask)], message='-----------temp: ')
             Ei += tf.cond(tf.logical_or(tf.is_inf(temp), tf.is_nan(temp)), lambda : tf.constant(0.0), lambda : temp)
         return Ei 
+    '''
 
-    def loss(self, X, Y, lagrange_const, alpha):
-        total_loss = self.label_embedding_loss(X, Y, lagrange_const) + alpha * self.output_loss(X, Y) 
-        return total_loss #/ self.config.batch_size
+    def cross_loss(self, features, labels, keep_prob):
+        predictions = self.prediction(features, keep_prob)
+        cross_loss = tf.add(tf.log(1e-10 + tf.nn.sigmoid(predictions)) * labels, tf.log(1e-10 + (1 - tf.nn.sigmoid(predictions))) * (1 - labels))
+        cross_entropy_label = -1 * tf.reduce_mean(tf.reduce_sum(cross_loss, 1))
+        return cross_entropy_label
+
+    def loss(self, features, labels, keep_prob):
+        return self.cross_loss(features, labels, keep_prob) # tf.py_func(self.output_loss, [features, labels, keep_prob], tf.float32) * self.config.solver.alpha + self.embedding_loss(features, labels, keep_prob) #
 
     def train_step(self, loss):
         optimizer = self.config.solver.optimizer
         return optimizer(self.config.solver.learning_rate).minimize(loss)
-
-    def accuracy(self, y_pred, y):
-        return tf.reduce_mean(tf.cast(tf.equal(tf.round(y_pred), y), tf.float32))
-
-def tf_count(t, val):
-    elements_equal_to_value = tf.equal(t, val)
-    as_ints = tf.cast(elements_equal_to_value, tf.float32)
-    count = tf.reduce_sum(as_ints)
-    return count

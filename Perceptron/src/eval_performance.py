@@ -14,7 +14,7 @@ def patk(predictions, labels):
         k = K[j]
         pak[j] += (np.sum(y[:k]) / k)
     pak = pak / predictions.shape[0]
-    return pak
+    return pak * 100.
 
 def cm_precision_recall(prediction, truth):
     """Evaluate confusion matrix, precision and recall for given set of labels and predictions

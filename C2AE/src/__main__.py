@@ -8,9 +8,7 @@ from parser import Parser
 from config import Config
 from network import Network
 from dataset import DataSet
-from eval_performance import evaluate
-from tensorflow.python import debug as tf_debug
-
+from eval_performance import evaluate, patk
 os.environ['TF_CPP_MIN_LOG_LEVEL'] = '3'
 
 class Model(object):
@@ -22,12 +20,11 @@ class Model(object):
         self.summarizer = tf.summary
         self.net = Network(config, self.summarizer)
         self.optimizer = self.config.solver.optimizer
-        self.predict = self.net.predict(self.x)
-        self.output_loss = self.net.output_loss(self.x, self.y)
-        self.label_embedding_loss = self.net.label_embedding_loss(self.x, self.y, self.lagrange_const)
-        self.foo = self.net.foo(self.x, self.y)
-        self.loss = self.net.loss(self.x, self.y, self.lagrange_const, self.alpha)
-        self.accuracy = self.net.accuracy(self.predict, self.y)
+        self.y_pred = self.net.prediction(self.x, self.keep_prob)
+        self.embedding_loss = self.net.embedding_loss(self.x, self.y, self.keep_prob)
+        self.cross_loss = self.net.cross_loss(self.x, self.y, self.keep_prob)
+        self.loss = self.net.loss(self.x, self.y, self.keep_prob)
+        self.accuracy = self.net.accuracy(tf.nn.sigmoid(self.y_pred), self.y)
         self.summarizer.scalar("accuracy", self.accuracy)
         self.summarizer.scalar("loss", self.loss)
         self.train = self.net.train_step(self.loss)
@@ -35,60 +32,55 @@ class Model(object):
         self.init = tf.global_variables_initializer()
 
     def add_placeholders(self):
-        self.x = tf.placeholder(tf.float32, shape=[self.config.batch_size, self.config.features_dim])
-        self.y = tf.placeholder(tf.float32, shape=[self.config.batch_size, self.config.labels_dim])
-        self.lagrange_const = tf.placeholder(tf.float32)
-        self.alpha = tf.placeholder(tf.float32)
+        self.x = tf.placeholder(tf.float32, shape=[None, self.config.features_dim])
+        self.y = tf.placeholder(tf.float32, shape=[None, self.config.labels_dim])
         self.keep_prob = tf.placeholder(tf.float32)
 
     def run_epoch(self, sess, data, summarizer, epoch):
         err = list()
         i = 0
-        X_, Y_ = None, None
         merged_summary = self.summarizer.merge_all()
         for X, Y, tot in self.data.next_batch(data):
-            feed_dict = {self.x : X, self.y : Y, self.keep_prob : self.config.solver.dropout, self.lagrange_const : self.config.solver.lagrange_const, self.alpha : self.config.solver.alpha}
-            if(X.shape[0] != self.config.batch_size or Y.shape[0] != self.config.batch_size):
-                continue
+            feed_dict = {self.x : X, self.y : Y, self.keep_prob : self.config.solver.dropout}
             if not self.config.load:
-                summ, _, loss, Y_pred = sess.run([merged_summary, self.train, self.loss, self.predict], feed_dict=feed_dict)
+                summ, _, y_pred, loss = sess.run([merged_summary, self.train, self.y_pred, self.loss], feed_dict=feed_dict)
                 err.append(loss) 
-                output = "Epoch ({}) Batch({}) : Loss = {}".format(self.epoch_count, i // self.config.batch_size , loss)
+                output = "Epoch ({}) Batch({}) - Loss : {}".format(self.epoch_count, i // self.config.batch_size, loss)
                 with open("../stdout/{}_train.log".format(self.config.project_name), "a+") as log:
                     log.write(output + "\n")
                 print("   {}".format(output), end='\r')
-            X_, Y_ = X, Y
+            step = int(epoch*tot + i)
+            summarizer.add_summary(summ, step)
             i += 1
-        summarizer.add_summary(summ, int(epoch))
-        print(sess.run(self.foo, feed_dict={self.x : X_, self.y : Y_}))
-        return np.mean(err)
+        return np.mean(err), step
 
-    def run_eval(self, sess, data, summary_writer=None, epoch=0):
-        y, y_pred, loss_, metrics = list(), list(), 0.0, None
+    def run_eval(self, sess, data, summary_writer=None, step=0):
+        y, y_pred, loss_, metrics, p_k = list(), list(), 0.0, None, None
         accuracy, loss = 0.0, 0.0
         merged_summary = self.summarizer.merge_all()
         next_batch = self.data.next_batch(data)
         i = 0
         for X, Y, tot in next_batch:
-            if(X.shape[0] != self.config.batch_size or Y.shape[0] != self.config.batch_size ):
-                continue
-            feed_dict = {self.x: X, self.y: Y, self.keep_prob: 1, self.lagrange_const : self.config.solver.lagrange_const, self.alpha : self.config.solver.alpha}
+            feed_dict = {self.x: X, self.y: Y, self.keep_prob: 1}
             if i == tot-1 and summary_writer is not None:
                 if data == "validation":
                     summ, loss_ =  sess.run([merged_summary, self.loss], feed_dict=feed_dict)
                 else :
-                    summ, loss_, Y_pred, accuracy_val = sess.run([merged_summary, self.loss, self.predict, self.accuracy], feed_dict=feed_dict)
-                summary_writer.add_summary(summ, epoch)
+                    summ, loss_, accuracy_val = sess.run([merged_summary, self.loss, self.accuracy], feed_dict=feed_dict)
+                summary_writer.add_summary(summ, step)
             else:
                 if data == "validation":
-                    loss_ =  sess.run(self.loss, feed_dict=feed_dict)
+                    loss_, Y_pred=  sess.run([self.loss, tf.nn.sigmoid(self.y_pred)], feed_dict=feed_dict)
+                    p_k = patk(predictions=1.0 / (1 + np.exp(-Y_pred)), labels=Y)
                 else :
-                    loss_, Y_pred, accuracy_val = sess.run([self.loss, self.predict, self.accuracy], feed_dict=feed_dict)
-                    metrics = evaluate(predictions=np.array(Y_pred), labels=np.array(Y))
-                    accuracy += accuracy_val
+                    loss_, Y_pred, accuracy_val = sess.run([self.loss, tf.nn.sigmoid(self.y_pred), self.accuracy], feed_dict=feed_dict)
+                    metrics = evaluate(predictions=1.0 / (1 + np.exp(-Y_pred)), labels=Y)
+                    p_k = patk(predictions=1.0 / (1 + np.exp(-Y_pred)), labels=Y)
+                    print(p_k)
+                    accuracy += accuracy_val #metrics['accuracy']
             loss += loss_
             i += 1
-        return loss / self.config.batch_size, accuracy / self.config.batch_size, metrics
+        return loss / self.config.batch_size, accuracy / self.config.batch_size, metrics, p_k
     
     def add_summaries(self, sess):
         if self.config.load or self.config.debug:
@@ -109,7 +101,6 @@ class Model(object):
          + If patience becomes less than a certain threshold, devide learning rate by 10 and switch back to old model
          + If learning rate is lesser than a certain 
         '''
-        print('Starting to fit the data')
         max_epochs = self.config.max_epochs
         patience = self.config.patience
         patience_increase = self.config.patience_increase
@@ -121,16 +112,12 @@ class Model(object):
             if(self.config.load == True):
                 break
             start_time = time.time()
-            average_loss = self.run_epoch(sess, "train", summarizer['train'], self.epoch_count)
-            print('Out of training epoch')
+            average_loss, tr_step = self.run_epoch(sess, "train", summarizer['train'], self.epoch_count)
             duration = time.time() - start_time
-            #if self.config.debug == True:
-            #val_loss = self.run_epoch(sess, "validation", summarizer['val'], self.epoch_count)
-            #test_loss = self.run_epoch(sess, "test", summarizer['test'], self.epoch_count)
             if not self.config.debug :
                 if self.epoch_count % self.config.epoch_freq == 0 :
-                    val_loss, _, _ = self.run_eval(sess, "validation", summarizer['val'], self.epoch_count)
-                    output =  "=> Training : \Loss = {} | Validation : Loss = {}".format(average_loss, val_loss)
+                    val_loss, _, _, p_k = self.run_eval(sess, "validation", summarizer['val'], tr_step)
+                    output =  "=> Training : Loss = {:.2f} | Validation : Loss = {:.2f}, P@k : {}".format(average_loss, val_loss, p_k)
                     with open("../stdout/validation.log", "a+") as f:
                         f.write(output)
                     print(output)
@@ -155,8 +142,8 @@ class Model(object):
         print("=> Best epoch : {}".format(best_step))
         if self.config.debug == True:
             sys.exit()
-        test_loss, test_accuracy, test_metrics = self.run_eval(sess, "test", summarizer['test'])
-        returnDict = {"test_loss" : test_loss, "test_accuracy" : test_accuracy, 'test_metrics' : test_metrics}
+        test_loss, test_accuracy, test_metrics, p_k = self.run_eval(sess, "test", summarizer['test'], tr_step)
+        returnDict = {"test_loss" : test_loss, "test_accuracy" : test_accuracy, 'test_metrics' : test_metrics, "test_pak" : p_k}
         if self.config.debug == False:
             returnDict["train"] =  best_validation_loss
         return returnDict
@@ -184,8 +171,6 @@ def init_model(config):
         sess_ = tf.Session(config=tf.ConfigProto(allow_soft_placement=True, log_device_placement=True))
         saver.restore(sess_, config.ckptdir_path + "/resultsmodel_best.ckpt")
         return model, sess_
-    #sess = tf_debug.LocalCLIDebugWrapperSession(sess)
-    #sess.add_tensor_filter("has_inf_or_nan", tf_debug.has_inf_or_nan)
     return model, sess
 
 def train_model(config):
@@ -210,6 +195,7 @@ def main():
         output = "=> Test Loss : {}, Test Accuracy : {}".format(loss_dict["test_loss"], loss_dict["test_accuracy"])
     output += "\n=> Test : Coverage = {}, Average Precision = {}, Micro Precision = {}, Micro Recall = {}, Micro F Score = {}".format(metrics['coverage'], metrics['average_precision'], metrics['micro_precision'], metrics['micro_recall'], metrics['micro_f1'])
     output += "\n=> Test : Macro Precision = {}, Macro Recall = {}, Macro F Score = {}".format(metrics['macro_precision'], metrics['macro_recall'], metrics['macro_f1'])
+    output += "\n=> Test : p@K values : {}".format(loss_dict['test_pak'])
     with open("../stdout/test_log.log", "a+") as f:
         f.write(output)
     print("\033[1m\033[92m{}\033[0m\033[0m".format(output))

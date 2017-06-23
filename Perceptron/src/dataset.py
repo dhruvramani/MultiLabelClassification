@@ -7,66 +7,41 @@ class DataSet(object):
         self.train, self.test, self.validation = None, None, None
         self.path = self.config.dataset_path
 
-    def get_features(self, path):
-        file_content = arff.load(open(path, "r"))
-        data = list()
-        for j in file_content['data']:
-            small_data = list()
-            for i in j:
-                small_data.append(float(i))
-            data.append(small_data)
-        data = np.asarray(data)
-        return data[:, : self.config.features_dim]
-
-    def get_labels(self, path):
-        file_content = arff.load(open(path, "r"))
-        data = list()
-        for j in file_content['data']:
-            small_data = list()
-            for i in j:
-                small_data.append(float(i))
-            data.append(small_data)
-        data = np.asarray(data)
-        return data[: , self.config.features_dim : self.config.features_dim + self.config.labels_dim]
+    def get_data(self, path, noise = False):
+        data = np.load(path)
+        if noise == True :
+            data = data + np.random.normal(0, 0.001, data.shape)
+        return data
 
     def get_train(self):
         if self.train == None:
-            X = self.get_features(self.config.train_path)
-            Y = self.get_labels(self.config.train_path)
+            X = self.get_data(self.config.train_path + "-features.pkl", True)
+            Y = self.get_data(self.config.train_path + "-labels.pkl")
             length = X.shape[0]
             X, Y = X[0 : int(0.8 * length) , :], Y[0 : int(0.8 * length), :]
             self.train = X, Y
         else :
             X, Y = self.train
-        #np.random.shuffle(X)
-        #np.random.shuffle(Y)
-        #print("=> Training-Set Generated")
         return X, Y
 
     def get_validation(self):
         if self.validation == None:
-            X = self.get_features(self.config.train_path)
-            Y = self.get_labels(self.config.train_path)
+            X = self.get_data(self.config.train_path + "-features.pkl")
+            Y = self.get_data(self.config.train_path + "-labels.pkl")
             length = X.shape[0]
             X, Y = X[0 : int(0.2 * length) , :], Y[0 : int(0.2 * length), :]
             self.validation = X, Y
         else :
             X, Y = self.validation
-        #np.random.shuffle(X)
-        #np.random.shuffle(Y)
-        print("\n=> Validation-Set Generated")
         return X, Y
 
     def get_test(self):
         if self.test == None:
-            X = self.get_features(self.config.test_path)
-            Y = self.get_labels(self.config.test_path)
+            X = self.get_data(self.config.test_path + "-features.pkl")
+            Y = self.get_data(self.config.test_path + "-labels.pkl")
             self.test = X, Y
         else :
             X, Y = self.test
-        #np.random.shuffle(X)
-        #np.random.shuffle(Y)
-        print("=> Test-Set Generated")
         return X, Y
 
     def next_batch(self, data):

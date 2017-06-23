@@ -22,7 +22,6 @@ class DataSet(object):
             self.train = X, Y
         else :
             X, Y = self.train
-        print("=> Training-Set Generated")
         return X, Y
 
     def get_validation(self):
@@ -34,8 +33,6 @@ class DataSet(object):
             self.validation = X, Y
         else :
             X, Y = self.validation
-        print("\n=> Validation-Set Generated")
-        print(X.shape[0])
         return X, Y
 
     def get_test(self):
@@ -45,22 +42,19 @@ class DataSet(object):
             self.test = X, Y
         else :
             X, Y = self.test
-        print("=> Test-Set Generated")
         return X, Y
 
     def next_batch(self, data):
         if data.lower() not in ["train", "test", "validation"]:
             raise ValueError
-        func = {"train": self.get_train, "test": self.get_test, "validation": self.get_validation}[data.lower()]
+        func = {"train" : self.get_train, "test": self.get_test, "validation": self.get_validation}[data.lower()]
         X, Y = func()
-        start, batch_size, tot = 0, self.config.batch_size, X.shape[0]
-        total = int(tot/ batch_size) # fix the last batch
-        while start + batch_size < tot:
-            end = start + batch_size#, total)
+        start = 0
+        batch_size = self.config.batch_size
+        total = int(len(X)/ batch_size) # fix the last batch
+        while start < total:
+            end = min(start + batch_size, total)
             x = X[start : end, :]
             y = Y[start : end, :]
-            start += batch_size
-            if(0.0 in np.sum(y, axis=1)):
-                print("found 0")
-                continue
-            yield (x.astype(float), y.astype(float), int(total))
+            start += 1
+            yield (x, y, int(total))

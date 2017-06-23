@@ -22,6 +22,7 @@ class Config(object):
             def __init__(self, t_args):
                 self.learning_rate = t_args.lr
                 self.hidden_dim = t_args.hidden
+                self.latent_embedding_dim = t_args.latent_embedding_dim
                 self.dropout = t_args.dropout 
                 self.lagrange_const = t_args.lagrange
                 self.alpha = t_args.alpha
@@ -32,7 +33,6 @@ class Config(object):
 
         self.solver = Solver(args)
         self.project_path, self.project_prefix_path, self.dataset_path, self.train_path, self.test_path, self.ckptdir_path = self.set_paths()
-        self.label_embedding_dim = 200
         self.features_dim, self.labels_dim = self.set_dims()
 
     def set_paths(self):
