@@ -18,6 +18,7 @@ class Config(object):
         self.epoch_freq = args.epoch_freq
         self.debug = args.debug
         self.load = args.load
+        self.have_patience = args.have_patience
         class Solver(object):
             def __init__(self, t_args):
                 self.learning_rate = t_args.lr

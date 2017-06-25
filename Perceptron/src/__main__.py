@@ -21,9 +21,8 @@ class Model(object):
         self.net = Network(config, self.summarizer)
         self.optimizer = self.config.solver.optimizer
         self.y_pred = self.net.prediction(self.x, self.keep_prob)
-        self.predict = self.net.predict(self.x)
         self.loss = self.net.loss(self.y_pred, self.y)
-        self.accuracy = self.net.accuracy(self.predict, self.y)
+        self.accuracy = self.net.accuracy(tf.nn.sigmoid(self.y_pred), self.y)
         self.summarizer.scalar("accuracy", self.accuracy)
         self.summarizer.scalar("loss", self.loss)
         self.train = self.net.train_step(self.loss)
@@ -42,7 +41,7 @@ class Model(object):
         for X, Y, tot in self.data.next_batch(data):
             feed_dict = {self.x : X, self.y : Y, self.keep_prob : self.config.solver.dropout}
             if not self.config.load:
-                summ, _, loss, Y_pred = sess.run([merged_summary, self.train, self.loss, self.predict], feed_dict=feed_dict)
+                summ, _, loss, Y_pred = sess.run([merged_summary, self.train, self.loss, tf.nn.sigmoid(self.y_pred)], feed_dict=feed_dict)
                 err.append(loss) 
                 output = "Epoch ({}) Batch({}) : Loss = {}".format(self.epoch_count, i // self.config.batch_size , loss)
                 with open("../stdout/{}_train.log".format(self.config.project_name), "a+") as log:
@@ -52,7 +51,6 @@ class Model(object):
             summarizer.add_summary(summ, step)
             i += 1
         return np.mean(err), step
-
 
     def run_eval(self, sess, data, summary_writer=None, step=0):
         y, y_pred, loss_, metrics, p_k = list(), list(), 0.0, None, None
@@ -71,12 +69,11 @@ class Model(object):
             else:
                 if data == "validation":
                     loss_, Y_pred=  sess.run([self.loss, tf.nn.sigmoid(self.y_pred)], feed_dict=feed_dict)
-                    p_k = patk(predictions=1.0 / (1 + np.exp(-Y_pred)), labels=Y)
+                    #p_k = patk(predictions=1.0 / (1 + np.exp(-Y_pred)), labels=Y)
                 else :
                     loss_, Y_pred, accuracy_val = sess.run([self.loss, tf.nn.sigmoid(self.y_pred), self.accuracy], feed_dict=feed_dict)
                     metrics = evaluate(predictions=1.0 / (1 + np.exp(-Y_pred)), labels=Y)
                     p_k = patk(predictions=1.0 / (1 + np.exp(-Y_pred)), labels=Y)
-                    print(p_k)
                     accuracy += accuracy_val #metrics['accuracy']
             loss += loss_
             i += 1
@@ -114,10 +111,10 @@ class Model(object):
             start_time = time.time()
             average_loss, tr_step = self.run_epoch(sess, "train", summarizer['train'], self.epoch_count)
             duration = time.time() - start_time
-            if not self.config.debug :
+            if not self.config.debug:
                 if self.epoch_count % self.config.epoch_freq == 0 :
                     val_loss, _, _, p_k = self.run_eval(sess, "validation", summarizer['val'], tr_step)
-                    output =  "=> Training : Loss = {:.2f} | Validation : Loss = {:.2f}, P@k : {}".format(average_loss, val_loss, p_k)
+                    output =  "=> Training : Loss = {:.2f} | Validation : Loss = {:.2f}".format(average_loss, val_loss)
                     with open("../stdout/validation.log", "a+") as f:
                         f.write(output)
                     print(output)
@@ -126,7 +123,7 @@ class Model(object):
                             self.saver.save(sess, self.config.ckptdir_path + "model_best.ckpt")
                             best_validation_loss = val_loss
                             best_step = self.epoch_count
-                    else :
+                    elif not self.config.have_patience:
                         if patience < 1:
                             self.saver.restore(sess, self.config.ckptdir_path + "model_best.ckpt")
                             if learning_rate <= 0.00001 :
@@ -135,7 +132,7 @@ class Model(object):
                             else :
                                 learning_rate /= 10
                                 patience = self.config.patience
-                                print("=> Learning rate dropped to {}".format(learning_rate))
+                                print("\033[91m=> Learning rate dropped to {}\033[0m".format(learning_rate))
                         else :
                             patience -= 1
             self.epoch_count += 1

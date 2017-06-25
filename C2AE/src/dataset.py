@@ -7,7 +7,7 @@ class DataSet(object):
         self.train, self.test, self.validation = None, None, None
         self.path = self.config.dataset_path
 
-    def get_data(self, path, noise = False):
+    def get_data(self, path, noise=False):
         data = np.load(path)
         if noise == True :
             data = data + np.random.normal(0, 0.001, data.shape)
@@ -40,8 +40,9 @@ class DataSet(object):
             X = self.get_data(self.config.test_path + "-features.pkl")
             Y = self.get_data(self.config.test_path + "-labels.pkl")
             self.test = X, Y
-        else :
+        else:
             X, Y = self.test
+        print("{} \n\n {}".format(X, Y))
         return X, Y
 
     def next_batch(self, data):

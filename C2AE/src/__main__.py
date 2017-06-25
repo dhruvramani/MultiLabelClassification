@@ -74,9 +74,10 @@ class Model(object):
                     p_k = patk(predictions=1.0 / (1 + np.exp(-Y_pred)), labels=Y)
                 else :
                     loss_, Y_pred, accuracy_val = sess.run([self.loss, tf.nn.sigmoid(self.y_pred), self.accuracy], feed_dict=feed_dict)
-                    metrics = evaluate(predictions=1.0 / (1 + np.exp(-Y_pred)), labels=Y)
-                    p_k = patk(predictions=1.0 / (1 + np.exp(-Y_pred)), labels=Y)
-                    print(p_k)
+                    pred = 1.0 / (1 + np.exp(-Y_pred))
+                    print("Pred : {}\n\nLabels : {}".format(pred, Y))
+                    metrics = evaluate(predictions=pred, labels=Y)
+                    p_k = patk(predictions=pred, labels=Y)
                     accuracy += accuracy_val #metrics['accuracy']
             loss += loss_
             i += 1
@@ -135,7 +136,7 @@ class Model(object):
                             else :
                                 learning_rate /= 10
                                 patience = self.config.patience
-                                print("=> Learning rate dropped to {}".format(learning_rate))
+                                print("\033[91m=> Learning rate dropped to {}\033[0m".format(learning_rate))
                         else :
                             patience -= 1
             self.epoch_count += 1
@@ -170,7 +171,7 @@ def init_model(config):
         saver = tf.train.Saver()
         sess_ = tf.Session(config=tf.ConfigProto(allow_soft_placement=True, log_device_placement=True))
         saver.restore(sess_, config.ckptdir_path + "/resultsmodel_best.ckpt")
-        return model, sess_
+        return model, sess
     return model, sess
 
 def train_model(config):
