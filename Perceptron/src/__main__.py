@@ -118,23 +118,24 @@ class Model(object):
                     with open("../stdout/validation.log", "a+") as f:
                         f.write(output)
                     print(output)
-                    if val_loss < best_validation_loss :
-                        if val_loss < best_validation_loss * improvement_threshold :
-                            self.saver.save(sess, self.config.ckptdir_path + "model_best.ckpt")
-                            best_validation_loss = val_loss
-                            best_step = self.epoch_count
-                    elif not self.config.have_patience:
-                        if patience < 1:
-                            self.saver.restore(sess, self.config.ckptdir_path + "model_best.ckpt")
-                            if learning_rate <= 0.00001 :
-                                print("=> Breaking by Patience Method")
-                                break
+                    if self.config.have_patience:
+                        if val_loss < best_validation_loss :
+                            if val_loss < best_validation_loss * improvement_threshold :
+                                self.saver.save(sess, self.config.ckptdir_path + "model_best.ckpt")
+                                best_validation_loss = val_loss
+                                best_step = self.epoch_count
+                        else:
+                            if patience < 1:
+                                self.saver.restore(sess, self.config.ckptdir_path + "model_best.ckpt")
+                                if learning_rate <= 0.00001 :
+                                    print("=> Breaking by Patience Method")
+                                    break
+                                else :
+                                    learning_rate /= 10
+                                    patience = self.config.patience
+                                    print("\033[91m=> Learning rate dropped to {}\033[0m".format(learning_rate))
                             else :
-                                learning_rate /= 10
-                                patience = self.config.patience
-                                print("\033[91m=> Learning rate dropped to {}\033[0m".format(learning_rate))
-                        else :
-                            patience -= 1
+                                patience -= 1
             self.epoch_count += 1
         print("=> Best epoch : {}".format(best_step))
         if self.config.debug == True:

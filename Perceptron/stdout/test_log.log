@@ -56,4 +56,7 @@
 => Test : p@K values : [ 0.  0.  0.]=> Best Train Loss : 1.4034961089491844, Test Loss : 24.77015221118927, Test Accuracy : 0.1757146194577217
 => Test : Coverage = 983.0, Average Precision = 0.12129399796541201, Micro Precision = 0.31999999360000014, Micro Recall = 0.31999999360000014, Micro F Score = 0.3199994936007814
 => Test : Macro Precision = 0.011190225330627926, Macro Recall = 0.009155640386575533, Macro F Score = 0.010070708717102512
-=> Test : p@K values : [ 0.  0.  0.]
+=> Test : p@K values : [ 0.  0.  0.]=> Best Train Loss : 1000000.0, Test Loss : 26.483057022094727, Test Accuracy : 0.175710488576442
+=> Test : Coverage = 983.0, Average Precision = 0.1474767039674466, Micro Precision = 0.35999999280000017, Micro Recall = 0.35999999280000017, Micro F Score = 0.3599994928006946
+=> Test : Macro Precision = 0.012207518819946594, Macro Recall = 0.010172933875894201, Macro F Score = 0.011097249444146095
+=> Test : p@K values : [  0.          16.66666667  10.        ]
