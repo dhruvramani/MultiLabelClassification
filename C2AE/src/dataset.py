@@ -42,7 +42,6 @@ class DataSet(object):
             self.test = X, Y
         else:
             X, Y = self.test
-        print("{} \n\n {}".format(X, Y))
         return X, Y
 
     def next_batch(self, data):
@@ -52,9 +51,10 @@ class DataSet(object):
         X, Y = func()
         start = 0
         batch_size = self.config.batch_size
-        total = int(len(X)/ batch_size) # fix the last batch
+        tot = len(X)
+        total = int(tot/ batch_size) # fix the last batch
         while start < total:
-            end = min(start + batch_size, total)
+            end = start + batch_size
             x = X[start : end, :]
             y = Y[start : end, :]
             start += 1

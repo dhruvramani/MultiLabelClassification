@@ -37,6 +37,7 @@ class Model(object):
     def run_epoch(self, sess, data, summarizer, epoch):
         err = list()
         i = 0
+        X, Y, Y_pred = None, None, None
         merged_summary = self.summarizer.merge_all()
         for X, Y, tot in self.data.next_batch(data):
             feed_dict = {self.x : X, self.y : Y, self.keep_prob : self.config.solver.dropout}
@@ -50,6 +51,7 @@ class Model(object):
             step = int(epoch*tot + i)
             summarizer.add_summary(summ, step)
             i += 1
+        #p_k = patk(predictions=Y_pred, labels=Y)
         return np.mean(err), step
 
     def run_eval(self, sess, data, summary_writer=None, step=0):
@@ -72,8 +74,8 @@ class Model(object):
                     #p_k = patk(predictions=1.0 / (1 + np.exp(-Y_pred)), labels=Y)
                 else :
                     loss_, Y_pred, accuracy_val = sess.run([self.loss, tf.nn.sigmoid(self.y_pred), self.accuracy], feed_dict=feed_dict)
-                    metrics = evaluate(predictions=1.0 / (1 + np.exp(-Y_pred)), labels=Y)
-                    p_k = patk(predictions=1.0 / (1 + np.exp(-Y_pred)), labels=Y)
+                    metrics = evaluate(predictions=Y_pred, labels=Y)
+                    p_k = patk(predictions=Y_pred, labels=Y)
                     accuracy += accuracy_val #metrics['accuracy']
             loss += loss_
             i += 1
@@ -118,6 +120,8 @@ class Model(object):
                     with open("../stdout/validation.log", "a+") as f:
                         f.write(output)
                     print(output)
+                    test_loss, _, _, p_k = self.run_eval(sess, "test", summarizer['test'], tr_step)
+                    print("=> Test : Loss = {:.2f}, P@K = {}".format(test_loss, p_k))
                     if self.config.have_patience:
                         if val_loss < best_validation_loss :
                             if val_loss < best_validation_loss * improvement_threshold :

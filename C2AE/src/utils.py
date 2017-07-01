@@ -24,3 +24,6 @@ def zeros(shape, dtype=tf.float32):
 def tanh_init(shape, dtype=tf.float32, partition_info=None):
     init_range = np.sqrt(6.0 / (shape[0] + shape[1]))
     return tf.random_uniform(shape, minval=-init_range, maxval=init_range, dtype=dtype)
+
+def leaky_relu(X, alpha=0.01):
+    return tf.maximum(X, alpha * X)

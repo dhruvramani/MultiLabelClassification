@@ -21,8 +21,7 @@ class Model(object):
         self.net = Network(config, self.summarizer)
         self.optimizer = self.config.solver.optimizer
         self.y_pred = self.net.prediction(self.x, self.keep_prob)
-        self.embedding_loss = self.net.embedding_loss(self.x, self.y, self.keep_prob)
-        self.cross_loss = self.net.cross_loss(self.x, self.y, self.keep_prob)
+        #self.cross_loss = self.net.cross_loss(self.x, self.y, self.keep_prob)
         self.loss = self.net.loss(self.x, self.y, self.keep_prob)
         self.accuracy = self.net.accuracy(tf.nn.sigmoid(self.y_pred), self.y)
         self.summarizer.scalar("accuracy", self.accuracy)
@@ -39,13 +38,14 @@ class Model(object):
     def run_epoch(self, sess, data, summarizer, epoch):
         err = list()
         i = 0
+        step = epoch
         merged_summary = self.summarizer.merge_all()
         for X, Y, tot in self.data.next_batch(data):
             feed_dict = {self.x : X, self.y : Y, self.keep_prob : self.config.solver.dropout}
             if not self.config.load:
                 summ, _, y_pred, loss = sess.run([merged_summary, self.train, self.y_pred, self.loss], feed_dict=feed_dict)
                 err.append(loss) 
-                output = "Epoch ({}) Batch({}) - Loss : {}".format(self.epoch_count, i // self.config.batch_size, loss)
+                output = "Epoch ({}) Batch({}) - Loss : {}".format(self.epoch_count, i, loss)
                 with open("../stdout/{}_train.log".format(self.config.project_name), "a+") as log:
                     log.write(output + "\n")
                 print("   {}".format(output), end='\r')
@@ -71,13 +71,11 @@ class Model(object):
             else:
                 if data == "validation":
                     loss_, Y_pred=  sess.run([self.loss, tf.nn.sigmoid(self.y_pred)], feed_dict=feed_dict)
-                    p_k = patk(predictions=1.0 / (1 + np.exp(-Y_pred)), labels=Y)
+                    p_k = patk(predictions=Y_pred, labels=Y)
                 else :
                     loss_, Y_pred, accuracy_val = sess.run([self.loss, tf.nn.sigmoid(self.y_pred), self.accuracy], feed_dict=feed_dict)
-                    pred = 1.0 / (1 + np.exp(-Y_pred))
-                    print("Pred : {}\n\nLabels : {}".format(pred, Y))
-                    metrics = evaluate(predictions=pred, labels=Y)
-                    p_k = patk(predictions=pred, labels=Y)
+                    metrics = evaluate(predictions=Y_pred, labels=Y)
+                    p_k = patk(predictions=Y_pred, labels=Y)
                     accuracy += accuracy_val #metrics['accuracy']
             loss += loss_
             i += 1
@@ -117,28 +115,30 @@ class Model(object):
             duration = time.time() - start_time
             if not self.config.debug :
                 if self.epoch_count % self.config.epoch_freq == 0 :
-                    val_loss, _, _, p_k = self.run_eval(sess, "validation", summarizer['val'], tr_step)
-                    output =  "=> Training : Loss = {:.2f} | Validation : Loss = {:.2f}, P@k : {}".format(average_loss, val_loss, p_k)
+                    val_loss, _, _, _ = self.run_eval(sess, "validation", summarizer['val'], tr_step)
+                    test_loss, _, _, _= self.run_eval(sess, "test", summarizer['test'], tr_step)
+                    output =  "=> Training : Loss = {:.2f} | Validation : Loss = {:.2f} | Test : Loss = {}".format(average_loss, val_loss, test_loss)
                     with open("../stdout/validation.log", "a+") as f:
                         f.write(output)
                     print(output)
-                    if val_loss < best_validation_loss :
-                        if val_loss < best_validation_loss * improvement_threshold :
-                            self.saver.save(sess, self.config.ckptdir_path + "model_best.ckpt")
-                            best_validation_loss = val_loss
-                            best_step = self.epoch_count
-                    else :
-                        if patience < 1:
-                            self.saver.restore(sess, self.config.ckptdir_path + "model_best.ckpt")
-                            if learning_rate <= 0.00001 :
-                                print("=> Breaking by Patience Method")
-                                break
-                            else :
-                                learning_rate /= 10
-                                patience = self.config.patience
-                                print("\033[91m=> Learning rate dropped to {}\033[0m".format(learning_rate))
+                    if self.config.have_patience:
+                        if val_loss < best_validation_loss :
+                            if val_loss < best_validation_loss * improvement_threshold :
+                                self.saver.save(sess, self.config.ckptdir_path + "model_best.ckpt")
+                                best_validation_loss = val_loss
+                                best_step = self.epoch_count
                         else :
-                            patience -= 1
+                            if patience < 1:
+                                self.saver.restore(sess, self.config.ckptdir_path + "model_best.ckpt")
+                                if learning_rate <= 0.00001 :
+                                    print("=> Breaking by Patience Method")
+                                    break
+                                else :
+                                    learning_rate /= 10
+                                    patience = self.config.patience
+                                    print("\033[91m=> Learning rate dropped to {}\033[0m".format(learning_rate))
+                            else :
+                                patience -= 1
             self.epoch_count += 1
         print("=> Best epoch : {}".format(best_step))
         if self.config.debug == True:
@@ -155,7 +155,6 @@ def init_model(config):
     tf.set_random_seed(1234)
     with tf.variable_scope('Model', reuse=None) as scope:
         model = Model(config)
-
     tf_config = tf.ConfigProto(allow_soft_placement=True)#, device_count = {'GPU': 0})
     tf_config.gpu_options.allow_growth = True
     sm = tf.train.SessionManager()
