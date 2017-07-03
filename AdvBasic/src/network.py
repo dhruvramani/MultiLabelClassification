@@ -52,10 +52,10 @@ class Network(object):
         return W1, W2, b1, b2
 
     def init_disc_variables(self):
-        W1 = self.weight_variable([self.config.solver.latent_embedding_dim, self.config.solver.hidden_disc], "weight_d1")
-        W2 = self.weight_variable([self.config.solver.hidden_disc, 1], "weight_d2")
-        b1 = self.bias_variable([self.config.solver.hidden_disc], "bias_d1")
-        b2 = self.bias_variable([1], "bias_d2")
+        W1 = self.weight_variable([self.config.solver.latent_embedding_dim, self.config.solver.hidden_disc], "weight_disc1")
+        W2 = self.weight_variable([self.config.solver.hidden_disc, 1], "weight_disc2")
+        b1 = self.bias_variable([self.config.solver.hidden_disc], "bias_disc1")
+        b2 = self.bias_variable([1], "bias_disc2")
         return W1, W2, b1, b2
 
     def accuracy(self, y_pred, y):
@@ -122,7 +122,7 @@ class Network(object):
         DiscFx, DiscFe = self.discriminator_network(Fx), self.discriminator_network(Fe)
         disc_loss, gen_loss = self.discriminator(DiscFx, DiscFe)
         l2_norm = tf.reduce_sum(tf.square(self.Wx1)) + tf.reduce_sum(tf.square(self.Wx2)) + tf.reduce_sum(tf.square(self.Wx3)) + tf.reduce_sum(tf.square(self.We1)) + tf.reduce_sum(tf.square(self.We2)) + tf.reduce_sum(tf.square(self.Wd1)) + tf.reduce_sum(tf.square(self.Wd2))
-        loss =  disc_loss + gen_loss + self.cross_loss(prediction, labels, keep_prob)
+        loss = l2_norm + disc_loss + gen_loss + self.cross_loss(prediction, labels, keep_prob) #+ self.output_loss(tf.nn.sigmoid(prediction), labels) 
         return loss
 
     def train_step(self, loss):
