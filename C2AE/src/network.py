@@ -76,7 +76,7 @@ class Network(object):
     def embedding_loss(self, Fx, Fe):
         Ix, Ie = tf.eye(tf.shape(Fx)[0]), tf.eye(tf.shape(Fe)[0])
         C1, C2, C3 = tf.abs(Fx - Fe), tf.matmul(Fx, tf.transpose(Fx)) - Ix, tf.matmul(Fe, tf.transpose(Fe)) - Ie
-        return tf.reduce_sum(C1) #tf.trace(tf.matmul(C1, tf.transpose(C1))) + self.config.solver.lagrange_const * tf.trace(tf.matmul(C2, tf.transpose(C2))) + self.config.solver.lagrange_const * tf.trace(tf.matmul(C3, tf.transpose(C3)))
+        return tf.trace(tf.matmul(C1, tf.transpose(C1))) + self.config.solver.lagrange_const * tf.trace(tf.matmul(C2, tf.transpose(C2))) + self.config.solver.lagrange_const * tf.trace(tf.matmul(C3, tf.transpose(C3)))
 
     # My blood, sweat and tears were also embedded into the emebedding.
     def output_loss(self, predictions, labels):
@@ -89,7 +89,7 @@ class Network(object):
             ones, zeros = tf.gather_nd(prediction_, tf.where(tf.equal(Y_, one))), tf.gather_nd(prediction_, tf.where(tf.equal(Y_, zero)))
             y1 = tf.reduce_sum(Y_)
             y0 = Y_.get_shape().as_list()[1] - y1
-            temp = (1/y1 * y0) * tf.reduce_sum(tf.exp(-(tf.reduce_sum(ones)/tf.cast(tf.shape(ones)[0], tf.float32) - tf.reduce_sum(zeros)/tf.cast(tf.shape(zeros)[0], tf.float32))))
+            temp = (1/y1 * y0) * tf.reduce_sum(tf.exp(-(tf.reduce_sum(ones) / tf.cast(tf.shape(ones)[0], tf.float32) - tf.reduce_sum(zeros) / tf.cast(tf.shape(zeros)[0], tf.float32))))
             Ei += tf.cond(tf.logical_or(tf.is_inf(temp), tf.is_nan(temp)), lambda : tf.constant(0.0), lambda : temp)
             i += 1
         return Ei 
@@ -106,7 +106,8 @@ class Network(object):
         prediction = tf.nn.sigmoid(self.prediction(features, keep_prob))
         Fx = self.Fx(features, keep_prob)
         Fe = self.Fe(labels, keep_prob)
-        return self.embedding_loss(Fx, Fe) + self.config.solver.alpha * self.output_loss(prediction, labels) # self.cross_loss(features, labels, keep_prob) 
+        l2_norm = tf.reduce_sum(tf.square(self.Wx1)) + tf.reduce_sum(tf.square(self.Wx2)) + tf.reduce_sum(tf.square(self.Wx3)) + tf.reduce_sum(tf.square(self.We1)) + tf.reduce_sum(tf.square(self.We2)) + tf.reduce_sum(tf.square(self.Wd1)) + tf.reduce_sum(tf.square(self.Wd2))
+        return self.embedding_loss(Fx, Fe) + self.config.solver.alpha * self.output_loss(prediction, labels) + l2_norm # self.cross_loss(features, labels, keep_prob) 
 
     def train_step(self, loss):
         optimizer = self.config.solver.optimizer

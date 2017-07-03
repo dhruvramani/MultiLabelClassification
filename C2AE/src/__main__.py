@@ -117,7 +117,7 @@ class Model(object):
                 if self.epoch_count % self.config.epoch_freq == 0 :
                     val_loss, _, _, _ = self.run_eval(sess, "validation", summarizer['val'], tr_step)
                     test_loss, _, _, _= self.run_eval(sess, "test", summarizer['test'], tr_step)
-                    output =  "=> Training : Loss = {:.2f} | Validation : Loss = {:.2f} | Test : Loss = {}".format(average_loss, val_loss, test_loss)
+                    output =  "=> Training : Loss = {:.2f} | Validation : Loss = {:.2f} | Test : Loss = {:.2f}".format(average_loss, val_loss, test_loss)
                     with open("../stdout/validation.log", "a+") as f:
                         f.write(output)
                     print(output)
