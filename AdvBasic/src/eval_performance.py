@@ -22,8 +22,8 @@ def patk(predictions, labels):
 def precision_at_k(predictions, labels, k):
     act_set = 
 '''
-def cm_precision_recall(prediction, truth):
-    """Evaluate confusion matrix, precision and recall for given set of labels and predictions
+def cm_precision_recall(prediction,truth):
+  """Evaluate confusion matrix, precision and recall for given set of labels and predictions
      Args
        prediction: a vector with predictions
        truth: a vector with class labels
@@ -31,22 +31,21 @@ def cm_precision_recall(prediction, truth):
        cm: confusion matrix
        precision: precision score
        recall: recall score"""
-    confusion_matrix = Counter()
+  confusion_matrix = Counter()
 
-    positives = [1]
+  positives = [1]
 
-    binary_truth = [x in positives for x in truth]
-    binary_prediction = [x in positives for x in prediction]
+  binary_truth = [x in positives for x in truth]
+  binary_prediction = [x in positives for x in prediction]
 
-    for t, p in zip(binary_truth, binary_prediction):
-        confusion_matrix[t, p] += 1
+  for t, p in zip(binary_truth, binary_prediction):
+    confusion_matrix[t,p] += 1
 
-    cm = np.array([confusion_matrix[True, True], confusion_matrix[False, False], confusion_matrix[False, True],
-                   confusion_matrix[True, False]])
-    # print cm
-    precision = (cm[0] / (cm[0] + cm[2] + 0.000001))
-    recall = (cm[0] / (cm[0] + cm[3] + 0.000001))
-    return cm, precision, recall
+  cm = np.array([confusion_matrix[True,True], confusion_matrix[False,False], confusion_matrix[False,True], confusion_matrix[True,False]])
+  #print cm
+  precision = (cm[0]/(cm[0]+cm[2]+0.000001))
+  recall = (cm[0]/(cm[0]+cm[3]+0.000001))
+  return cm, precision, recall
 
 def bipartition_scores(labels,predictions):
     """ Computes bipartitation metrics for a given multilabel predictions and labels
@@ -77,7 +76,7 @@ def bipartition_scores(labels,predictions):
     return bipartiation
 
 
-def evaluate(predictions, labels, threshold=0, multi_label=True):
+def evaluate(predictions, labels, threshold=0.4, multi_label=True):
     '''
         True Positive  :  Label : 1, Prediction : 1
         False Positive :  Label : 0, Prediction : 1
@@ -103,23 +102,16 @@ def evaluate(predictions, labels, threshold=0, multi_label=True):
             = 0, 0, 0, 0, 0, 0, 0, 0
 
     else:
-        if threshold:
-            for i in range(predictions.shape[0]):
-                predictions[i, :][predictions[i, :] >= threshold] = 1
-                predictions[i, :][predictions[i, :] < threshold] = 0
-        else: 
-            for i in range(predictions.shape[0]):
-                k = np.sum(labels[i])
-                pos = predictions[i].argsort()
-                predictions[i].fill(0)
-                predictions[i][pos[-int(k):]] = 1
-
-        metrics['bae'] = 0
-        metrics['patk'] = patk(predictions, labels)
         metrics['coverage'] = coverage_error(labels, predictions)
         metrics['average_precision'] = label_ranking_average_precision_score(labels, predictions)
         metrics['ranking_loss'] = label_ranking_loss(labels, predictions)
-        metrics['hamming_loss'] = hamming_loss(labels, predictions)
+        
+        for i in range(predictions.shape[0]):
+            predictions[i, :][predictions[i, :] >= threshold] = 1
+            predictions[i, :][predictions[i, :] < threshold] = 0
+
+        metrics['bae'] = 0
+        metrics['patk'] = patk(predictions, labels)
         metrics['micro_precision'], metrics['micro_recall'], metrics['micro_f1'], metrics['macro_precision'], \
             metrics['macro_recall'], metrics['macro_f1'] = bipartition_scores(labels, predictions)
     return metrics

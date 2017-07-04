@@ -96,7 +96,6 @@ class Network(object):
         gen_loss  = tf.reduce_mean(-tf.log(DiscFx))
         return disc_loss, gen_loss
 
-    # My blood, sweat and tears were also embedded into the emebedding.
     def output_loss(self, predictions, labels):
         Ei = 0.0
         i, cond = 0, 1

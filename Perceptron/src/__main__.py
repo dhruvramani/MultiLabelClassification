@@ -44,7 +44,7 @@ class Model(object):
             if not self.config.load:
                 summ, _, loss, Y_pred = sess.run([merged_summary, self.train, self.loss, tf.nn.sigmoid(self.y_pred)], feed_dict=feed_dict)
                 err.append(loss) 
-                output = "Epoch ({}) Batch({}) : Loss = {}".format(self.epoch_count, i // self.config.batch_size , loss)
+                output = "Epoch ({}) Batch({}) : Loss = {}".format(self.epoch_count, i , loss)
                 with open("../stdout/{}_train.log".format(self.config.project_name), "a+") as log:
                     log.write(output + "\n")
                 print("   {}".format(output), end='\r')
@@ -58,9 +58,8 @@ class Model(object):
         y, y_pred, loss_, metrics, p_k = list(), list(), 0.0, None, None
         accuracy, loss = 0.0, 0.0
         merged_summary = self.summarizer.merge_all()
-        next_batch = self.data.next_batch(data)
         i = 0
-        for X, Y, tot in next_batch:
+        for X, Y, tot in self.data.next_batch(data):
             feed_dict = {self.x: X, self.y: Y, self.keep_prob: 1}
             if i == tot-1 and summary_writer is not None:
                 if data == "validation":
@@ -115,13 +114,12 @@ class Model(object):
             duration = time.time() - start_time
             if not self.config.debug:
                 if self.epoch_count % self.config.epoch_freq == 0 :
-                    val_loss, _, _, p_k = self.run_eval(sess, "validation", summarizer['val'], tr_step)
-                    output =  "=> Training : Loss = {:.2f} | Validation : Loss = {:.2f}".format(average_loss, val_loss)
+                    val_loss, _, _, _ = self.run_eval(sess, "validation", summarizer['val'], tr_step)
+                    test_loss, _, _, _ = self.run_eval(sess, "test", summarizer['test'], tr_step)
+                    output =  "=> Training : Loss = {:.3f} | Validation : Loss = {:.3f} | Test : Loss = {:.3f}".format(average_loss, val_loss, test_loss)
                     with open("../stdout/validation.log", "a+") as f:
                         f.write(output)
                     print(output)
-                    test_loss, _, _, p_k = self.run_eval(sess, "test", summarizer['test'], tr_step)
-                    print("=> Test : Loss = {:.2f}, P@K = {}".format(test_loss, p_k))
                     if self.config.have_patience:
                         if val_loss < best_validation_loss :
                             if val_loss < best_validation_loss * improvement_threshold :

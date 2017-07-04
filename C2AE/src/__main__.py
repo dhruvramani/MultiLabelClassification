@@ -58,9 +58,8 @@ class Model(object):
         y, y_pred, loss_, metrics, p_k = list(), list(), 0.0, None, None
         accuracy, loss = 0.0, 0.0
         merged_summary = self.summarizer.merge_all()
-        next_batch = self.data.next_batch(data)
         i = 0
-        for X, Y, tot in next_batch:
+        for X, Y, tot in self.data.next_batch(data):
             feed_dict = {self.x: X, self.y: Y, self.keep_prob: 1}
             if i == tot-1 and summary_writer is not None:
                 if data == "validation":

@@ -96,7 +96,6 @@ class Network(object):
         gen_loss  = tf.reduce_mean(-tf.log(DiscFx))
         return disc_loss, gen_loss
 
-    # My blood, sweat and tears were also embedded into the emebedding.
     def output_loss(self, predictions, labels):
         Ei = 0.0
         i, cond = 0, 1
@@ -118,11 +117,13 @@ class Network(object):
         return cross_entropy_label
 
     def loss(self, features, labels, keep_prob):
+        lamda, alpha = 0.001, 0.1
         prediction, Fx, Fe = self.prediction(features, keep_prob), self.Fx(features, keep_prob), self.Fe(labels, keep_prob)
         DiscFx, DiscFe = self.discriminator_network(Fx), self.discriminator_network(Fe)
         disc_loss, gen_loss = self.discriminator(DiscFx, DiscFe)
+        output_loss = self.output_loss(tf.nn.sigmoid(prediction), labels) #+ self.cross_loss(prediction, labels, keep_prob)  
         l2_norm = tf.reduce_sum(tf.square(self.Wx1)) + tf.reduce_sum(tf.square(self.Wx2)) + tf.reduce_sum(tf.square(self.Wx3)) + tf.reduce_sum(tf.square(self.We1)) + tf.reduce_sum(tf.square(self.We2)) + tf.reduce_sum(tf.square(self.Wd1)) + tf.reduce_sum(tf.square(self.Wd2))
-        loss = l2_norm + disc_loss + gen_loss + self.cross_loss(prediction, labels, keep_prob) #+ self.output_loss(tf.nn.sigmoid(prediction), labels) 
+        loss = lamda * l2_norm + disc_loss + gen_loss + alpha * output_loss
         return loss
 
     def train_step(self, loss):
