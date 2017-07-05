@@ -20,7 +20,7 @@ class Network(object):
 
     def loss(self, predictions, labels):
         lamda = 0.0
-        cross_entropy = tf.add(tf.multiply(tf.log(1e-10 +tf.nn.sigmoid(predictions)), labels),
+        cross_entropy = tf.add(tf.multiply(tf.log(1e-10 + tf.nn.sigmoid(predictions)), labels),
                         tf.multiply(tf.log(1e-10 + (1 - tf.nn.sigmoid(predictions))), (1 - labels)))
         loss = -1 * tf.reduce_mean(tf.reduce_sum(cross_entropy, 1), name='xentropy_mean')
         l2_losses = lamda * (tf.reduce_sum(tf.square(self.W1)) + tf.reduce_sum(tf.square(self.W2)))

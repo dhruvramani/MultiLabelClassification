@@ -117,12 +117,13 @@ class Network(object):
         return cross_entropy_label
 
     def loss(self, features, labels, random_var, keep_prob):
+        lamda = 0.001
         labels_concat = tf.concat([labels, random_var], 1)
         prediction, Fx, Fe = self.prediction(features, keep_prob), self.Fx(features, keep_prob), self.Fe(labels_concat, keep_prob)
         DiscFx, DiscFe = self.discriminator_network(Fx), self.discriminator_network(Fe)
         disc_loss, gen_loss = self.discriminator(DiscFx, DiscFe)
-        l2_norm = tf.reduce_sum(tf.square(self.Wx1)) + tf.reduce_sum(tf.square(self.Wx2)) + tf.reduce_sum(tf.square(self.Wx3)) + tf.reduce_sum(tf.square(self.We1)) + tf.reduce_sum(tf.square(self.We2)) + tf.reduce_sum(tf.square(self.Wd1)) + tf.reduce_sum(tf.square(self.Wd2))
-        loss =  disc_loss + gen_loss + self.output_loss(tf.nn.sigmoid(prediction), labels)
+        l2_norm = tf.reduce_sum(tf.square(self.Wx1)) + tf.reduce_sum(tf.square(self.Wx2)) + tf.reduce_sum(tf.square(self.Wx3)) + tf.reduce_sum(tf.square(self.We1)) + tf.reduce_sum(tf.square(self.We2)) + tf.reduce_sum(tf.square(self.Wd1)) + tf.reduce_sum(tf.square(self.Wd2)) + tf.reduce_sum(tf.square(self.Wdisc1)) + tf.reduce_sum(tf.square(self.Wdisc2))
+        loss =  disc_loss + gen_loss + self.output_loss(tf.nn.sigmoid(prediction), labels) + lamda * l2_norm
         return loss
 
     def train_step(self, loss):

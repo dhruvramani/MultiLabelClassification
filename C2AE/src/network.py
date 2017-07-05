@@ -76,7 +76,7 @@ class Network(object):
     def embedding_loss(self, Fx, Fe):
         Ix, Ie = tf.eye(tf.shape(Fx)[0]), tf.eye(tf.shape(Fe)[0])
         C1, C2, C3 = tf.abs(Fx - Fe), tf.matmul(Fx, tf.transpose(Fx)) - Ix, tf.matmul(Fe, tf.transpose(Fe)) - Ie
-        return tf.trace(tf.matmul(C1, tf.transpose(C1))) + self.config.solver.lagrange_const * tf.trace(tf.matmul(C2, tf.transpose(C2))) + self.config.solver.lagrange_const * tf.trace(tf.matmul(C3, tf.transpose(C3)))
+        return tf.reduce_mean(tf.square(Fx - Fe)) #tf.trace(tf.matmul(C1, tf.transpose(C1))) + self.config.solver.lagrange_const * tf.trace(tf.matmul(C2, tf.transpose(C2))) + self.config.solver.lagrange_const * tf.trace(tf.matmul(C3, tf.transpose(C3)))
 
     # My blood, sweat and tears were also embedded into the emebedding.
     def output_loss(self, predictions, labels):
@@ -103,11 +103,12 @@ class Network(object):
         return cross_entropy_label
 
     def loss(self, features, labels, keep_prob):
+        lamda = 0.001
         prediction = tf.nn.sigmoid(self.prediction(features, keep_prob))
         Fx = self.Fx(features, keep_prob)
         Fe = self.Fe(labels, keep_prob)
         l2_norm = tf.reduce_sum(tf.square(self.Wx1)) + tf.reduce_sum(tf.square(self.Wx2)) + tf.reduce_sum(tf.square(self.Wx3)) + tf.reduce_sum(tf.square(self.We1)) + tf.reduce_sum(tf.square(self.We2)) + tf.reduce_sum(tf.square(self.Wd1)) + tf.reduce_sum(tf.square(self.Wd2))
-        return self.embedding_loss(Fx, Fe) + self.config.solver.alpha * self.output_loss(prediction, labels) + l2_norm # self.cross_loss(features, labels, keep_prob) 
+        return self.embedding_loss(Fx, Fe) + self.config.solver.alpha * self.output_loss(prediction, labels) + lamda * l2_norm # self.cross_loss(features, labels, keep_prob) 
 
     def train_step(self, loss):
         optimizer = self.config.solver.optimizer

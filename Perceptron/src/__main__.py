@@ -51,35 +51,36 @@ class Model(object):
             step = int(epoch*tot + i)
             summarizer.add_summary(summ, step)
             i += 1
-        #p_k = patk(predictions=Y_pred, labels=Y)
+        err = np.asarray(err)
         return np.mean(err), step
 
     def run_eval(self, sess, data, summary_writer=None, step=0):
-        y, y_pred, loss_, metrics, p_k = list(), list(), 0.0, None, None
-        accuracy, loss = 0.0, 0.0
+        y, y_pred, loss_ = list(), list(), 0.0
+        loss = 0.0
         merged_summary = self.summarizer.merge_all()
         i = 0
         for X, Y, tot in self.data.next_batch(data):
-            feed_dict = {self.x: X, self.y: Y, self.keep_prob: 1}
+            feed_dict = {self.x: X, self.y: Y, self.keep_prob: 1.0}
             if i == tot-1 and summary_writer is not None:
-                if data == "validation":
-                    summ, loss_ =  sess.run([merged_summary, self.loss], feed_dict=feed_dict)
-                else :
-                    summ, loss_, accuracy_val = sess.run([merged_summary, self.loss, self.accuracy], feed_dict=feed_dict)
+                summ, loss_ =  sess.run([merged_summary, self.loss], feed_dict=feed_dict)
                 summary_writer.add_summary(summ, step)
             else:
-                if data == "validation":
-                    loss_, Y_pred=  sess.run([self.loss, tf.nn.sigmoid(self.y_pred)], feed_dict=feed_dict)
-                    #p_k = patk(predictions=1.0 / (1 + np.exp(-Y_pred)), labels=Y)
-                else :
-                    loss_, Y_pred, accuracy_val = sess.run([self.loss, tf.nn.sigmoid(self.y_pred), self.accuracy], feed_dict=feed_dict)
-                    metrics = evaluate(predictions=Y_pred, labels=Y)
-                    p_k = patk(predictions=Y_pred, labels=Y)
-                    accuracy += accuracy_val #metrics['accuracy']
+                loss_ = sess.run(self.loss, feed_dict=feed_dict)
             loss += loss_
             i += 1
-        return loss / self.config.batch_size, accuracy / self.config.batch_size, metrics, p_k
+        return loss / i
     
+    def get_metrics(self, sess, data):
+        accuracy, y_pred, i = 0.0, None, 0.0
+        for X, Y, tot in self.data.next_batch(data):
+            feed_dict = {self.x: X, self.y: Y, self.keep_prob: 1.0}
+            Y_pred, accuracy_val = sess.run([tf.nn.sigmoid(self.y_pred), self.accuracy], feed_dict=feed_dict)
+            metrics = evaluate(predictions=Y_pred, labels=Y)
+            p_k = patk(predictions=Y_pred, labels=Y)
+            accuracy += accuracy_val 
+            i += 1
+        return metrics, accuracy / i, p_k
+
     def add_summaries(self, sess):
         if self.config.load or self.config.debug:
             path_ = "../results/tensorboard"
@@ -114,11 +115,14 @@ class Model(object):
             duration = time.time() - start_time
             if not self.config.debug:
                 if self.epoch_count % self.config.epoch_freq == 0 :
-                    val_loss, _, _, _ = self.run_eval(sess, "validation", summarizer['val'], tr_step)
-                    test_loss, _, _, _ = self.run_eval(sess, "test", summarizer['test'], tr_step)
+                    val_loss = self.run_eval(sess, "validation", summarizer['val'], tr_step)
+                    test_loss = self.run_eval(sess, "test", summarizer['test'], tr_step)
+                    metrics, _, _ = self.get_metrics(sess, "test")
                     output =  "=> Training : Loss = {:.3f} | Validation : Loss = {:.3f} | Test : Loss = {:.3f}".format(average_loss, val_loss, test_loss)
                     with open("../stdout/validation.log", "a+") as f:
-                        f.write(output)
+                        output_ = output + "\n=> Test : Coverage = {}, Average Precision = {}, Micro Precision = {}, Micro Recall = {}, Micro F Score = {}".format(metrics['coverage'], metrics['average_precision'], metrics['micro_precision'], metrics['micro_recall'], metrics['micro_f1'])
+                        output_ += "\n=> Test : Macro Precision = {}, Macro Recall = {}, Macro F Score = {}\n\n\n".format(metrics['macro_precision'], metrics['macro_recall'], metrics['macro_f1'])
+                        f.write(output_)
                     print(output)
                     if self.config.have_patience:
                         if val_loss < best_validation_loss :
@@ -142,7 +146,8 @@ class Model(object):
         print("=> Best epoch : {}".format(best_step))
         if self.config.debug == True:
             sys.exit()
-        test_loss, test_accuracy, test_metrics, p_k = self.run_eval(sess, "test", summarizer['test'], tr_step)
+        test_loss = self.run_eval(sess, "test", summarizer['test'], tr_step)
+        test_metrics, test_accuracy, p_k  = self.get_metrics(sess, "test")
         returnDict = {"test_loss" : test_loss, "test_accuracy" : test_accuracy, 'test_metrics' : test_metrics, "test_pak" : p_k}
         if self.config.debug == False:
             returnDict["train"] =  best_validation_loss

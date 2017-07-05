@@ -105,7 +105,6 @@ def evaluate(predictions, labels, threshold=0.4, multi_label=True):
         metrics['coverage'] = coverage_error(labels, predictions)
         metrics['average_precision'] = label_ranking_average_precision_score(labels, predictions)
         metrics['ranking_loss'] = label_ranking_loss(labels, predictions)
-        metrics['hamming_loss'] = hamming_loss(labels, predictions)
         
         for i in range(predictions.shape[0]):
             predictions[i, :][predictions[i, :] >= threshold] = 1

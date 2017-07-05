@@ -9,7 +9,7 @@ class Parser(object):
         parser.add_argument("--folder_suffix", default="Default", help="Folder Name Suffix")
         parser.add_argument("--dataset", default="delicious", help="Name of the Dataset")
         parser.add_argument("--opt", default="adam", help="Optimizer : adam, rmsprop, sgd")
-        parser.add_argument("--lr", default=0.001, help="Learning Rate", type=float)
+        parser.add_argument("--lr", default=0.0001, help="Learning Rate", type=float)
         parser.add_argument("--hidden", default=512, help="Number of Neurons in the Hidden Layer", type=int)
         parser.add_argument("--hidden_disc", default=200, help="Number of Neurons in the Hidden Layer of the Discriminator", type=int)
         parser.add_argument("--randomvar_dim", default=10, help="Dimension of Random Latent Variable to be concatenated", type=int)
