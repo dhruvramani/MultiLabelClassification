@@ -117,7 +117,7 @@ class Network(object):
         return cross_entropy_label
 
     def loss(self, features, labels, random_var, keep_prob):
-        lamda = 0.001
+        lamda = 0.05
         labels_concat = tf.concat([labels, random_var], 1)
         prediction, Fx, Fe = self.prediction(features, keep_prob), self.Fx(features, keep_prob), self.Fe(labels_concat, keep_prob)
         DiscFx, DiscFe = self.discriminator_network(Fx), self.discriminator_network(Fe)

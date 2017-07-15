@@ -21,11 +21,13 @@ class Model(object):
         self.net = Network(config, self.summarizer)
         self.optimizer = self.config.solver.optimizer
         self.y_pred = self.net.prediction(self.x, self.keep_prob)
+        self.autoencoder_loss = self.net.autoencoder_loss(self.y, self.keep_prob)
         self.loss = self.net.loss(self.x, self.y, self.keep_prob)
         self.accuracy = self.net.accuracy(tf.nn.sigmoid(self.y_pred), self.y)
         self.summarizer.scalar("accuracy", self.accuracy)
         self.summarizer.scalar("loss", self.loss)
-        self.train = self.net.train_step(self.loss)
+        self.autoencoder_train = self.net.train_step(self.autoencoder_loss, 0)
+        self.train = self.net.train_step(self.loss, 1)
         self.saver = tf.train.Saver()
         self.init = tf.global_variables_initializer()
 
@@ -34,17 +36,18 @@ class Model(object):
         self.y = tf.placeholder(tf.float32, shape=[None, self.config.labels_dim])
         self.keep_prob = tf.placeholder(tf.float32)
 
-    def run_epoch(self, sess, data, summarizer, epoch):
-        err = list()
-        i = 0
-        step = epoch
+    def run_epoch(self, sess, data, summarizer, epoch, type_loss="NORMAL"): # TODO SEARCH for run_epoch and add arguments
+        err, i, step = list(), 0, epoch
         merged_summary = self.summarizer.merge_all()
         for X, Y, tot in self.data.next_batch(data):
             feed_dict = {self.x : X, self.y : Y, self.keep_prob : self.config.solver.dropout}
             if not self.config.load:
-                summ, _, y_pred, loss = sess.run([merged_summary, self.train, self.y_pred, self.loss], feed_dict=feed_dict)
+                if(type_loss == "AUTO"):
+                    summ, _, loss = sess.run([merged_summary, self.autoencoder_train, self.autoencoder_loss], feed_dict=feed_dict)
+                else :
+                    summ, _, loss = sess.run([merged_summary, self.train, self.loss], feed_dict=feed_dict)
                 err.append(loss) 
-                output = "Epoch ({}) Batch({}) - Loss : {}".format(self.epoch_count, i, loss)
+                output = "{} - Epoch ({}) Batch({}) - Loss : {}".format(type_loss, self.epoch_count, i, loss)
                 with open("../stdout/{}_train.log".format(self.config.project_name), "a+") as log:
                     log.write(output + "\n")
                 print("   {}".format(output), end='\r')
@@ -53,28 +56,31 @@ class Model(object):
             i += 1
         return np.mean(err), step
 
-    def run_eval(self, sess, data, summary_writer=None, step=0):
+    def run_eval(self, sess, data, summary_writer=None, step=0, type_loss="NORMAL"):
         y, y_pred, loss_, metrics, p_k = list(), list(), 0.0, None, None
         accuracy, loss = 0.0, 0.0
         merged_summary = self.summarizer.merge_all()
         i = 0
         for X, Y, tot in self.data.next_batch(data):
             feed_dict = {self.x: X, self.y: Y, self.keep_prob: 1}
-            if i == tot-1 and summary_writer is not None:
-                if data == "validation":
-                    summ, loss_ =  sess.run([merged_summary, self.loss], feed_dict=feed_dict)
-                else :
-                    summ, loss_, accuracy_val = sess.run([merged_summary, self.loss, self.accuracy], feed_dict=feed_dict)
-                summary_writer.add_summary(summ, step)
-            else:
-                if data == "validation":
-                    loss_, Y_pred=  sess.run([self.loss, tf.nn.sigmoid(self.y_pred)], feed_dict=feed_dict)
-                    p_k = patk(predictions=Y_pred, labels=Y)
-                else :
-                    loss_, Y_pred, accuracy_val = sess.run([self.loss, tf.nn.sigmoid(self.y_pred), self.accuracy], feed_dict=feed_dict)
-                    metrics = evaluate(predictions=Y_pred, labels=Y)
-                    p_k = patk(predictions=Y_pred, labels=Y)
-                    accuracy += accuracy_val #metrics['accuracy']
+            if(type_loss == "AUTO"):
+                summ, loss_ = sess.run([merged_summary, self.autoencoder_loss], feed_dict=feed_dict)
+            else :    
+                if i == tot-1 and summary_writer is not None:
+                    if data == "validation":
+                        summ, loss_ =  sess.run([merged_summary, self.loss], feed_dict=feed_dict)
+                    else :
+                        summ, loss_, accuracy_val = sess.run([merged_summary, self.loss, self.accuracy], feed_dict=feed_dict)
+                    summary_writer.add_summary(summ, step)
+                else:
+                    if data == "validation":
+                        loss_, Y_pred=  sess.run([self.loss, tf.nn.sigmoid(self.y_pred)], feed_dict=feed_dict)
+                        p_k = patk(predictions=Y_pred, labels=Y)
+                    else :
+                        loss_, Y_pred, accuracy_val = sess.run([self.loss, tf.nn.sigmoid(self.y_pred), self.accuracy], feed_dict=feed_dict)
+                        metrics = evaluate(predictions=Y_pred, labels=Y)
+                        p_k = patk(predictions=Y_pred, labels=Y)
+                        accuracy += accuracy_val #metrics['accuracy']
             loss += loss_
             i += 1
         return loss / i , accuracy / self.config.batch_size, metrics, p_k
@@ -84,10 +90,11 @@ class Model(object):
             path_ = "../results/tensorboard"
         else :
             path_ = "../bin/results/tensorboard"
+        summary_writer_auto = tf.summary.FileWriter(path_ + "/auto", sess.graph)
         summary_writer_train = tf.summary.FileWriter(path_ + "/train", sess.graph)
         summary_writer_val = tf.summary.FileWriter(path_ + "/val", sess.graph)
         summary_writer_test = tf.summary.FileWriter(path_+ "/test", sess.graph)
-        summary_writers = {'train': summary_writer_train, 'val': summary_writer_val, 'test': summary_writer_test}
+        summary_writers = {'train': summary_writer_train, 'val': summary_writer_val, 'test': summary_writer_test, 'auto' : summary_writer_auto}
         return summary_writers
 
     def fit(self, sess, summarizer):
@@ -98,23 +105,40 @@ class Model(object):
          + If patience becomes less than a certain threshold, devide learning rate by 10 and switch back to old model
          + If learning rate is lesser than a certain 
         '''
-        max_epochs = self.config.max_epochs
-        patience = self.config.patience
-        patience_increase = self.config.patience_increase
-        improvement_threshold = self.config.improvement_threshold
-        best_validation_loss = 1e6
-        self.epoch_count = 0
+        max_epochs, patience = self.config.max_epochs, self.config.patience
+        patience_increase, improvement_threshold = self.config.patience_increase, self.config.improvement_threshold
+        self.epoch_count, best_validation_loss = 0, 1e6
         best_step, losses, learning_rate = -1, list(), self.config.solver.learning_rate
+        while self.epoch_count < max_epochs:
+            if(self.config.load == True):
+                break
+            average_auto_loss, auto_step = self.run_epoch(sess, "train", summarizer['auto'], self.epoch_count, "AUTO")
+            if not self.config.debug :
+                if self.epoch_count % self.config.epoch_freq == 0 :
+                    val_loss, _, _, _ = self.run_eval(sess, "validation", summarizer['auto'], auto_step, "AUTO")
+                    test_loss, _, _, _= self.run_eval(sess, "test", summarizer['auto'], auto_step, "AUTO")
+                    output =  "=> Autoencoder : Loss = {:.2f} | Validation : Loss = {:.2f} | Test : Loss = {:.2f}".format(average_auto_loss, val_loss, test_loss)
+                    with open("../stdout/auto_validation.log", "a+") as f:
+                        f.write(output)
+                    print(output)
+                    if val_loss < best_validation_loss :
+                        best_validation_loss = val_loss
+                    else :
+                        if patience < 1:
+                            break
+                        patience -= 1
+            self.epoch_count += 1
+
+        print("\n\n")
+        self.epoch_count, best_validation_loss, patience = 0, 1e6, self.config.patience
         while self.epoch_count < max_epochs :
             if(self.config.load == True):
                 break
-            start_time = time.time()
-            average_loss, tr_step = self.run_epoch(sess, "train", summarizer['train'], self.epoch_count)
-            duration = time.time() - start_time
+            average_loss, tr_step = self.run_epoch(sess, "train", summarizer['train'], self.epoch_count, "NORMAL")
             if not self.config.debug :
                 if self.epoch_count % self.config.epoch_freq == 0 :
-                    val_loss, _, _, _ = self.run_eval(sess, "validation", summarizer['val'], tr_step)
-                    test_loss, _, metrics, _= self.run_eval(sess, "test", summarizer['test'], tr_step)
+                    val_loss, _, _, _ = self.run_eval(sess, "validation", summarizer['val'], tr_step, "NORMAL")
+                    test_loss, _, metrics, _= self.run_eval(sess, "test", summarizer['test'], tr_step, "NORMAL")
                     output =  "=> Training : Loss = {:.2f} | Validation : Loss = {:.2f} | Test : Loss = {:.2f}".format(average_loss, val_loss, test_loss)
                     with open("../stdout/validation.log", "a+") as f:
                         output_ = output + "\n=> Test : Coverage = {}, Average Precision = {}, Micro Precision = {}, Micro Recall = {}, Micro F Score = {}".format(metrics['coverage'], metrics['average_precision'], metrics['micro_precision'], metrics['micro_recall'], metrics['micro_f1'])

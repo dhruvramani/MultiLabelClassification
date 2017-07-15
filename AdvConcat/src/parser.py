@@ -3,7 +3,7 @@ import argparse
 class Parser(object):
 
     def __init__(self):
-        parser=argparse.ArgumentParser()
+        parser = argparse.ArgumentParser()
         parser.add_argument("--path", default="../", help="Base Path for the Folder")
         parser.add_argument("--project", default="C2AE", help="Project Folder")
         parser.add_argument("--folder_suffix", default="Default", help="Folder Name Suffix")
@@ -16,7 +16,7 @@ class Parser(object):
         parser.add_argument("--latent_embedding_dim", default=400, help="Number of Neuorns in the Embedding", type=int)
         parser.add_argument("--lagrange", default=0.5, help="Lagrange Constant", type=float)
         parser.add_argument("--alpha", default=0.1, help="Alpha", type=float)
-        parser.add_argument("--batch_size", default=50, help="Batch Size", type=int)
+        parser.add_argument("--batch_size", default=128, help="Batch Size", type=int)
         parser.add_argument("--dropout", default=0.5, help="Dropout Probab. for Pre-Final Layer", type=float)
         parser.add_argument("--max_epochs", default=100, help="Maximum Number of Epochs", type=int)
         parser.add_argument("--patience", default=2, help="Patience", type=int)

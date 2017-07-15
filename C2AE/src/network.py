@@ -103,7 +103,7 @@ class Network(object):
         return cross_entropy_label
 
     def loss(self, features, labels, keep_prob):
-        lamda = 0.001
+        lamda = 0.00
         prediction = tf.nn.sigmoid(self.prediction(features, keep_prob))
         Fx = self.Fx(features, keep_prob)
         Fe = self.Fe(labels, keep_prob)
