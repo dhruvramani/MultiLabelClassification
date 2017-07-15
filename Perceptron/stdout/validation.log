@@ -1,0 +1,315 @@
+=> Training : Loss = 71.953 | Validation : Loss = 42.049 | Test : Loss = 33.518
+=> Test : Coverage = 71.0, Average Precision = 0.014084507042253521, Micro Precision = 0.0, Micro Recall = 0.0, Micro F Score = 0.0
+=> Test : Macro Precision = 0.0, Macro Recall = 0.0, Macro F Score = 0.0
+
+
+=> Training : Loss = 20.164 | Validation : Loss = 21.513 | Test : Loss = 16.363
+=> Test : Coverage = 65.0, Average Precision = 0.015384615384615385, Micro Precision = 0.0, Micro Recall = 0.0, Micro F Score = 0.0
+=> Test : Macro Precision = 0.0, Macro Recall = 0.0, Macro F Score = 0.0
+
+
+=> Training : Loss = 11.388 | Validation : Loss = 17.091 | Test : Loss = 13.862
+=> Test : Coverage = 48.0, Average Precision = 0.020833333333333332, Micro Precision = 0.0, Micro Recall = 0.0, Micro F Score = 0.0
+=> Test : Macro Precision = 0.0, Macro Recall = 0.0, Macro F Score = 0.0
+
+
+=> Training : Loss = 8.103 | Validation : Loss = 14.754 | Test : Loss = 12.927
+=> Test : Coverage = 31.0, Average Precision = 0.03225806451612903, Micro Precision = 0.0, Micro Recall = 0.0, Micro F Score = 0.0
+=> Test : Macro Precision = 0.0, Macro Recall = 0.0, Macro F Score = 0.0
+
+
+=> Training : Loss = 5.974 | Validation : Loss = 13.083 | Test : Loss = 12.450
+=> Test : Coverage = 22.0, Average Precision = 0.045454545454545456, Micro Precision = 0.0, Micro Recall = 0.0, Micro F Score = 0.0
+=> Test : Macro Precision = 0.0, Macro Recall = 0.0, Macro F Score = 0.0
+
+
+=> Training : Loss = 4.626 | Validation : Loss = 11.670 | Test : Loss = 12.278
+=> Test : Coverage = 12.0, Average Precision = 0.08333333333333333, Micro Precision = 0.0, Micro Recall = 0.0, Micro F Score = 0.0
+=> Test : Macro Precision = 0.0, Macro Recall = 0.0, Macro F Score = 0.0
+
+
+=> Training : Loss = 3.695 | Validation : Loss = 10.447 | Test : Loss = 12.225
+=> Test : Coverage = 11.0, Average Precision = 0.09090909090909091, Micro Precision = 0.0, Micro Recall = 0.0, Micro F Score = 0.0
+=> Test : Macro Precision = 0.0, Macro Recall = 0.0, Macro F Score = 0.0
+
+
+=> Training : Loss = 3.005 | Validation : Loss = 9.333 | Test : Loss = 12.279
+=> Test : Coverage = 10.0, Average Precision = 0.1, Micro Precision = 0.0, Micro Recall = 0.0, Micro F Score = 0.0
+=> Test : Macro Precision = 0.0, Macro Recall = 0.0, Macro F Score = 0.0
+
+
+=> Training : Loss = 2.491 | Validation : Loss = 8.351 | Test : Loss = 12.363
+=> Test : Coverage = 10.0, Average Precision = 0.1, Micro Precision = 0.0, Micro Recall = 0.0, Micro F Score = 0.0
+=> Test : Macro Precision = 0.0, Macro Recall = 0.0, Macro F Score = 0.0
+
+
+=> Training : Loss = 2.105 | Validation : Loss = 7.497 | Test : Loss = 12.513
+=> Test : Coverage = 11.0, Average Precision = 0.09090909090909091, Micro Precision = 0.0, Micro Recall = 0.0, Micro F Score = 0.0
+=> Test : Macro Precision = 0.0, Macro Recall = 0.0, Macro F Score = 0.0
+
+
+=> Training : Loss = 1.827 | Validation : Loss = 6.772 | Test : Loss = 12.654
+=> Test : Coverage = 9.0, Average Precision = 0.1111111111111111, Micro Precision = 0.0, Micro Recall = 0.0, Micro F Score = 0.0
+=> Test : Macro Precision = 0.0, Macro Recall = 0.0, Macro F Score = 0.0
+
+
+=> Training : Loss = 1.585 | Validation : Loss = 6.147 | Test : Loss = 12.831
+=> Test : Coverage = 9.0, Average Precision = 0.1111111111111111, Micro Precision = 0.0, Micro Recall = 0.0, Micro F Score = 0.0
+=> Test : Macro Precision = 0.0, Macro Recall = 0.0, Macro F Score = 0.0
+
+
+=> Training : Loss = 1.384 | Validation : Loss = 5.627 | Test : Loss = 13.006
+=> Test : Coverage = 9.0, Average Precision = 0.1111111111111111, Micro Precision = 0.0, Micro Recall = 0.0, Micro F Score = 0.0
+=> Test : Macro Precision = 0.0, Macro Recall = 0.0, Macro F Score = 0.0
+
+
+=> Training : Loss = 1.236 | Validation : Loss = 5.207 | Test : Loss = 13.195
+=> Test : Coverage = 9.0, Average Precision = 0.1111111111111111, Micro Precision = 0.0, Micro Recall = 0.0, Micro F Score = 0.0
+=> Test : Macro Precision = 0.0, Macro Recall = 0.0, Macro F Score = 0.0
+
+
+=> Training : Loss = 1.104 | Validation : Loss = 4.859 | Test : Loss = 13.380
+=> Test : Coverage = 9.0, Average Precision = 0.1111111111111111, Micro Precision = 0.0, Micro Recall = 0.0, Micro F Score = 0.0
+=> Test : Macro Precision = 0.0, Macro Recall = 0.0, Macro F Score = 0.0
+
+
+=> Training : Loss = 0.974 | Validation : Loss = 4.554 | Test : Loss = 13.585
+=> Test : Coverage = 10.0, Average Precision = 0.1, Micro Precision = 0.0, Micro Recall = 0.0, Micro F Score = 0.0
+=> Test : Macro Precision = 0.0, Macro Recall = 0.0, Macro F Score = 0.0
+
+
+=> Training : Loss = 0.887 | Validation : Loss = 4.311 | Test : Loss = 13.768
+=> Test : Coverage = 11.0, Average Precision = 0.09090909090909091, Micro Precision = 0.0, Micro Recall = 0.0, Micro F Score = 0.0
+=> Test : Macro Precision = 0.0, Macro Recall = 0.0, Macro F Score = 0.0
+
+
+=> Training : Loss = 129.518 | Validation : Loss = 94.021 | Test : Loss = 85.546
+=> Test : Coverage = 71.0, Average Precision = 0.014084507042253521, Micro Precision = 0.0, Micro Recall = 0.0, Micro F Score = 0.0
+=> Test : Macro Precision = 0.0, Macro Recall = 0.0, Macro F Score = 0.0
+
+
+=> Training : Loss = 67.578 | Validation : Loss = 64.700 | Test : Loss = 59.408
+=> Test : Coverage = 63.0, Average Precision = 0.015873015873015872, Micro Precision = 0.0, Micro Recall = 0.0, Micro F Score = 0.0
+=> Test : Macro Precision = 0.0, Macro Recall = 0.0, Macro F Score = 0.0
+
+
+=> Training : Loss = 50.974 | Validation : Loss = 53.330 | Test : Loss = 49.647
+=> Test : Coverage = 46.0, Average Precision = 0.021739130434782608, Micro Precision = 0.0, Micro Recall = 0.0, Micro F Score = 0.0
+=> Test : Macro Precision = 0.0, Macro Recall = 0.0, Macro F Score = 0.0
+
+
+=> Training : Loss = 41.759 | Validation : Loss = 45.820 | Test : Loss = 43.096
+=> Test : Coverage = 32.0, Average Precision = 0.03125, Micro Precision = 0.0, Micro Recall = 0.0, Micro F Score = 0.0
+=> Test : Macro Precision = 0.0, Macro Recall = 0.0, Macro F Score = 0.0
+
+
+=> Training : Loss = 35.128 | Validation : Loss = 40.330 | Test : Loss = 38.259
+=> Test : Coverage = 26.0, Average Precision = 0.038461538461538464, Micro Precision = 0.0, Micro Recall = 0.0, Micro F Score = 0.0
+=> Test : Macro Precision = 0.0, Macro Recall = 0.0, Macro F Score = 0.0
+
+
+=> Training : Loss = 30.340 | Validation : Loss = 36.119 | Test : Loss = 34.617
+=> Test : Coverage = 21.0, Average Precision = 0.047619047619047616, Micro Precision = 0.0, Micro Recall = 0.0, Micro F Score = 0.0
+=> Test : Macro Precision = 0.0, Macro Recall = 0.0, Macro F Score = 0.0
+
+
+=> Training : Loss = 26.730 | Validation : Loss = 32.869 | Test : Loss = 31.779
+=> Test : Coverage = 16.0, Average Precision = 0.0625, Micro Precision = 0.0, Micro Recall = 0.0, Micro F Score = 0.0
+=> Test : Macro Precision = 0.0, Macro Recall = 0.0, Macro F Score = 0.0
+
+
+=> Training : Loss = 23.909 | Validation : Loss = 30.285 | Test : Loss = 29.527
+=> Test : Coverage = 15.0, Average Precision = 0.06666666666666667, Micro Precision = 0.0, Micro Recall = 0.0, Micro F Score = 0.0
+=> Test : Macro Precision = 0.0, Macro Recall = 0.0, Macro F Score = 0.0
+
+
+=> Training : Loss = 21.677 | Validation : Loss = 28.208 | Test : Loss = 27.687
+=> Test : Coverage = 11.0, Average Precision = 0.09090909090909091, Micro Precision = 0.0, Micro Recall = 0.0, Micro F Score = 0.0
+=> Test : Macro Precision = 0.0, Macro Recall = 0.0, Macro F Score = 0.0
+
+
+=> Training : Loss = 19.894 | Validation : Loss = 26.523 | Test : Loss = 26.188
+=> Test : Coverage = 13.0, Average Precision = 0.07692307692307693, Micro Precision = 0.0, Micro Recall = 0.0, Micro F Score = 0.0
+=> Test : Macro Precision = 0.0, Macro Recall = 0.0, Macro F Score = 0.0
+
+
+=> Training : Loss = 18.450 | Validation : Loss = 25.124 | Test : Loss = 24.916
+=> Test : Coverage = 11.0, Average Precision = 0.09090909090909091, Micro Precision = 0.0, Micro Recall = 0.0, Micro F Score = 0.0
+=> Test : Macro Precision = 0.0, Macro Recall = 0.0, Macro F Score = 0.0
+
+
+=> Training : Loss = 17.221 | Validation : Loss = 23.910 | Test : Loss = 23.845
+=> Test : Coverage = 11.0, Average Precision = 0.09090909090909091, Micro Precision = 0.0, Micro Recall = 0.0, Micro F Score = 0.0
+=> Test : Macro Precision = 0.0, Macro Recall = 0.0, Macro F Score = 0.0
+
+
+=> Training : Loss = 16.159 | Validation : Loss = 22.922 | Test : Loss = 22.906
+=> Test : Coverage = 10.0, Average Precision = 0.1, Micro Precision = 0.0, Micro Recall = 0.0, Micro F Score = 0.0
+=> Test : Macro Precision = 0.0, Macro Recall = 0.0, Macro F Score = 0.0
+
+
+=> Training : Loss = 15.285 | Validation : Loss = 22.042 | Test : Loss = 22.095
+=> Test : Coverage = 11.0, Average Precision = 0.09090909090909091, Micro Precision = 0.0, Micro Recall = 0.0, Micro F Score = 0.0
+=> Test : Macro Precision = 0.0, Macro Recall = 0.0, Macro F Score = 0.0
+
+
+=> Training : Loss = 14.510 | Validation : Loss = 21.297 | Test : Loss = 21.383
+=> Test : Coverage = 11.0, Average Precision = 0.09090909090909091, Micro Precision = 0.0, Micro Recall = 0.0, Micro F Score = 0.0
+=> Test : Macro Precision = 0.0, Macro Recall = 0.0, Macro F Score = 0.0
+
+
+=> Training : Loss = 13.782 | Validation : Loss = 20.631 | Test : Loss = 20.757
+=> Test : Coverage = 10.0, Average Precision = 0.1, Micro Precision = 0.0, Micro Recall = 0.0, Micro F Score = 0.0
+=> Test : Macro Precision = 0.0, Macro Recall = 0.0, Macro F Score = 0.0
+
+
+=> Training : Loss = 13.199 | Validation : Loss = 20.067 | Test : Loss = 20.174
+=> Test : Coverage = 11.0, Average Precision = 0.09090909090909091, Micro Precision = 0.0, Micro Recall = 0.0, Micro F Score = 0.0
+=> Test : Macro Precision = 0.0, Macro Recall = 0.0, Macro F Score = 0.0
+
+
+=> Training : Loss = 12.643 | Validation : Loss = 19.565 | Test : Loss = 19.651
+=> Test : Coverage = 11.0, Average Precision = 0.09090909090909091, Micro Precision = 0.0, Micro Recall = 0.0, Micro F Score = 0.0
+=> Test : Macro Precision = 0.0, Macro Recall = 0.0, Macro F Score = 0.0
+
+
+=> Training : Loss = 12.210 | Validation : Loss = 19.114 | Test : Loss = 19.220
+=> Test : Coverage = 12.0, Average Precision = 0.08333333333333333, Micro Precision = 0.0, Micro Recall = 0.0, Micro F Score = 0.0
+=> Test : Macro Precision = 0.0, Macro Recall = 0.0, Macro F Score = 0.0
+
+
+=> Training : Loss = 11.775 | Validation : Loss = 18.703 | Test : Loss = 18.801
+=> Test : Coverage = 11.0, Average Precision = 0.09090909090909091, Micro Precision = 0.0, Micro Recall = 0.0, Micro F Score = 0.0
+=> Test : Macro Precision = 0.0, Macro Recall = 0.0, Macro F Score = 0.0
+
+
+=> Training : Loss = 11.379 | Validation : Loss = 18.376 | Test : Loss = 18.420
+=> Test : Coverage = 12.0, Average Precision = 0.08333333333333333, Micro Precision = 0.0, Micro Recall = 0.0, Micro F Score = 0.0
+=> Test : Macro Precision = 0.0, Macro Recall = 0.0, Macro F Score = 0.0
+
+
+=> Training : Loss = 11.038 | Validation : Loss = 18.043 | Test : Loss = 18.093
+=> Test : Coverage = 12.0, Average Precision = 0.08333333333333333, Micro Precision = 0.0, Micro Recall = 0.0, Micro F Score = 0.0
+=> Test : Macro Precision = 0.0, Macro Recall = 0.0, Macro F Score = 0.0
+
+
+=> Training : Loss = 10.730 | Validation : Loss = 17.770 | Test : Loss = 17.789
+=> Test : Coverage = 12.0, Average Precision = 0.08333333333333333, Micro Precision = 0.0, Micro Recall = 0.0, Micro F Score = 0.0
+=> Test : Macro Precision = 0.0, Macro Recall = 0.0, Macro F Score = 0.0
+
+
+=> Training : Loss = 10.450 | Validation : Loss = 17.522 | Test : Loss = 17.507
+=> Test : Coverage = 12.0, Average Precision = 0.08333333333333333, Micro Precision = 0.0, Micro Recall = 0.0, Micro F Score = 0.0
+=> Test : Macro Precision = 0.0, Macro Recall = 0.0, Macro F Score = 0.0
+
+
+=> Training : Loss = 10.187 | Validation : Loss = 17.291 | Test : Loss = 17.273
+=> Test : Coverage = 12.0, Average Precision = 0.08333333333333333, Micro Precision = 0.0, Micro Recall = 0.0, Micro F Score = 0.0
+=> Test : Macro Precision = 0.0, Macro Recall = 0.0, Macro F Score = 0.0
+
+
+=> Training : Loss = 9.974 | Validation : Loss = 17.090 | Test : Loss = 17.043
+=> Test : Coverage = 12.0, Average Precision = 0.08333333333333333, Micro Precision = 0.0, Micro Recall = 0.0, Micro F Score = 0.0
+=> Test : Macro Precision = 0.0, Macro Recall = 0.0, Macro F Score = 0.0
+
+
+=> Training : Loss = 9.767 | Validation : Loss = 16.909 | Test : Loss = 16.833
+=> Test : Coverage = 12.0, Average Precision = 0.08333333333333333, Micro Precision = 0.0, Micro Recall = 0.0, Micro F Score = 0.0
+=> Test : Macro Precision = 0.0, Macro Recall = 0.0, Macro F Score = 0.0
+
+
+=> Training : Loss = 9.588 | Validation : Loss = 16.730 | Test : Loss = 16.643
+=> Test : Coverage = 11.0, Average Precision = 0.09090909090909091, Micro Precision = 0.0, Micro Recall = 0.0, Micro F Score = 0.0
+=> Test : Macro Precision = 0.0, Macro Recall = 0.0, Macro F Score = 0.0
+
+
+=> Training : Loss = 9.419 | Validation : Loss = 16.591 | Test : Loss = 16.497
+=> Test : Coverage = 12.0, Average Precision = 0.08333333333333333, Micro Precision = 0.0, Micro Recall = 0.0, Micro F Score = 0.0
+=> Test : Macro Precision = 0.0, Macro Recall = 0.0, Macro F Score = 0.0
+
+
+=> Training : Loss = 9.279 | Validation : Loss = 16.454 | Test : Loss = 16.346
+=> Test : Coverage = 11.0, Average Precision = 0.09090909090909091, Micro Precision = 0.0, Micro Recall = 0.0, Micro F Score = 0.0
+=> Test : Macro Precision = 0.0, Macro Recall = 0.0, Macro F Score = 0.0
+
+
+=> Training : Loss = 9.127 | Validation : Loss = 16.356 | Test : Loss = 16.206
+=> Test : Coverage = 11.0, Average Precision = 0.09090909090909091, Micro Precision = 0.0, Micro Recall = 0.0, Micro F Score = 0.0
+=> Test : Macro Precision = 0.0, Macro Recall = 0.0, Macro F Score = 0.0
+
+
+=> Training : Loss = 9.023 | Validation : Loss = 16.235 | Test : Loss = 16.059
+=> Test : Coverage = 11.0, Average Precision = 0.09090909090909091, Micro Precision = 0.0, Micro Recall = 0.0, Micro F Score = 0.0
+=> Test : Macro Precision = 0.0, Macro Recall = 0.0, Macro F Score = 0.0
+
+
+=> Training : Loss = 8.905 | Validation : Loss = 16.133 | Test : Loss = 15.950
+=> Test : Coverage = 11.0, Average Precision = 0.09090909090909091, Micro Precision = 0.0, Micro Recall = 0.0, Micro F Score = 0.0
+=> Test : Macro Precision = 0.0, Macro Recall = 0.0, Macro F Score = 0.0
+
+
+=> Training : Loss = 8.803 | Validation : Loss = 16.064 | Test : Loss = 15.856
+=> Test : Coverage = 11.0, Average Precision = 0.09090909090909091, Micro Precision = 0.0, Micro Recall = 0.0, Micro F Score = 0.0
+=> Test : Macro Precision = 0.0, Macro Recall = 0.0, Macro F Score = 0.0
+
+
+=> Training : Loss = 8.707 | Validation : Loss = 15.988 | Test : Loss = 15.771
+=> Test : Coverage = 11.0, Average Precision = 0.09090909090909091, Micro Precision = 0.0, Micro Recall = 0.0, Micro F Score = 0.0
+=> Test : Macro Precision = 0.0, Macro Recall = 0.0, Macro F Score = 0.0
+
+
+=> Training : Loss = 8.603 | Validation : Loss = 15.912 | Test : Loss = 15.675
+=> Test : Coverage = 11.0, Average Precision = 0.09090909090909091, Micro Precision = 0.0, Micro Recall = 0.0, Micro F Score = 0.0
+=> Test : Macro Precision = 0.0, Macro Recall = 0.0, Macro F Score = 0.0
+
+
+=> Training : Loss = 8.549 | Validation : Loss = 15.860 | Test : Loss = 15.605
+=> Test : Coverage = 11.0, Average Precision = 0.09090909090909091, Micro Precision = 0.0, Micro Recall = 0.0, Micro F Score = 0.0
+=> Test : Macro Precision = 0.0, Macro Recall = 0.0, Macro F Score = 0.0
+
+
+=> Training : Loss = 8.451 | Validation : Loss = 15.786 | Test : Loss = 15.535
+=> Test : Coverage = 12.0, Average Precision = 0.08333333333333333, Micro Precision = 0.0, Micro Recall = 0.0, Micro F Score = 0.0
+=> Test : Macro Precision = 0.0, Macro Recall = 0.0, Macro F Score = 0.0
+
+
+=> Training : Loss = 8.404 | Validation : Loss = 15.716 | Test : Loss = 15.451
+=> Test : Coverage = 12.0, Average Precision = 0.08333333333333333, Micro Precision = 0.0, Micro Recall = 0.0, Micro F Score = 0.0
+=> Test : Macro Precision = 0.0, Macro Recall = 0.0, Macro F Score = 0.0
+
+
+=> Training : Loss = 8.350 | Validation : Loss = 15.688 | Test : Loss = 15.393
+=> Test : Coverage = 12.0, Average Precision = 0.08333333333333333, Micro Precision = 0.0, Micro Recall = 0.0, Micro F Score = 0.0
+=> Test : Macro Precision = 0.0, Macro Recall = 0.0, Macro F Score = 0.0
+
+
+=> Training : Loss = 8.318 | Validation : Loss = 15.646 | Test : Loss = 15.354
+=> Test : Coverage = 12.0, Average Precision = 0.08333333333333333, Micro Precision = 0.0, Micro Recall = 0.0, Micro F Score = 0.0
+=> Test : Macro Precision = 0.0, Macro Recall = 0.0, Macro F Score = 0.0
+
+
+=> Training : Loss = 8.263 | Validation : Loss = 15.621 | Test : Loss = 15.311
+=> Test : Coverage = 12.0, Average Precision = 0.08333333333333333, Micro Precision = 0.0, Micro Recall = 0.0, Micro F Score = 0.0
+=> Test : Macro Precision = 0.0, Macro Recall = 0.0, Macro F Score = 0.0
+
+
+=> Training : Loss = 8.210 | Validation : Loss = 15.577 | Test : Loss = 15.264
+=> Test : Coverage = 12.0, Average Precision = 0.08333333333333333, Micro Precision = 0.0, Micro Recall = 0.0, Micro F Score = 0.0
+=> Test : Macro Precision = 0.0, Macro Recall = 0.0, Macro F Score = 0.0
+
+
+=> Training : Loss = 8.144 | Validation : Loss = 15.542 | Test : Loss = 15.219
+=> Test : Coverage = 12.0, Average Precision = 0.08333333333333333, Micro Precision = 0.0, Micro Recall = 0.0, Micro F Score = 0.0
+=> Test : Macro Precision = 0.0, Macro Recall = 0.0, Macro F Score = 0.0
+
+
+=> Training : Loss = 8.122 | Validation : Loss = 15.491 | Test : Loss = 15.187
+=> Test : Coverage = 12.0, Average Precision = 0.08333333333333333, Micro Precision = 0.0, Micro Recall = 0.0, Micro F Score = 0.0
+=> Test : Macro Precision = 0.0, Macro Recall = 0.0, Macro F Score = 0.0
+
+
+=> Training : Loss = 8.061 | Validation : Loss = 15.469 | Test : Loss = 15.102
+=> Test : Coverage = 12.0, Average Precision = 0.08333333333333333, Micro Precision = 0.0, Micro Recall = 0.0, Micro F Score = 0.0
+=> Test : Macro Precision = 0.0, Macro Recall = 0.0, Macro F Score = 0.0
+
+
