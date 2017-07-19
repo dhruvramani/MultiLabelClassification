@@ -23,6 +23,7 @@ class Model(object):
         self.y_pred = self.net.prediction(self.x, self.keep_prob)
         self.autoencoder_loss = self.net.autoencoder_loss(self.y, self.keep_prob)
         self.loss = self.net.loss(self.x, self.y, self.keep_prob)
+        self.patk = self.net.patk(self.y, self.y_pred)
         self.accuracy = self.net.accuracy(tf.nn.sigmoid(self.y_pred), self.y)
         self.summarizer.scalar("accuracy", self.accuracy)
         self.summarizer.scalar("loss", self.loss)
@@ -30,6 +31,7 @@ class Model(object):
         self.train = self.net.train_step(self.loss, 1)
         self.saver = tf.train.Saver()
         self.init = tf.global_variables_initializer()
+        self.local_init = tf.local_variables_initializer()
 
     def add_placeholders(self):
         self.x = tf.placeholder(tf.float32, shape=[None, self.config.features_dim])
@@ -79,10 +81,11 @@ class Model(object):
                     else :
                         loss_, Y_pred, accuracy_val = sess.run([self.loss, tf.nn.sigmoid(self.y_pred), self.accuracy], feed_dict=feed_dict)
                         metrics = evaluate(predictions=Y_pred, labels=Y)
-                        p_k = patk(predictions=Y_pred, labels=Y)
                         accuracy += accuracy_val #metrics['accuracy']
             loss += loss_
             i += 1
+        X, Y = self.data.get_test()
+        p_k = sess.run(self.patk, feed_dict={self.x: X, self.y: Y, self.keep_prob: 1})
         return loss / i , accuracy / self.config.batch_size, metrics, p_k
     
     def add_summaries(self, sess):
@@ -105,6 +108,8 @@ class Model(object):
          + If patience becomes less than a certain threshold, devide learning rate by 10 and switch back to old model
          + If learning rate is lesser than a certain 
         '''
+        sess.run(self.init)
+        sess.run(self.local_init)
         max_epochs, patience = self.config.max_epochs, self.config.patience
         patience_increase, improvement_threshold = self.config.patience_increase, self.config.improvement_threshold
         self.epoch_count, best_validation_loss = 0, 1e6
@@ -142,7 +147,7 @@ class Model(object):
                     output =  "=> Training : Loss = {:.2f} | Validation : Loss = {:.2f} | Test : Loss = {:.2f}".format(average_loss, val_loss, test_loss)
                     with open("../stdout/validation.log", "a+") as f:
                         output_ = output + "\n=> Test : Coverage = {}, Average Precision = {}, Micro Precision = {}, Micro Recall = {}, Micro F Score = {}".format(metrics['coverage'], metrics['average_precision'], metrics['micro_precision'], metrics['micro_recall'], metrics['micro_f1'])
-                        output_ += "\n=> Test : Macro Precision = {}, Macro Recall = {}, Macro F Score = {}\n\n\n".format(metrics['macro_precision'], metrics['macro_recall'], metrics['macro_f1'])
+                        output_ += "\n=> Test : Macro Precision = {}, Macro Recall = {}, Macro F Score = {}\n=> P@K = {}\n\n".format(metrics['macro_precision'], metrics['macro_recall'], metrics['macro_f1'], patk)
                         f.write(output_)
                     print(output)
                     if self.config.have_patience:

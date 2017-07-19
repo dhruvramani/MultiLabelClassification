@@ -142,3 +142,10 @@ class Network(object):
             var_list = [self.Wx1, self.Wx2, self.Wx3, self.bx1, self.bx2, self.bx3, self.Wdisc1, self.Wdisc2, self.bDisc1, self.bDisc2]
         optimizer = self.config.solver.optimizer
         return optimizer(self.config.solver.learning_rate).minimize(loss, var_list=var_list)
+
+    def patk(self, labels, prediction):
+        patk = list()
+        for i in [1, 3, 5]:
+            pati = tf.metrics.sparse_precision_at_k(tf.cast(labels, tf.int64), tf.nn.sigmoid(prediction), i)
+            patk.append(pati)
+        return patk

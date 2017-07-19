@@ -633,3 +633,923 @@
 => Test : Macro Precision = 0.007723806205230242, Macro Recall = 0.11530389395535721, Macro F Score = 0.014477677655004585
 
 
+=> Training : Loss = 10.24 | Validation : Loss = 8.28 | Test : Loss = 9.15
+=> Test : Coverage = 91.06, Average Precision = 0.11475271961209252, Micro Precision = 0.013963480127018866, Micro Recall = 0.9541284316135007, Micro F Score = 0.027524121356297632
+=> Test : Macro Precision = 0.013420241079072059, Macro Recall = 0.41823865513657577, Macro F Score = 0.026005953435691245
+
+
+=> Training : Loss = 9.47 | Validation : Loss = 7.77 | Test : Loss = 8.86
+=> Test : Coverage = 88.84, Average Precision = 0.15552046241344838, Micro Precision = 0.014664934097890303, Micro Recall = 0.724770635552563, Micro F Score = 0.02874814160594956
+=> Test : Macro Precision = 0.010868788634242482, Macro Recall = 0.3029347690428461, Macro F Score = 0.020984615386484242
+
+
+=> Training : Loss = 8.98 | Validation : Loss = 7.29 | Test : Loss = 8.58
+=> Test : Coverage = 87.28, Average Precision = 0.15704676988676533, Micro Precision = 0.01721338096225613, Micro Recall = 0.48623852764918785, Micro F Score = 0.03324962025956494
+=> Test : Macro Precision = 0.007264213786992273, Macro Recall = 0.18238979821815332, Macro F Score = 0.013971879496515507
+
+
+=> Training : Loss = 10.42 | Validation : Loss = 8.50 | Test : Loss = 9.04
+=> Test : Coverage = 80.98, Average Precision = 0.06855548079196491, Micro Precision = 0.014577656673763262, Micro Recall = 0.9816513671408131, Micro F Score = 0.028728659569434118
+=> Test : Macro Precision = 0.013946108859410684, Macro Recall = 0.4371065607969719, Macro F Score = 0.02702975761035769
+
+
+=> Training : Loss = 10.42 | Validation : Loss = 8.50 | Test : Loss = 9.04
+=> Test : Coverage = 80.98, Average Precision = 0.06855548079196491, Micro Precision = 0.014577656673763262, Micro Recall = 0.9816513671408131, Micro F Score = 0.028728659569434118
+=> Test : Macro Precision = 0.013946108859410684, Macro Recall = 0.4371065607969719, Macro F Score = 0.02702975761035769
+
+
+=> Training : Loss = 10.42 | Validation : Loss = 8.50 | Test : Loss = 9.04
+=> Test : Coverage = 80.98, Average Precision = 0.06855548079196491, Micro Precision = 0.014577656673763262, Micro Recall = 0.9816513671408131, Micro F Score = 0.028728659569434118
+=> Test : Macro Precision = 0.013946108859410684, Macro Recall = 0.4371065607969719, Macro F Score = 0.02702975761035769
+=> P@K = [(0.0, 0.0), (0.0, 0.0), (0.0, 0.0)]
+
+=> Training : Loss = 9.64 | Validation : Loss = 7.97 | Test : Loss = 8.76
+=> Test : Coverage = 78.98, Average Precision = 0.16179617843152547, Micro Precision = 0.016435139891129887, Micro Recall = 0.7706421947647505, Micro F Score = 0.032183867143296706
+=> Test : Macro Precision = 0.01239777619585646, Macro Recall = 0.31760981446563075, Macro F Score = 0.023863956931906124
+=> P@K = [(0.0, 0.0), (0.0, 0.0), (0.0, 0.0)]
+
+=> Training : Loss = 9.06 | Validation : Loss = 7.49 | Test : Loss = 8.49
+=> Test : Coverage = 80.08, Average Precision = 0.16644675962555483, Micro Precision = 0.01639871382109366, Micro Recall = 0.4678899039643128, Micro F Score = 0.03168679382381331
+=> Test : Macro Precision = 0.007380400451308491, Macro Recall = 0.17819692749837648, Macro F Score = 0.014173688260488896
+=> P@K = [(0.0, 0.0), (0.0, 0.0), (0.0, 0.0)]
+
+=> Training : Loss = 8.15 | Validation : Loss = 7.02 | Test : Loss = 8.26
+=> Test : Coverage = 79.98, Average Precision = 0.1717550841260115, Micro Precision = 0.019649722332486238, Micro Recall = 0.4220183447521253, Micro F Score = 0.03755093535679324
+=> Test : Macro Precision = 0.008929307119954407, Macro Recall = 0.1551361511182034, Macro F Score = 0.016886551384333103
+=> P@K = [(0.0, 0.0), (0.0, 0.0), (0.0, 0.0)]
+
+=> Training : Loss = 7.87 | Validation : Loss = 6.61 | Test : Loss = 8.06
+=> Test : Coverage = 79.76, Average Precision = 0.17295019626531294, Micro Precision = 0.02057416266958174, Micro Recall = 0.39449540922481274, Micro F Score = 0.039108591508913604
+=> Test : Macro Precision = 0.005547370457081304, Macro Recall = 0.1446539785116278, Macro F Score = 0.010684908889964801
+=> P@K = [(0.0, 0.0), (0.0, 0.0), (0.0, 0.0)]
+
+=> Training : Loss = 7.57 | Validation : Loss = 6.30 | Test : Loss = 7.91
+=> Test : Coverage = 79.96, Average Precision = 0.17498783086487132, Micro Precision = 0.02200220020791958, Micro Recall = 0.36697247369750025, Micro F Score = 0.041515201997187924
+=> Test : Macro Precision = 0.005983973129722863, Macro Recall = 0.12893072222230623, Macro F Score = 0.011437038149800995
+=> P@K = [(0.0, 0.0), (0.0, 0.0), (0.0, 0.0)]
+
+=> Training : Loss = 7.26 | Validation : Loss = 6.08 | Test : Loss = 7.80
+=> Test : Coverage = 79.3, Average Precision = 0.17441921886890208, Micro Precision = 0.02279368788848995, Micro Recall = 0.35779816185506275, Micro F Score = 0.04285703020377286
+=> Test : Macro Precision = 0.008010380678342208, Macro Recall = 0.1257860697065822, Macro F Score = 0.015061487337515703
+=> P@K = [(0.0, 0.0), (0.0, 0.0), (0.0, 0.0)]
+
+=> Training : Loss = 6.79 | Validation : Loss = 5.88 | Test : Loss = 7.73
+=> Test : Coverage = 80.38, Average Precision = 0.17214167516108658, Micro Precision = 0.023724792393994783, Micro Recall = 0.36697247369750025, Micro F Score = 0.04456813100237831
+=> Test : Macro Precision = 0.00573981707151209, Macro Recall = 0.13207537159338092, Macro F Score = 0.011001443008140661
+=> P@K = [(0.0, 0.0), (0.0, 0.0), (0.0, 0.0)]
+
+=> Training : Loss = 10.42 | Validation : Loss = 8.50 | Test : Loss = 9.04
+=> Test : Coverage = 80.98, Average Precision = 0.06855548079196491, Micro Precision = 0.014577656673763262, Micro Recall = 0.9816513671408131, Micro F Score = 0.028728659569434118
+=> Test : Macro Precision = 0.013946108859410684, Macro Recall = 0.4371065607969719, Macro F Score = 0.02702975761035769
+=> P@K = [(0.0, 0.0), (0.0, 0.0), (0.0, 0.0)]
+
+=> Training : Loss = 9.64 | Validation : Loss = 7.97 | Test : Loss = 8.76
+=> Test : Coverage = 78.98, Average Precision = 0.16179617843152547, Micro Precision = 0.016435139891129887, Micro Recall = 0.7706421947647505, Micro F Score = 0.032183867143296706
+=> Test : Macro Precision = 0.01239777619585646, Macro Recall = 0.31760981446563075, Macro F Score = 0.023863956931906124
+=> P@K = [(0.0, 0.0), (0.0, 0.0), (0.0, 0.0)]
+
+=> Training : Loss = 9.06 | Validation : Loss = 7.49 | Test : Loss = 8.49
+=> Test : Coverage = 80.08, Average Precision = 0.16644675962555483, Micro Precision = 0.01639871382109366, Micro Recall = 0.4678899039643128, Micro F Score = 0.03168679382381331
+=> Test : Macro Precision = 0.007380400451308491, Macro Recall = 0.17819692749837648, Macro F Score = 0.014173688260488896
+=> P@K = [(0.0, 0.0), (0.0, 0.0), (0.0, 0.0)]
+
+=> Training : Loss = 8.15 | Validation : Loss = 7.02 | Test : Loss = 8.26
+=> Test : Coverage = 79.98, Average Precision = 0.1717550841260115, Micro Precision = 0.019649722332486238, Micro Recall = 0.4220183447521253, Micro F Score = 0.03755093535679324
+=> Test : Macro Precision = 0.008929307119954407, Macro Recall = 0.1551361511182034, Macro F Score = 0.016886551384333103
+=> P@K = [(0.0, 0.0), (0.0, 0.0), (0.0, 0.0)]
+
+=> Training : Loss = 7.87 | Validation : Loss = 6.61 | Test : Loss = 8.06
+=> Test : Coverage = 79.76, Average Precision = 0.17295019626531294, Micro Precision = 0.02057416266958174, Micro Recall = 0.39449540922481274, Micro F Score = 0.039108591508913604
+=> Test : Macro Precision = 0.005547370457081304, Macro Recall = 0.1446539785116278, Macro F Score = 0.010684908889964801
+=> P@K = [(0.0, 0.0), (0.0, 0.0), (0.0, 0.0)]
+
+=> Training : Loss = 7.57 | Validation : Loss = 6.30 | Test : Loss = 7.91
+=> Test : Coverage = 79.96, Average Precision = 0.17498783086487132, Micro Precision = 0.02200220020791958, Micro Recall = 0.36697247369750025, Micro F Score = 0.041515201997187924
+=> Test : Macro Precision = 0.005983973129722863, Macro Recall = 0.12893072222230623, Macro F Score = 0.011437038149800995
+=> P@K = [(0.0, 0.0), (0.0, 0.0), (0.0, 0.0)]
+
+=> Training : Loss = 7.26 | Validation : Loss = 6.08 | Test : Loss = 7.80
+=> Test : Coverage = 79.3, Average Precision = 0.17441921886890208, Micro Precision = 0.02279368788848995, Micro Recall = 0.35779816185506275, Micro F Score = 0.04285703020377286
+=> Test : Macro Precision = 0.008010380678342208, Macro Recall = 0.1257860697065822, Macro F Score = 0.015061487337515703
+=> P@K = [(0.0, 0.0), (0.0, 0.0), (0.0, 0.0)]
+
+=> Training : Loss = 10.42 | Validation : Loss = 8.50 | Test : Loss = 9.04
+=> Test : Coverage = 80.98, Average Precision = 0.06855548079196491, Micro Precision = 0.014577656673763262, Micro Recall = 0.9816513671408131, Micro F Score = 0.028728659569434118
+=> Test : Macro Precision = 0.013946108859410684, Macro Recall = 0.4371065607969719, Macro F Score = 0.02702975761035769
+=> P@K = [ 0.  0.  0.]
+
+=> Training : Loss = 9.64 | Validation : Loss = 7.97 | Test : Loss = 8.76
+=> Test : Coverage = 78.98, Average Precision = 0.16179617843152547, Micro Precision = 0.016435139891129887, Micro Recall = 0.7706421947647505, Micro F Score = 0.032183867143296706
+=> Test : Macro Precision = 0.01239777619585646, Macro Recall = 0.31760981446563075, Macro F Score = 0.023863956931906124
+=> P@K = [ 0.  0.  0.]
+
+=> Training : Loss = 9.06 | Validation : Loss = 7.49 | Test : Loss = 8.49
+=> Test : Coverage = 80.08, Average Precision = 0.16644675962555483, Micro Precision = 0.01639871382109366, Micro Recall = 0.4678899039643128, Micro F Score = 0.03168679382381331
+=> Test : Macro Precision = 0.007380400451308491, Macro Recall = 0.17819692749837648, Macro F Score = 0.014173688260488896
+=> P@K = [ 0.  0.  0.]
+
+=> Training : Loss = 8.15 | Validation : Loss = 7.02 | Test : Loss = 8.26
+=> Test : Coverage = 79.98, Average Precision = 0.1717550841260115, Micro Precision = 0.019649722332486238, Micro Recall = 0.4220183447521253, Micro F Score = 0.03755093535679324
+=> Test : Macro Precision = 0.008929307119954407, Macro Recall = 0.1551361511182034, Macro F Score = 0.016886551384333103
+=> P@K = [ 0.  0.  0.]
+
+=> Training : Loss = 7.87 | Validation : Loss = 6.61 | Test : Loss = 8.06
+=> Test : Coverage = 79.76, Average Precision = 0.17295019626531294, Micro Precision = 0.02057416266958174, Micro Recall = 0.39449540922481274, Micro F Score = 0.039108591508913604
+=> Test : Macro Precision = 0.005547370457081304, Macro Recall = 0.1446539785116278, Macro F Score = 0.010684908889964801
+=> P@K = [ 0.  0.  0.]
+
+=> Training : Loss = 7.57 | Validation : Loss = 6.30 | Test : Loss = 7.91
+=> Test : Coverage = 79.96, Average Precision = 0.17498783086487132, Micro Precision = 0.02200220020791958, Micro Recall = 0.36697247369750025, Micro F Score = 0.041515201997187924
+=> Test : Macro Precision = 0.005983973129722863, Macro Recall = 0.12893072222230623, Macro F Score = 0.011437038149800995
+=> P@K = [ 0.  0.  0.]
+
+=> Training : Loss = 7.26 | Validation : Loss = 6.08 | Test : Loss = 7.80
+=> Test : Coverage = 79.3, Average Precision = 0.17441921886890208, Micro Precision = 0.02279368788848995, Micro Recall = 0.35779816185506275, Micro F Score = 0.04285703020377286
+=> Test : Macro Precision = 0.008010380678342208, Macro Recall = 0.1257860697065822, Macro F Score = 0.015061487337515703
+=> P@K = [ 0.  0.  0.]
+
+=> Training : Loss = 6.79 | Validation : Loss = 5.88 | Test : Loss = 7.73
+=> Test : Coverage = 80.38, Average Precision = 0.17214167516108658, Micro Precision = 0.023724792393994783, Micro Recall = 0.36697247369750025, Micro F Score = 0.04456813100237831
+=> Test : Macro Precision = 0.00573981707151209, Macro Recall = 0.13207537159338092, Macro F Score = 0.011001443008140661
+=> P@K = [ 0.  0.  0.]
+
+=> Training : Loss = 6.59 | Validation : Loss = 5.74 | Test : Loss = 7.70
+=> Test : Coverage = 81.12, Average Precision = 0.17217947971763178, Micro Precision = 0.02486016157559965, Micro Recall = 0.36697247369750025, Micro F Score = 0.04656565526111004
+=> Test : Macro Precision = 0.00817728678296688, Macro Recall = 0.13207537159338092, Macro F Score = 0.015400927191331302
+=> P@K = [ 0.  0.  0.]
+
+=> Training : Loss = 6.74 | Validation : Loss = 5.65 | Test : Loss = 7.67
+=> Test : Coverage = 81.18, Average Precision = 0.17339103407288545, Micro Precision = 0.02297383533951893, Micro Recall = 0.33027522632775025, Micro F Score = 0.042959305544427756
+=> Test : Macro Precision = 0.004530868860684359, Macro Recall = 0.11949676362691693, Macro F Score = 0.008730631861540222
+=> P@K = [ 0.  0.  0.]
+
+=> Training : Loss = 6.53 | Validation : Loss = 5.57 | Test : Loss = 7.64
+=> Test : Coverage = 81.02, Average Precision = 0.17516718507446616, Micro Precision = 0.023270440236936828, Micro Recall = 0.33944953817018775, Micro F Score = 0.043554912242098245
+=> Test : Macro Precision = 0.010817603683025158, Macro Recall = 0.12578606551371568, Macro F Score = 0.01992177593307153
+=> P@K = [ 0.  0.  0.]
+
+=> Training : Loss = 6.37 | Validation : Loss = 5.50 | Test : Loss = 7.63
+=> Test : Coverage = 80.96, Average Precision = 0.17402526495843457, Micro Precision = 0.023596938760461133, Micro Recall = 0.33944953817018775, Micro F Score = 0.04412629462233579
+=> Test : Macro Precision = 0.010817603683025158, Macro Recall = 0.12578606551371568, Macro F Score = 0.01992177593307153
+=> P@K = [ 0.  0.  0.]
+
+=> Training : Loss = 6.19 | Validation : Loss = 5.41 | Test : Loss = 7.63
+=> Test : Coverage = 81.82, Average Precision = 0.17357143068487169, Micro Precision = 0.023596938760461133, Micro Recall = 0.33944953817018775, Micro F Score = 0.04412629462233579
+=> Test : Macro Precision = 0.007672954311950471, Macro Recall = 0.12578606551371568, Macro F Score = 0.014463518513296934
+=> P@K = [ 0.  0.  0.]
+
+=> Training : Loss = 6.22 | Validation : Loss = 5.33 | Test : Loss = 7.63
+=> Test : Coverage = 82.54, Average Precision = 0.17502363570371762, Micro Precision = 0.023226616432375002, Micro Recall = 0.33944953817018775, Micro F Score = 0.043478140937030924
+=> Test : Macro Precision = 0.005314465219968566, Macro Recall = 0.12578606551371568, Macro F Score = 0.010197984212514976
+=> P@K = [ 0.  0.  0.]
+
+=> Training : Loss = 6.14 | Validation : Loss = 5.28 | Test : Loss = 7.63
+=> Test : Coverage = 82.14, Average Precision = 0.18068445217556628, Micro Precision = 0.022853613327452987, Micro Recall = 0.33944953817018775, Micro F Score = 0.04282395582527285
+=> Test : Macro Precision = 0.004814179427600188, Macro Recall = 0.12578606551371568, Macro F Score = 0.0092733677867619
+=> P@K = [ 0.  0.  0.]
+
+=> Training : Loss = 6.02 | Validation : Loss = 5.22 | Test : Loss = 7.64
+=> Test : Coverage = 82.18, Average Precision = 0.17894000357644285, Micro Precision = 0.022547227286686636, Micro Recall = 0.33944953817018775, Micro F Score = 0.042285597425301406
+=> Test : Macro Precision = 0.004707996310409448, Macro Recall = 0.12578606551371568, Macro F Score = 0.009076210609986656
+=> P@K = [ 0.  0.  0.]
+
+=> Training : Loss = 6.07 | Validation : Loss = 5.18 | Test : Loss = 7.65
+=> Test : Coverage = 81.92, Average Precision = 0.18201552946350308, Micro Precision = 0.022235576909714196, Micro Recall = 0.33944953817018775, Micro F Score = 0.04173705319753698
+=> Test : Macro Precision = 0.004656655021690648, Macro Recall = 0.12578606551371568, Macro F Score = 0.00898076674337367
+=> P@K = [ 0.  0.  0.]
+
+=> Training : Loss = 6.02 | Validation : Loss = 5.15 | Test : Loss = 7.65
+=> Test : Coverage = 81.52, Average Precision = 0.18322070309138966, Micro Precision = 0.022342995155589976, Micro Recall = 0.33944953817018775, Micro F Score = 0.041926229676827555
+=> Test : Macro Precision = 0.004662116860955896, Macro Recall = 0.12578606551371568, Macro F Score = 0.008990923917337789
+=> P@K = [ 0.  0.  0.]
+
+=> Training : Loss = 6.01 | Validation : Loss = 5.13 | Test : Loss = 7.65
+=> Test : Coverage = 82.0, Average Precision = 0.18167084499209182, Micro Precision = 0.02224894767152799, Micro Recall = 0.33944953817018775, Micro F Score = 0.041760606843537926
+=> Test : Macro Precision = 0.004654087957232705, Macro Recall = 0.12578606551371568, Macro F Score = 0.008975992577763454
+=> P@K = [ 0.  0.  0.]
+
+=> Training : Loss = 5.93 | Validation : Loss = 5.08 | Test : Loss = 7.66
+=> Test : Coverage = 81.4, Average Precision = 0.18203655733652244, Micro Precision = 0.02218225418334397, Micro Recall = 0.33944953817018775, Micro F Score = 0.04164310370807716
+=> Test : Macro Precision = 0.004654087957232705, Macro Recall = 0.12578606551371568, Macro F Score = 0.008975992577763454
+=> P@K = [ 0.  0.  0.]
+
+=> Training : Loss = 5.81 | Validation : Loss = 5.05 | Test : Loss = 7.66
+=> Test : Coverage = 81.26, Average Precision = 0.18325282981273852, Micro Precision = 0.02215568860948761, Micro Recall = 0.33944953817018775, Micro F Score = 0.04159628739421792
+=> Test : Macro Precision = 0.004654087957232705, Macro Recall = 0.12578606551371568, Macro F Score = 0.008975992577763454
+=> P@K = [ 0.  0.  0.]
+
+=> Training : Loss = 5.87 | Validation : Loss = 5.02 | Test : Loss = 7.66
+=> Test : Coverage = 80.86, Average Precision = 0.18195460382545584, Micro Precision = 0.02212918658963565, Micro Recall = 0.33944953817018775, Micro F Score = 0.04154957622650635
+=> Test : Macro Precision = 0.004654087957232705, Macro Recall = 0.12578606551371568, Macro F Score = 0.008975992577763454
+=> P@K = [ 0.  0.  0.]
+
+=> Training : Loss = 5.87 | Validation : Loss = 4.99 | Test : Loss = 7.66
+=> Test : Coverage = 81.0, Average Precision = 0.1802134055716771, Micro Precision = 0.02207637230186374, Micro Recall = 0.33944953817018775, Micro F Score = 0.04145646791579624
+=> Test : Macro Precision = 0.004654087957232705, Macro Recall = 0.12578606551371568, Macro F Score = 0.008975992577763454
+=> P@K = [ 0.  0.  0.]
+
+=> Training : Loss = 5.80 | Validation : Loss = 4.97 | Test : Loss = 7.67
+=> Test : Coverage = 81.84, Average Precision = 0.18334401371480197, Micro Precision = 0.02195845696026204, Micro Recall = 0.33944953817018775, Micro F Score = 0.041248492287251824
+=> Test : Macro Precision = 0.004654087957232705, Macro Recall = 0.12578606551371568, Macro F Score = 0.008975992577763454
+=> P@K = [ 0.  0.  0.]
+
+=> Training : Loss = 5.74 | Validation : Loss = 4.95 | Test : Loss = 7.66
+=> Test : Coverage = 81.48, Average Precision = 0.18405209997881056, Micro Precision = 0.022050059581614982, Micro Recall = 0.33944953817018775, Micro F Score = 0.04141007006988831
+=> Test : Macro Precision = 0.004654087957232705, Macro Recall = 0.12578606551371568, Macro F Score = 0.008975992577763454
+=> P@K = [ 0.  0.  0.]
+
+=> Training : Loss = 5.65 | Validation : Loss = 4.95 | Test : Loss = 7.66
+=> Test : Coverage = 80.92, Average Precision = 0.1831293802355343, Micro Precision = 0.02206320809656338, Micro Recall = 0.33944953817018775, Micro F Score = 0.04143325600352139
+=> Test : Macro Precision = 0.004654087957232705, Macro Recall = 0.12578606551371568, Macro F Score = 0.008975992577763454
+=> P@K = [ 0.  0.  0.]
+
+=> Training : Loss = 10.42 | Validation : Loss = 8.50 | Test : Loss = 9.04
+=> Test : Coverage = 80.98, Average Precision = 0.06855548079196491, Micro Precision = 0.014577656673763262, Micro Recall = 0.9816513671408131, Micro F Score = 0.028728659569434118
+=> Test : Macro Precision = 0.013946108859410684, Macro Recall = 0.4371065607969719, Macro F Score = 0.02702975761035769
+=> P@K = [(0.0, 0.0), (0.0, 0.0), (0.0, 0.0)]
+
+=> Training : Loss = 9.64 | Validation : Loss = 7.97 | Test : Loss = 8.76
+=> Test : Coverage = 78.98, Average Precision = 0.16179617843152547, Micro Precision = 0.016435139891129887, Micro Recall = 0.7706421947647505, Micro F Score = 0.032183867143296706
+=> Test : Macro Precision = 0.01239777619585646, Macro Recall = 0.31760981446563075, Macro F Score = 0.023863956931906124
+=> P@K = [(0.0, 0.0), (0.0, 0.0), (0.0, 0.0)]
+
+=> Training : Loss = 9.06 | Validation : Loss = 7.49 | Test : Loss = 8.49
+=> Test : Coverage = 80.08, Average Precision = 0.16644675962555483, Micro Precision = 0.01639871382109366, Micro Recall = 0.4678899039643128, Micro F Score = 0.03168679382381331
+=> Test : Macro Precision = 0.007380400451308491, Macro Recall = 0.17819692749837648, Macro F Score = 0.014173688260488896
+=> P@K = [(0.0, 0.0), (0.0, 0.0), (0.0, 0.0)]
+
+=> Training : Loss = 8.15 | Validation : Loss = 7.02 | Test : Loss = 8.26
+=> Test : Coverage = 79.98, Average Precision = 0.1717550841260115, Micro Precision = 0.019649722332486238, Micro Recall = 0.4220183447521253, Micro F Score = 0.03755093535679324
+=> Test : Macro Precision = 0.008929307119954407, Macro Recall = 0.1551361511182034, Macro F Score = 0.016886551384333103
+=> P@K = [(0.0, 0.0), (0.0, 0.0), (0.0, 0.0)]
+
+=> Training : Loss = 2.03 | Validation : Loss = 1.53 | Test : Loss = 1.74
+=> Test : Coverage = 37.72, Average Precision = 0.17845087058515557, Micro Precision = 0.06314580939030011, Micro Recall = 0.999999993939394, Micro F Score = 0.11879038493993571
+=> Test : Macro Precision = 0.06229495447160853, Macro Recall = 0.6981128149324356, Macro F Score = 0.11438296814053354
+=> P@K = [ 0.  0.  0.]
+
+=> Training : Loss = 1.77 | Validation : Loss = 1.47 | Test : Loss = 1.70
+=> Test : Coverage = 33.58, Average Precision = 0.2661163614688649, Micro Precision = 0.06348595611254869, Micro Recall = 0.999999993939394, Micro F Score = 0.11939207288756021
+=> Test : Macro Precision = 0.062303297431083475, Macro Recall = 0.6981128149324356, Macro F Score = 0.11439703194999566
+=> P@K = [ 0.          0.05757052  0.03454231]
+
+=> Training : Loss = 1.69 | Validation : Loss = 1.42 | Test : Loss = 1.66
+=> Test : Coverage = 30.48, Average Precision = 0.33626295185304256, Micro Precision = 0.06470588232756633, Micro Recall = 0.999999993939394, Micro F Score = 0.12154684707640674
+=> Test : Macro Precision = 0.06260673770064257, Macro Recall = 0.6981128149324356, Macro F Score = 0.11490833457476839
+=> P@K = [ 0.          0.05757052  0.06908463]
+
+=> Training : Loss = 1.67 | Validation : Loss = 1.37 | Test : Loss = 1.63
+=> Test : Coverage = 27.66, Average Precision = 0.37105275160348766, Micro Precision = 0.06585365850981559, Micro Recall = 0.9818181758677686, Micro F Score = 0.12342845352239762
+=> Test : Macro Precision = 0.061525529599179285, Macro Recall = 0.6729555937584261, Macro F Score = 0.11274324584904434
+=> P@K = [ 0.          0.05757052  0.06908463]
+
+=> Training : Loss = 1.53 | Validation : Loss = 1.34 | Test : Loss = 1.61
+=> Test : Coverage = 25.84, Average Precision = 0.3884758645149933, Micro Precision = 0.0672873465648382, Micro Recall = 0.9636363577961433, Micro F Score = 0.12579101712321253
+=> Test : Macro Precision = 0.06101227976409007, Macro Recall = 0.6289304763579683, Macro F Score = 0.11123365299048027
+=> P@K = [ 0.          0.05757052  0.06908463]
+
+=> Training : Loss = 1.57 | Validation : Loss = 1.30 | Test : Loss = 1.58
+=> Test : Coverage = 24.52, Average Precision = 0.4004952217175946, Micro Precision = 0.07104316543568204, Micro Recall = 0.9575757517722682, Micro F Score = 0.13227278883537655
+=> Test : Macro Precision = 0.06034659344069059, Macro Recall = 0.622641170278303, Macro F Score = 0.11002896550631973
+=> P@K = [ 0.          0.05757052  0.06908463]
+
+=> Training : Loss = 1.48 | Validation : Loss = 1.27 | Test : Loss = 1.56
+=> Test : Coverage = 23.74, Average Precision = 0.40878545187795284, Micro Precision = 0.07459095280337298, Micro Recall = 0.9393939337006428, Micro F Score = 0.13820762104298193
+=> Test : Macro Precision = 0.06105727084638896, Macro Recall = 0.5849053495235625, Macro F Score = 0.11057193693015972
+=> P@K = [ 0.          0.05757052  0.06908463]
+
+=> Training : Loss = 1.48 | Validation : Loss = 1.23 | Test : Loss = 1.53
+=> Test : Coverage = 22.76, Average Precision = 0.41704677969010107, Micro Precision = 0.07892004149588783, Micro Recall = 0.9212121156290175, Micro F Score = 0.14538483775691283
+=> Test : Macro Precision = 0.057960491734990946, Macro Recall = 0.547169528768822, Macro F Score = 0.10481768038743061
+=> P@K = [ 0.          0.05757052  0.06908463]
+
+=> Training : Loss = 1.39 | Validation : Loss = 1.20 | Test : Loss = 1.51
+=> Test : Coverage = 22.48, Average Precision = 0.423816693947535, Micro Precision = 0.08610792187938696, Micro Recall = 0.9090909035812673, Micro F Score = 0.15731499645431138
+=> Test : Macro Precision = 0.05828429516552139, Macro Recall = 0.5188676655612536, Macro F Score = 0.1047966075867838
+=> P@K = [ 0.          0.05757052  0.06908463]
+
+=> Training : Loss = 1.40 | Validation : Loss = 1.17 | Test : Loss = 1.48
+=> Test : Coverage = 22.46, Average Precision = 0.43018253568050013, Micro Precision = 0.09449838181585865, Micro Recall = 0.8848484794857668, Micro F Score = 0.1707600593572444
+=> Test : Macro Precision = 0.058838485433033126, Macro Recall = 0.4575469686272343, Macro F Score = 0.10426830695043754
+=> P@K = [ 0.          0.05757052  0.06908463]
+
+=> Training : Loss = 1.33 | Validation : Loss = 1.14 | Test : Loss = 1.46
+=> Test : Coverage = 22.18, Average Precision = 0.43379577549572945, Micro Precision = 0.10258249633961082, Micro Recall = 0.8666666614141415, Micro F Score = 0.18345074057705968
+=> Test : Macro Precision = 0.056111416527554976, Macro Recall = 0.4103771997592697, Macro F Score = 0.09872393804772618
+=> P@K = [ 0.          0.05757052  0.06908463]
+
+=> Training : Loss = 1.29 | Validation : Loss = 1.10 | Test : Loss = 1.44
+=> Test : Coverage = 22.0, Average Precision = 0.43354900714164935, Micro Precision = 0.11137440749496491, Micro Recall = 0.8545454493663912, Micro F Score = 0.19706478522465798
+=> Test : Macro Precision = 0.05885769303663597, Macro Recall = 0.386792314146043, Macro F Score = 0.1021683017788216
+=> P@K = [ 0.          0.05757052  0.06908463]
+
+=> Training : Loss = 1.30 | Validation : Loss = 1.07 | Test : Loss = 1.42
+=> Test : Coverage = 21.74, Average Precision = 0.4354955975838093, Micro Precision = 0.11774744017257044, Micro Recall = 0.8363636312947659, Micro F Score = 0.2064320944749007
+=> Test : Macro Precision = 0.07229615231369985, Macro Recall = 0.37264137428755156, Macro F Score = 0.12109779640648224
+=> P@K = [ 0.          0.05757052  0.06908463]
+
+=> Training : Loss = 1.21 | Validation : Loss = 1.05 | Test : Loss = 1.40
+=> Test : Coverage = 21.62, Average Precision = 0.4390450069416572, Micro Precision = 0.12054794509538999, Micro Recall = 0.7999999951515152, Micro F Score = 0.20952358158376866
+=> Test : Macro Precision = 0.05204791348903735, Macro Recall = 0.3301885688630029, Macro F Score = 0.08992119747912469
+=> P@K = [ 0.          0.05757052  0.06908463]
+
+=> Training : Loss = 1.23 | Validation : Loss = 1.02 | Test : Loss = 1.38
+=> Test : Coverage = 21.3, Average Precision = 0.441938921257665, Micro Precision = 0.12475822038224542, Micro Recall = 0.7818181770798899, Micro F Score = 0.2151790783843188
+=> Test : Macro Precision = 0.051468048392228724, Macro Recall = 0.31289297675084193, Macro F Score = 0.08839555034681468
+=> P@K = [ 0.          0.05757052  0.06908463]
+
+=> Training : Loss = 1.22 | Validation : Loss = 1.00 | Test : Loss = 1.36
+=> Test : Coverage = 21.3, Average Precision = 0.4436139476208194, Micro Precision = 0.12981744408740625, Micro Recall = 0.7757575710560147, Micro F Score = 0.2224150450583583
+=> Test : Macro Precision = 0.048988669471067635, Macro Recall = 0.30817599679801144, Macro F Score = 0.0845385403572403
+=> P@K = [ 0.          0.05757052  0.06908463]
+
+=> Training : Loss = 1.15 | Validation : Loss = 0.98 | Test : Loss = 1.34
+=> Test : Coverage = 21.12, Average Precision = 0.4435658433070035, Micro Precision = 0.1374865734291229, Micro Recall = 0.7757575710560147, Micro F Score = 0.23357638614398687
+=> Test : Macro Precision = 0.049659895773413336, Macro Recall = 0.30817599679801144, Macro F Score = 0.0855361098789014
+=> P@K = [ 0.          0.05757052  0.06908463]
+
+=> Training : Loss = 1.13 | Validation : Loss = 0.96 | Test : Loss = 1.32
+=> Test : Coverage = 21.06, Average Precision = 0.4434642349815935, Micro Precision = 0.1412556052228076, Micro Recall = 0.7636363590082645, Micro F Score = 0.238410332107099
+=> Test : Macro Precision = 0.04769713946747955, Macro Recall = 0.2830187850579499, Macro F Score = 0.08163589742010725
+=> P@K = [ 0.          0.05757052  0.06908463]
+
+=> Training : Loss = 1.11 | Validation : Loss = 0.94 | Test : Loss = 1.31
+=> Test : Coverage = 20.9, Average Precision = 0.4419369551446736, Micro Precision = 0.1467136148512751, Micro Recall = 0.7575757529843894, Micro F Score = 0.24582076995917967
+=> Test : Macro Precision = 0.04739104465925664, Macro Recall = 0.26415087939755366, Macro F Score = 0.0803637968039912
+=> P@K = [ 0.          0.05757052  0.06908463]
+
+=> Training : Loss = 1.07 | Validation : Loss = 0.93 | Test : Loss = 1.29
+=> Test : Coverage = 20.9, Average Precision = 0.4420423533412371, Micro Precision = 0.1509661833925529, Micro Recall = 0.7575757529843894, Micro F Score = 0.2517620587418068
+=> Test : Macro Precision = 0.04757861539053985, Macro Recall = 0.26415087939755366, Macro F Score = 0.0806333246573932
+=> P@K = [ 0.          0.05757052  0.06908463]
+
+=> Training : Loss = 1.06 | Validation : Loss = 0.91 | Test : Loss = 1.28
+=> Test : Coverage = 20.86, Average Precision = 0.442985996853348, Micro Precision = 0.15470297010556563, Micro Recall = 0.7575757529843894, Micro F Score = 0.2569370251257661
+=> Test : Macro Precision = 0.04767792025138237, Macro Recall = 0.26415087939755366, Macro F Score = 0.0807758884906307
+=> P@K = [ 0.          0.05757052  0.06908463]
+
+=> Training : Loss = 1.05 | Validation : Loss = 0.90 | Test : Loss = 1.27
+=> Test : Coverage = 21.02, Average Precision = 0.4425140100770523, Micro Precision = 0.16087516066811433, Micro Recall = 0.7575757529843894, Micro F Score = 0.2653924917962396
+=> Test : Macro Precision = 0.048031254969732415, Macro Recall = 0.26415087939755366, Macro F Score = 0.0812824066523465
+=> P@K = [ 0.          0.05757052  0.06908463]
+
+=> Training : Loss = 1.05 | Validation : Loss = 0.89 | Test : Loss = 1.26
+=> Test : Coverage = 21.04, Average Precision = 0.44288862517256766, Micro Precision = 0.16531165289253164, Micro Recall = 0.7393939349127641, Micro F Score = 0.27021011047494997
+=> Test : Macro Precision = 0.047018046598743646, Macro Recall = 0.24528296194472055, Macro F Score = 0.07890965780264123
+=> P@K = [ 0.          0.05757052  0.06908463]
+
+=> Training : Loss = 1.02 | Validation : Loss = 0.88 | Test : Loss = 1.25
+=> Test : Coverage = 21.02, Average Precision = 0.443054812842691, Micro Precision = 0.16923076899408285, Micro Recall = 0.7333333288888889, Micro F Score = 0.2749996946878367
+=> Test : Macro Precision = 0.046556602789976434, Macro Recall = 0.24056598199189008, Macro F Score = 0.07801473276314702
+=> P@K = [ 0.          0.05757052  0.06908463]
+
+=> Training : Loss = 1.00 | Validation : Loss = 0.87 | Test : Loss = 1.24
+=> Test : Coverage = 21.06, Average Precision = 0.4429319258603977, Micro Precision = 0.17163120543031035, Micro Recall = 0.7333333288888889, Micro F Score = 0.2781606115289423
+=> Test : Macro Precision = 0.046647313954826165, Macro Recall = 0.24056598199189008, Macro F Score = 0.07814204966251824
+=> P@K = [ 0.          0.05757052  0.06908463]
+
+=> Training : Loss = 1.02 | Validation : Loss = 0.86 | Test : Loss = 1.23
+=> Test : Coverage = 21.0, Average Precision = 0.44293599640465176, Micro Precision = 0.17536231858643142, Micro Recall = 0.7333333288888889, Micro F Score = 0.28304062353031695
+=> Test : Macro Precision = 0.04698793028463126, Macro Recall = 0.24056598199189008, Macro F Score = 0.0786194017775556
+=> P@K = [ 0.          0.05757052  0.06908463]
+
+=> Training : Loss = 1.03 | Validation : Loss = 0.85 | Test : Loss = 1.22
+=> Test : Coverage = 21.06, Average Precision = 0.4426811466016259, Micro Precision = 0.17991004470778105, Micro Recall = 0.7272727228650138, Micro F Score = 0.2884612197933646
+=> Test : Macro Precision = 0.04546059841963833, Macro Recall = 0.2358490020390596, Macro F Score = 0.0762277479191143
+=> P@K = [ 0.          0.05757052  0.06908463]
+
+=> Training : Loss = 1.01 | Validation : Loss = 0.84 | Test : Loss = 1.21
+=> Test : Coverage = 21.04, Average Precision = 0.4432267621163702, Micro Precision = 0.18518518489940558, Micro Recall = 0.7272727228650138, Micro F Score = 0.29520262777866096
+=> Test : Macro Precision = 0.045699524161874894, Macro Recall = 0.2358490020390596, Macro F Score = 0.07656334793151792
+=> P@K = [ 0.          0.05757052  0.06908463]
+
+=> Training : Loss = 0.99 | Validation : Loss = 0.84 | Test : Loss = 1.20
+=> Test : Coverage = 21.1, Average Precision = 0.4431620939873433, Micro Precision = 0.18749999970703124, Micro Recall = 0.7272727228650138, Micro F Score = 0.29813631930902407
+=> Test : Macro Precision = 0.04590640927973773, Macro Recall = 0.2358490020390596, Macro F Score = 0.07685348322791083
+=> P@K = [ 0.          0.05757052  0.06908463]
+
+=> Training : Loss = 0.97 | Validation : Loss = 0.83 | Test : Loss = 1.20
+=> Test : Coverage = 21.1, Average Precision = 0.4431658146694106, Micro Precision = 0.18927444765098667, Micro Recall = 0.7272727228650138, Micro F Score = 0.3003751408600985
+=> Test : Macro Precision = 0.045961578643734895, Macro Recall = 0.2358490020390596, Macro F Score = 0.0769307806939706
+=> P@K = [ 0.          0.05757052  0.06908463]
+
+=> Training : Loss = 1.00 | Validation : Loss = 0.83 | Test : Loss = 1.19
+=> Test : Coverage = 21.16, Average Precision = 0.4424563523043406, Micro Precision = 0.19138755950336914, Micro Recall = 0.7272727228650138, Micro F Score = 0.30302997240432206
+=> Test : Macro Precision = 0.04610062795835956, Macro Recall = 0.2358490020390596, Macro F Score = 0.07712546765689154
+=> P@K = [ 0.          0.05757052  0.06908463]
+
+=> Training : Loss = 0.97 | Validation : Loss = 0.82 | Test : Loss = 1.19
+=> Test : Coverage = 21.22, Average Precision = 0.4421986264903452, Micro Precision = 0.19386106592268001, Micro Recall = 0.7272727228650138, Micro F Score = 0.3061221158667958
+=> Test : Macro Precision = 0.046510800172661945, Macro Recall = 0.2358490020390596, Macro F Score = 0.07769864456281862
+=> P@K = [ 0.          0.05757052  0.06908463]
+
+=> Training : Loss = 0.96 | Validation : Loss = 0.81 | Test : Loss = 1.19
+=> Test : Coverage = 21.26, Average Precision = 0.44211043078110523, Micro Precision = 0.19417475696735476, Micro Recall = 0.7272727228650138, Micro F Score = 0.30651307653574084
+=> Test : Macro Precision = 0.046653738969940045, Macro Recall = 0.2358490020390596, Macro F Score = 0.07789799694794568
+=> P@K = [ 0.          0.05757052  0.06908463]
+
+=> Training : Loss = 0.97 | Validation : Loss = 0.81 | Test : Loss = 1.18
+=> Test : Coverage = 21.26, Average Precision = 0.4421399919791755, Micro Precision = 0.1944894648387529, Micro Recall = 0.7272727228650138, Micro F Score = 0.30690503710438244
+=> Test : Macro Precision = 0.046510800172661945, Macro Recall = 0.2358490020390596, Macro F Score = 0.07769864456281862
+=> P@K = [ 0.          0.05757052  0.06908463]
+
+=> Training : Loss = 0.95 | Validation : Loss = 0.81 | Test : Loss = 1.18
+=> Test : Coverage = 21.24, Average Precision = 0.4432989162445263, Micro Precision = 0.19292604470590669, Micro Recall = 0.7272727228650138, Micro F Score = 0.304955195142512
+=> Test : Macro Precision = 0.046269091547657314, Macro Recall = 0.2358490020390596, Macro F Score = 0.07736108129395085
+=> P@K = [ 0.          0.05757052  0.06908463]
+
+=> Training : Loss = 0.93 | Validation : Loss = 0.80 | Test : Loss = 1.18
+=> Test : Coverage = 21.14, Average Precision = 0.44386478972412613, Micro Precision = 0.1923076919995069, Micro Recall = 0.7272727228650138, Micro F Score = 0.3041821779509822
+=> Test : Macro Precision = 0.04625336827785909, Macro Recall = 0.2358490020390596, Macro F Score = 0.07733910259223815
+=> P@K = [ 0.          0.05757052  0.06908463]
+
+=> Training : Loss = 0.94 | Validation : Loss = 0.80 | Test : Loss = 1.17
+=> Test : Coverage = 21.12, Average Precision = 0.4438540269200113, Micro Precision = 0.19292604470590669, Micro Recall = 0.7272727228650138, Micro F Score = 0.304955195142512
+=> Test : Macro Precision = 0.04625336827785909, Macro Recall = 0.2358490020390596, Macro F Score = 0.07733910259223815
+=> P@K = [ 0.          0.05757052  0.06908463]
+
+=> Training : Loss = 0.93 | Validation : Loss = 0.80 | Test : Loss = 1.17
+=> Test : Coverage = 21.2, Average Precision = 0.443123837543687, Micro Precision = 0.19261637208247773, Micro Recall = 0.7272727228650138, Micro F Score = 0.3045681960534653
+=> Test : Macro Precision = 0.04625336827785909, Macro Recall = 0.2358490020390596, Macro F Score = 0.07733910259223815
+=> P@K = [ 0.          0.05757052  0.06908463]
+
+=> Training : Loss = 0.93 | Validation : Loss = 0.80 | Test : Loss = 1.17
+=> Test : Coverage = 21.24, Average Precision = 0.44461847523161196, Micro Precision = 0.19354838678459937, Micro Recall = 0.7272727228650138, Micro F Score = 0.3057321512762735
+=> Test : Macro Precision = 0.04636473937084399, Macro Recall = 0.2358490020390596, Macro F Score = 0.07749472940913436
+=> P@K = [ 0.          0.05757052  0.06908463]
+
+=> Training : Loss = 0.94 | Validation : Loss = 0.79 | Test : Loss = 1.17
+=> Test : Coverage = 21.08, Average Precision = 0.4439702443836279, Micro Precision = 0.19292604470590669, Micro Recall = 0.7272727228650138, Micro F Score = 0.304955195142512
+=> Test : Macro Precision = 0.04636473937084399, Macro Recall = 0.2358490020390596, Macro F Score = 0.07749472940913436
+=> P@K = [ 0.          0.05757052  0.06908463]
+
+=> Training : Loss = 0.93 | Validation : Loss = 0.79 | Test : Loss = 1.17
+=> Test : Coverage = 21.14, Average Precision = 0.4448426384539069, Micro Precision = 0.19169329042860497, Micro Recall = 0.7272727228650138, Micro F Score = 0.30341306982347915
+=> Test : Macro Precision = 0.04635703817747015, Macro Recall = 0.2358490020390596, Macro F Score = 0.07748397193248001
+=> P@K = [ 0.          0.05757052  0.06908463]
+
+=> Training : Loss = 0.92 | Validation : Loss = 0.79 | Test : Loss = 1.17
+=> Test : Coverage = 21.16, Average Precision = 0.44412187590729574, Micro Precision = 0.19169329042860497, Micro Recall = 0.7272727228650138, Micro F Score = 0.30341306982347915
+=> Test : Macro Precision = 0.04635703817747015, Macro Recall = 0.2358490020390596, Macro F Score = 0.07748397193248001
+=> P@K = [ 0.          0.05757052  0.06908463]
+
+=> Training : Loss = 0.95 | Validation : Loss = 0.79 | Test : Loss = 1.17
+=> Test : Coverage = 21.16, Average Precision = 0.4449952330833863, Micro Precision = 0.1919999996928, Micro Recall = 0.7272727228650138, Micro F Score = 0.30379713710979617
+=> Test : Macro Precision = 0.04635703817747015, Macro Recall = 0.2358490020390596, Macro F Score = 0.07748397193248001
+=> P@K = [ 0.          0.05757052  0.06908463]
+
+=> Training : Loss = 0.92 | Validation : Loss = 0.79 | Test : Loss = 1.16
+=> Test : Coverage = 21.3, Average Precision = 0.44527735161196064, Micro Precision = 0.19261637208247773, Micro Recall = 0.7272727228650138, Micro F Score = 0.3045681960534653
+=> Test : Macro Precision = 0.04647798639224321, Macro Recall = 0.2358490020390596, Macro F Score = 0.07765285169424725
+=> P@K = [ 0.          0.05757052  0.06908463]
+
+=> Training : Loss = 0.91 | Validation : Loss = 0.78 | Test : Loss = 1.16
+=> Test : Coverage = 21.38, Average Precision = 0.4449760785651429, Micro Precision = 0.19169329042860497, Micro Recall = 0.7272727228650138, Micro F Score = 0.30341306982347915
+=> Test : Macro Precision = 0.04647798639224321, Macro Recall = 0.2358490020390596, Macro F Score = 0.07765285169424725
+=> P@K = [ 0.          0.05757052  0.06908463]
+
+=> Training : Loss = 0.91 | Validation : Loss = 0.78 | Test : Loss = 1.16
+=> Test : Coverage = 21.38, Average Precision = 0.445634549631542, Micro Precision = 0.1919999996928, Micro Recall = 0.7272727228650138, Micro F Score = 0.30379713710979617
+=> Test : Macro Precision = 0.046620925189521316, Macro Recall = 0.2358490020390596, Macro F Score = 0.07785225041009966
+=> P@K = [ 0.          0.05757052  0.06908463]
+
+=> Training : Loss = 0.91 | Validation : Loss = 0.78 | Test : Loss = 1.16
+=> Test : Coverage = 21.22, Average Precision = 0.4481990766039271, Micro Precision = 0.1919999996928, Micro Recall = 0.7272727228650138, Micro F Score = 0.30379713710979617
+=> Test : Macro Precision = 0.04647798639224321, Macro Recall = 0.2358490020390596, Macro F Score = 0.07765285169424725
+=> P@K = [ 0.          0.05757052  0.06908463]
+
+=> Training : Loss = 0.91 | Validation : Loss = 0.78 | Test : Loss = 1.16
+=> Test : Coverage = 21.52, Average Precision = 0.44749592944872246, Micro Precision = 0.19169329042860497, Micro Recall = 0.7272727228650138, Micro F Score = 0.30341306982347915
+=> Test : Macro Precision = 0.04647798639224321, Macro Recall = 0.2358490020390596, Macro F Score = 0.07765285169424725
+=> P@K = [ 0.          0.05757052  0.06908463]
+
+=> Training : Loss = 0.90 | Validation : Loss = 0.78 | Test : Loss = 1.16
+=> Test : Coverage = 21.44, Average Precision = 0.4466370616885497, Micro Precision = 0.19077901400512082, Micro Recall = 0.7272727228650138, Micro F Score = 0.30226667250954187
+=> Test : Macro Precision = 0.04635703817747015, Macro Recall = 0.2358490020390596, Macro F Score = 0.07748397193248001
+=> P@K = [ 0.          0.05757052  0.06908463]
+
+=> Training : Loss = 2.03 | Validation : Loss = 1.53 | Test : Loss = 1.74
+=> Test : Coverage = 37.72, Average Precision = 0.17845087058515557, Micro Precision = 0.06314580939030011, Micro Recall = 0.999999993939394, Micro F Score = 0.11879038493993571
+=> Test : Macro Precision = 0.06229495447160853, Macro Recall = 0.6981128149324356, Macro F Score = 0.11438296814053354
+=> P@K = [(0.0, 0.0), (0.0, 0.0), (0.0, 0.0)]
+
+=> Training : Loss = 1.77 | Validation : Loss = 1.47 | Test : Loss = 1.70
+=> Test : Coverage = 33.58, Average Precision = 0.2661163614688649, Micro Precision = 0.06348595611254869, Micro Recall = 0.999999993939394, Micro F Score = 0.11939207288756021
+=> Test : Macro Precision = 0.062303297431083475, Macro Recall = 0.6981128149324356, Macro F Score = 0.11439703194999566
+=> P@K = [(0.0, 0.0), (0.0, 0.0), (0.0, 0.0)]
+
+=> Training : Loss = 1.69 | Validation : Loss = 1.42 | Test : Loss = 1.66
+=> Test : Coverage = 30.48, Average Precision = 0.33626295185304256, Micro Precision = 0.06470588232756633, Micro Recall = 0.999999993939394, Micro F Score = 0.12154684707640674
+=> Test : Macro Precision = 0.06260673770064257, Macro Recall = 0.6981128149324356, Macro F Score = 0.11490833457476839
+=> P@K = [(0.0, 0.0), (0.0, 0.0), (0.0, 0.0)]
+
+=> Training : Loss = 1.67 | Validation : Loss = 1.37 | Test : Loss = 1.63
+=> Test : Coverage = 27.66, Average Precision = 0.37105275160348766, Micro Precision = 0.06585365850981559, Micro Recall = 0.9818181758677686, Micro F Score = 0.12342845352239762
+=> Test : Macro Precision = 0.061525529599179285, Macro Recall = 0.6729555937584261, Macro F Score = 0.11274324584904434
+=> P@K = [(0.0, 0.0), (0.0, 0.0), (0.0, 0.0)]
+
+=> Training : Loss = 1.53 | Validation : Loss = 1.34 | Test : Loss = 1.61
+=> Test : Coverage = 25.84, Average Precision = 0.3884758645149933, Micro Precision = 0.0672873465648382, Micro Recall = 0.9636363577961433, Micro F Score = 0.12579101712321253
+=> Test : Macro Precision = 0.06101227976409007, Macro Recall = 0.6289304763579683, Macro F Score = 0.11123365299048027
+=> P@K = [(0.0, 0.0), (0.0, 0.0), (0.0, 0.0)]
+
+=> Training : Loss = 1.57 | Validation : Loss = 1.30 | Test : Loss = 1.58
+=> Test : Coverage = 24.52, Average Precision = 0.4004952217175946, Micro Precision = 0.07104316543568204, Micro Recall = 0.9575757517722682, Micro F Score = 0.13227278883537655
+=> Test : Macro Precision = 0.06034659344069059, Macro Recall = 0.622641170278303, Macro F Score = 0.11002896550631973
+=> P@K = [(0.0, 0.0), (0.0, 0.0), (0.0, 0.0)]
+
+=> Training : Loss = 1.48 | Validation : Loss = 1.27 | Test : Loss = 1.56
+=> Test : Coverage = 23.74, Average Precision = 0.40878545187795284, Micro Precision = 0.07459095280337298, Micro Recall = 0.9393939337006428, Micro F Score = 0.13820762104298193
+=> Test : Macro Precision = 0.06105727084638896, Macro Recall = 0.5849053495235625, Macro F Score = 0.11057193693015972
+=> P@K = [(0.0, 0.0), (0.0, 0.0), (0.0, 0.0)]
+
+=> Training : Loss = 1.48 | Validation : Loss = 1.23 | Test : Loss = 1.53
+=> Test : Coverage = 22.76, Average Precision = 0.41704677969010107, Micro Precision = 0.07892004149588783, Micro Recall = 0.9212121156290175, Micro F Score = 0.14538483775691283
+=> Test : Macro Precision = 0.057960491734990946, Macro Recall = 0.547169528768822, Macro F Score = 0.10481768038743061
+=> P@K = [(0.0, 0.0), (0.0, 0.0), (0.0, 0.0)]
+
+=> Training : Loss = 1.39 | Validation : Loss = 1.20 | Test : Loss = 1.51
+=> Test : Coverage = 22.48, Average Precision = 0.423816693947535, Micro Precision = 0.08610792187938696, Micro Recall = 0.9090909035812673, Micro F Score = 0.15731499645431138
+=> Test : Macro Precision = 0.05828429516552139, Macro Recall = 0.5188676655612536, Macro F Score = 0.1047966075867838
+=> P@K = [(0.0, 0.0), (0.0, 0.0), (0.0, 0.0)]
+
+=> Training : Loss = 1.40 | Validation : Loss = 1.17 | Test : Loss = 1.48
+=> Test : Coverage = 22.46, Average Precision = 0.43018253568050013, Micro Precision = 0.09449838181585865, Micro Recall = 0.8848484794857668, Micro F Score = 0.1707600593572444
+=> Test : Macro Precision = 0.058838485433033126, Macro Recall = 0.4575469686272343, Macro F Score = 0.10426830695043754
+=> P@K = [(0.0, 0.0), (0.0, 0.0), (0.0, 0.0)]
+
+=> Training : Loss = 1.33 | Validation : Loss = 1.14 | Test : Loss = 1.46
+=> Test : Coverage = 22.18, Average Precision = 0.43379577549572945, Micro Precision = 0.10258249633961082, Micro Recall = 0.8666666614141415, Micro F Score = 0.18345074057705968
+=> Test : Macro Precision = 0.056111416527554976, Macro Recall = 0.4103771997592697, Macro F Score = 0.09872393804772618
+=> P@K = [(0.0, 0.0), (0.0, 0.0), (0.0, 0.0)]
+
+=> Training : Loss = 1.29 | Validation : Loss = 1.10 | Test : Loss = 1.44
+=> Test : Coverage = 22.0, Average Precision = 0.43354900714164935, Micro Precision = 0.11137440749496491, Micro Recall = 0.8545454493663912, Micro F Score = 0.19706478522465798
+=> Test : Macro Precision = 0.05885769303663597, Macro Recall = 0.386792314146043, Macro F Score = 0.1021683017788216
+=> P@K = [(0.0, 0.0), (0.0, 0.0), (0.0, 0.0)]
+
+=> Training : Loss = 1.30 | Validation : Loss = 1.07 | Test : Loss = 1.42
+=> Test : Coverage = 21.74, Average Precision = 0.4354955975838093, Micro Precision = 0.11774744017257044, Micro Recall = 0.8363636312947659, Micro F Score = 0.2064320944749007
+=> Test : Macro Precision = 0.07229615231369985, Macro Recall = 0.37264137428755156, Macro F Score = 0.12109779640648224
+=> P@K = [(0.0, 0.0), (0.0, 0.0), (0.0, 0.0)]
+
+=> Training : Loss = 1.21 | Validation : Loss = 1.05 | Test : Loss = 1.40
+=> Test : Coverage = 21.62, Average Precision = 0.4390450069416572, Micro Precision = 0.12054794509538999, Micro Recall = 0.7999999951515152, Micro F Score = 0.20952358158376866
+=> Test : Macro Precision = 0.05204791348903735, Macro Recall = 0.3301885688630029, Macro F Score = 0.08992119747912469
+=> P@K = [(0.0, 0.0), (0.0, 0.0), (0.0, 0.0)]
+
+=> Training : Loss = 1.23 | Validation : Loss = 1.02 | Test : Loss = 1.38
+=> Test : Coverage = 21.3, Average Precision = 0.441938921257665, Micro Precision = 0.12475822038224542, Micro Recall = 0.7818181770798899, Micro F Score = 0.2151790783843188
+=> Test : Macro Precision = 0.051468048392228724, Macro Recall = 0.31289297675084193, Macro F Score = 0.08839555034681468
+=> P@K = [(0.0, 0.0), (0.0, 0.0), (0.0, 0.0)]
+
+=> Training : Loss = 1.22 | Validation : Loss = 1.00 | Test : Loss = 1.36
+=> Test : Coverage = 21.3, Average Precision = 0.4436139476208194, Micro Precision = 0.12981744408740625, Micro Recall = 0.7757575710560147, Micro F Score = 0.2224150450583583
+=> Test : Macro Precision = 0.048988669471067635, Macro Recall = 0.30817599679801144, Macro F Score = 0.0845385403572403
+=> P@K = [(0.0, 0.0), (0.0, 0.0), (0.0, 0.0)]
+
+=> Training : Loss = 1.15 | Validation : Loss = 0.98 | Test : Loss = 1.34
+=> Test : Coverage = 21.12, Average Precision = 0.4435658433070035, Micro Precision = 0.1374865734291229, Micro Recall = 0.7757575710560147, Micro F Score = 0.23357638614398687
+=> Test : Macro Precision = 0.049659895773413336, Macro Recall = 0.30817599679801144, Macro F Score = 0.0855361098789014
+=> P@K = [(0.0, 0.0), (0.0, 0.0), (0.0, 0.0)]
+
+=> Training : Loss = 1.13 | Validation : Loss = 0.96 | Test : Loss = 1.32
+=> Test : Coverage = 21.06, Average Precision = 0.4434642349815935, Micro Precision = 0.1412556052228076, Micro Recall = 0.7636363590082645, Micro F Score = 0.238410332107099
+=> Test : Macro Precision = 0.04769713946747955, Macro Recall = 0.2830187850579499, Macro F Score = 0.08163589742010725
+=> P@K = [(0.0, 0.0), (0.0, 0.0), (0.0, 0.0)]
+
+=> Training : Loss = 1.11 | Validation : Loss = 0.94 | Test : Loss = 1.31
+=> Test : Coverage = 20.9, Average Precision = 0.4419369551446736, Micro Precision = 0.1467136148512751, Micro Recall = 0.7575757529843894, Micro F Score = 0.24582076995917967
+=> Test : Macro Precision = 0.04739104465925664, Macro Recall = 0.26415087939755366, Macro F Score = 0.0803637968039912
+=> P@K = [(0.0, 0.0), (0.0, 0.0), (0.0, 0.0)]
+
+=> Training : Loss = 1.07 | Validation : Loss = 0.93 | Test : Loss = 1.29
+=> Test : Coverage = 20.9, Average Precision = 0.4420423533412371, Micro Precision = 0.1509661833925529, Micro Recall = 0.7575757529843894, Micro F Score = 0.2517620587418068
+=> Test : Macro Precision = 0.04757861539053985, Macro Recall = 0.26415087939755366, Macro F Score = 0.0806333246573932
+=> P@K = [(0.0, 0.0), (0.0, 0.0), (0.0, 0.0)]
+
+=> Training : Loss = 1.06 | Validation : Loss = 0.91 | Test : Loss = 1.28
+=> Test : Coverage = 20.86, Average Precision = 0.442985996853348, Micro Precision = 0.15470297010556563, Micro Recall = 0.7575757529843894, Micro F Score = 0.2569370251257661
+=> Test : Macro Precision = 0.04767792025138237, Macro Recall = 0.26415087939755366, Macro F Score = 0.0807758884906307
+=> P@K = [(0.0, 0.0), (0.0, 0.0), (0.0, 0.0)]
+
+=> Training : Loss = 1.05 | Validation : Loss = 0.90 | Test : Loss = 1.27
+=> Test : Coverage = 21.02, Average Precision = 0.4425140100770523, Micro Precision = 0.16087516066811433, Micro Recall = 0.7575757529843894, Micro F Score = 0.2653924917962396
+=> Test : Macro Precision = 0.048031254969732415, Macro Recall = 0.26415087939755366, Macro F Score = 0.0812824066523465
+=> P@K = [(0.0, 0.0), (0.0, 0.0), (0.0, 0.0)]
+
+=> Training : Loss = 1.05 | Validation : Loss = 0.89 | Test : Loss = 1.26
+=> Test : Coverage = 21.04, Average Precision = 0.44288862517256766, Micro Precision = 0.16531165289253164, Micro Recall = 0.7393939349127641, Micro F Score = 0.27021011047494997
+=> Test : Macro Precision = 0.047018046598743646, Macro Recall = 0.24528296194472055, Macro F Score = 0.07890965780264123
+=> P@K = [(0.0, 0.0), (0.0, 0.0), (0.0, 0.0)]
+
+=> Training : Loss = 1.02 | Validation : Loss = 0.88 | Test : Loss = 1.25
+=> Test : Coverage = 21.02, Average Precision = 0.443054812842691, Micro Precision = 0.16923076899408285, Micro Recall = 0.7333333288888889, Micro F Score = 0.2749996946878367
+=> Test : Macro Precision = 0.046556602789976434, Macro Recall = 0.24056598199189008, Macro F Score = 0.07801473276314702
+=> P@K = [(0.0, 0.0), (0.0, 0.0), (0.0, 0.0)]
+
+=> Training : Loss = 1.00 | Validation : Loss = 0.87 | Test : Loss = 1.24
+=> Test : Coverage = 21.06, Average Precision = 0.4429319258603977, Micro Precision = 0.17163120543031035, Micro Recall = 0.7333333288888889, Micro F Score = 0.2781606115289423
+=> Test : Macro Precision = 0.046647313954826165, Macro Recall = 0.24056598199189008, Macro F Score = 0.07814204966251824
+=> P@K = [(0.0, 0.0), (0.0, 0.0), (0.0, 0.0)]
+
+=> Training : Loss = 1.02 | Validation : Loss = 0.86 | Test : Loss = 1.23
+=> Test : Coverage = 21.0, Average Precision = 0.44293599640465176, Micro Precision = 0.17536231858643142, Micro Recall = 0.7333333288888889, Micro F Score = 0.28304062353031695
+=> Test : Macro Precision = 0.04698793028463126, Macro Recall = 0.24056598199189008, Macro F Score = 0.0786194017775556
+=> P@K = [(0.0, 0.0), (0.0, 0.0), (0.0, 0.0)]
+
+=> Training : Loss = 1.03 | Validation : Loss = 0.85 | Test : Loss = 1.22
+=> Test : Coverage = 21.06, Average Precision = 0.4426811466016259, Micro Precision = 0.17991004470778105, Micro Recall = 0.7272727228650138, Micro F Score = 0.2884612197933646
+=> Test : Macro Precision = 0.04546059841963833, Macro Recall = 0.2358490020390596, Macro F Score = 0.0762277479191143
+=> P@K = [(0.0, 0.0), (0.0, 0.0), (0.0, 0.0)]
+
+=> Training : Loss = 1.01 | Validation : Loss = 0.84 | Test : Loss = 1.21
+=> Test : Coverage = 21.04, Average Precision = 0.4432267621163702, Micro Precision = 0.18518518489940558, Micro Recall = 0.7272727228650138, Micro F Score = 0.29520262777866096
+=> Test : Macro Precision = 0.045699524161874894, Macro Recall = 0.2358490020390596, Macro F Score = 0.07656334793151792
+=> P@K = [(0.0, 0.0), (0.0, 0.0), (0.0, 0.0)]
+
+=> Training : Loss = 0.99 | Validation : Loss = 0.84 | Test : Loss = 1.20
+=> Test : Coverage = 21.1, Average Precision = 0.4431620939873433, Micro Precision = 0.18749999970703124, Micro Recall = 0.7272727228650138, Micro F Score = 0.29813631930902407
+=> Test : Macro Precision = 0.04590640927973773, Macro Recall = 0.2358490020390596, Macro F Score = 0.07685348322791083
+=> P@K = [(0.0, 0.0), (0.0, 0.0), (0.0, 0.0)]
+
+=> Training : Loss = 0.97 | Validation : Loss = 0.83 | Test : Loss = 1.20
+=> Test : Coverage = 21.1, Average Precision = 0.4431658146694106, Micro Precision = 0.18927444765098667, Micro Recall = 0.7272727228650138, Micro F Score = 0.3003751408600985
+=> Test : Macro Precision = 0.045961578643734895, Macro Recall = 0.2358490020390596, Macro F Score = 0.0769307806939706
+=> P@K = [(0.0, 0.0), (0.0, 0.0), (0.0, 0.0)]
+
+=> Training : Loss = 1.00 | Validation : Loss = 0.83 | Test : Loss = 1.19
+=> Test : Coverage = 21.16, Average Precision = 0.4424563523043406, Micro Precision = 0.19138755950336914, Micro Recall = 0.7272727228650138, Micro F Score = 0.30302997240432206
+=> Test : Macro Precision = 0.04610062795835956, Macro Recall = 0.2358490020390596, Macro F Score = 0.07712546765689154
+=> P@K = [(0.0, 0.0), (0.0, 0.0), (0.0, 0.0)]
+
+=> Training : Loss = 2.03 | Validation : Loss = 1.53 | Test : Loss = 1.74
+=> Test : Coverage = 37.72, Average Precision = 0.17845087058515557, Micro Precision = 0.06314580939030011, Micro Recall = 0.999999993939394, Micro F Score = 0.11879038493993571
+=> Test : Macro Precision = 0.06229495447160853, Macro Recall = 0.6981128149324356, Macro F Score = 0.11438296814053354
+=> P@K = [ 0.  0.  0.]
+
+=> Training : Loss = 1.77 | Validation : Loss = 1.47 | Test : Loss = 1.70
+=> Test : Coverage = 33.58, Average Precision = 0.2661163614688649, Micro Precision = 0.06348595611254869, Micro Recall = 0.999999993939394, Micro F Score = 0.11939207288756021
+=> Test : Macro Precision = 0.062303297431083475, Macro Recall = 0.6981128149324356, Macro F Score = 0.11439703194999566
+=> P@K = [ 0.          0.05757052  0.03454231]
+
+=> Training : Loss = 1.69 | Validation : Loss = 1.42 | Test : Loss = 1.66
+=> Test : Coverage = 30.48, Average Precision = 0.33626295185304256, Micro Precision = 0.06470588232756633, Micro Recall = 0.999999993939394, Micro F Score = 0.12154684707640674
+=> Test : Macro Precision = 0.06260673770064257, Macro Recall = 0.6981128149324356, Macro F Score = 0.11490833457476839
+=> P@K = [ 0.          0.05757052  0.06908463]
+
+=> Training : Loss = 1.67 | Validation : Loss = 1.37 | Test : Loss = 1.63
+=> Test : Coverage = 27.66, Average Precision = 0.37105275160348766, Micro Precision = 0.06585365850981559, Micro Recall = 0.9818181758677686, Micro F Score = 0.12342845352239762
+=> Test : Macro Precision = 0.061525529599179285, Macro Recall = 0.6729555937584261, Macro F Score = 0.11274324584904434
+=> P@K = [ 0.          0.05757052  0.06908463]
+
+=> Training : Loss = 1.53 | Validation : Loss = 1.34 | Test : Loss = 1.61
+=> Test : Coverage = 25.84, Average Precision = 0.3884758645149933, Micro Precision = 0.0672873465648382, Micro Recall = 0.9636363577961433, Micro F Score = 0.12579101712321253
+=> Test : Macro Precision = 0.06101227976409007, Macro Recall = 0.6289304763579683, Macro F Score = 0.11123365299048027
+=> P@K = [ 0.          0.05757052  0.06908463]
+
+=> Training : Loss = 1.57 | Validation : Loss = 1.30 | Test : Loss = 1.58
+=> Test : Coverage = 24.52, Average Precision = 0.4004952217175946, Micro Precision = 0.07104316543568204, Micro Recall = 0.9575757517722682, Micro F Score = 0.13227278883537655
+=> Test : Macro Precision = 0.06034659344069059, Macro Recall = 0.622641170278303, Macro F Score = 0.11002896550631973
+=> P@K = [ 0.          0.05757052  0.06908463]
+
+=> Training : Loss = 1.48 | Validation : Loss = 1.27 | Test : Loss = 1.56
+=> Test : Coverage = 23.74, Average Precision = 0.40878545187795284, Micro Precision = 0.07459095280337298, Micro Recall = 0.9393939337006428, Micro F Score = 0.13820762104298193
+=> Test : Macro Precision = 0.06105727084638896, Macro Recall = 0.5849053495235625, Macro F Score = 0.11057193693015972
+=> P@K = [ 0.          0.05757052  0.06908463]
+
+=> Training : Loss = 1.48 | Validation : Loss = 1.23 | Test : Loss = 1.53
+=> Test : Coverage = 22.76, Average Precision = 0.41704677969010107, Micro Precision = 0.07892004149588783, Micro Recall = 0.9212121156290175, Micro F Score = 0.14538483775691283
+=> Test : Macro Precision = 0.057960491734990946, Macro Recall = 0.547169528768822, Macro F Score = 0.10481768038743061
+=> P@K = [ 0.          0.05757052  0.06908463]
+
+=> Training : Loss = 1.39 | Validation : Loss = 1.20 | Test : Loss = 1.51
+=> Test : Coverage = 22.48, Average Precision = 0.423816693947535, Micro Precision = 0.08610792187938696, Micro Recall = 0.9090909035812673, Micro F Score = 0.15731499645431138
+=> Test : Macro Precision = 0.05828429516552139, Macro Recall = 0.5188676655612536, Macro F Score = 0.1047966075867838
+=> P@K = [ 0.          0.05757052  0.06908463]
+
+=> Training : Loss = 1.40 | Validation : Loss = 1.17 | Test : Loss = 1.48
+=> Test : Coverage = 22.46, Average Precision = 0.43018253568050013, Micro Precision = 0.09449838181585865, Micro Recall = 0.8848484794857668, Micro F Score = 0.1707600593572444
+=> Test : Macro Precision = 0.058838485433033126, Macro Recall = 0.4575469686272343, Macro F Score = 0.10426830695043754
+=> P@K = [ 0.          0.05757052  0.06908463]
+
+=> Training : Loss = 1.33 | Validation : Loss = 1.14 | Test : Loss = 1.46
+=> Test : Coverage = 22.18, Average Precision = 0.43379577549572945, Micro Precision = 0.10258249633961082, Micro Recall = 0.8666666614141415, Micro F Score = 0.18345074057705968
+=> Test : Macro Precision = 0.056111416527554976, Macro Recall = 0.4103771997592697, Macro F Score = 0.09872393804772618
+=> P@K = [ 0.          0.05757052  0.06908463]
+
+=> Training : Loss = 1.29 | Validation : Loss = 1.10 | Test : Loss = 1.44
+=> Test : Coverage = 22.0, Average Precision = 0.43354900714164935, Micro Precision = 0.11137440749496491, Micro Recall = 0.8545454493663912, Micro F Score = 0.19706478522465798
+=> Test : Macro Precision = 0.05885769303663597, Macro Recall = 0.386792314146043, Macro F Score = 0.1021683017788216
+=> P@K = [ 0.          0.05757052  0.06908463]
+
+=> Training : Loss = 1.30 | Validation : Loss = 1.07 | Test : Loss = 1.42
+=> Test : Coverage = 21.74, Average Precision = 0.4354955975838093, Micro Precision = 0.11774744017257044, Micro Recall = 0.8363636312947659, Micro F Score = 0.2064320944749007
+=> Test : Macro Precision = 0.07229615231369985, Macro Recall = 0.37264137428755156, Macro F Score = 0.12109779640648224
+=> P@K = [ 0.          0.05757052  0.06908463]
+
+=> Training : Loss = 1.21 | Validation : Loss = 1.05 | Test : Loss = 1.40
+=> Test : Coverage = 21.62, Average Precision = 0.4390450069416572, Micro Precision = 0.12054794509538999, Micro Recall = 0.7999999951515152, Micro F Score = 0.20952358158376866
+=> Test : Macro Precision = 0.05204791348903735, Macro Recall = 0.3301885688630029, Macro F Score = 0.08992119747912469
+=> P@K = [ 0.          0.05757052  0.06908463]
+
+=> Training : Loss = 1.23 | Validation : Loss = 1.02 | Test : Loss = 1.38
+=> Test : Coverage = 21.3, Average Precision = 0.441938921257665, Micro Precision = 0.12475822038224542, Micro Recall = 0.7818181770798899, Micro F Score = 0.2151790783843188
+=> Test : Macro Precision = 0.051468048392228724, Macro Recall = 0.31289297675084193, Macro F Score = 0.08839555034681468
+=> P@K = [ 0.          0.05757052  0.06908463]
+
+=> Training : Loss = 1.22 | Validation : Loss = 1.00 | Test : Loss = 1.36
+=> Test : Coverage = 21.3, Average Precision = 0.4436139476208194, Micro Precision = 0.12981744408740625, Micro Recall = 0.7757575710560147, Micro F Score = 0.2224150450583583
+=> Test : Macro Precision = 0.048988669471067635, Macro Recall = 0.30817599679801144, Macro F Score = 0.0845385403572403
+=> P@K = [ 0.          0.05757052  0.06908463]
+
+=> Training : Loss = 1.15 | Validation : Loss = 0.98 | Test : Loss = 1.34
+=> Test : Coverage = 21.12, Average Precision = 0.4435658433070035, Micro Precision = 0.1374865734291229, Micro Recall = 0.7757575710560147, Micro F Score = 0.23357638614398687
+=> Test : Macro Precision = 0.049659895773413336, Macro Recall = 0.30817599679801144, Macro F Score = 0.0855361098789014
+=> P@K = [ 0.          0.05757052  0.06908463]
+
+=> Training : Loss = 1.13 | Validation : Loss = 0.96 | Test : Loss = 1.32
+=> Test : Coverage = 21.06, Average Precision = 0.4434642349815935, Micro Precision = 0.1412556052228076, Micro Recall = 0.7636363590082645, Micro F Score = 0.238410332107099
+=> Test : Macro Precision = 0.04769713946747955, Macro Recall = 0.2830187850579499, Macro F Score = 0.08163589742010725
+=> P@K = [ 0.          0.05757052  0.06908463]
+
+=> Training : Loss = 1.11 | Validation : Loss = 0.94 | Test : Loss = 1.31
+=> Test : Coverage = 20.9, Average Precision = 0.4419369551446736, Micro Precision = 0.1467136148512751, Micro Recall = 0.7575757529843894, Micro F Score = 0.24582076995917967
+=> Test : Macro Precision = 0.04739104465925664, Macro Recall = 0.26415087939755366, Macro F Score = 0.0803637968039912
+=> P@K = [ 0.          0.05757052  0.06908463]
+
+=> Training : Loss = 1.07 | Validation : Loss = 0.93 | Test : Loss = 1.29
+=> Test : Coverage = 20.9, Average Precision = 0.4420423533412371, Micro Precision = 0.1509661833925529, Micro Recall = 0.7575757529843894, Micro F Score = 0.2517620587418068
+=> Test : Macro Precision = 0.04757861539053985, Macro Recall = 0.26415087939755366, Macro F Score = 0.0806333246573932
+=> P@K = [ 0.          0.05757052  0.06908463]
+
+=> Training : Loss = 1.06 | Validation : Loss = 0.91 | Test : Loss = 1.28
+=> Test : Coverage = 20.86, Average Precision = 0.442985996853348, Micro Precision = 0.15470297010556563, Micro Recall = 0.7575757529843894, Micro F Score = 0.2569370251257661
+=> Test : Macro Precision = 0.04767792025138237, Macro Recall = 0.26415087939755366, Macro F Score = 0.0807758884906307
+=> P@K = [ 0.          0.05757052  0.06908463]
+
+=> Training : Loss = 1.05 | Validation : Loss = 0.90 | Test : Loss = 1.27
+=> Test : Coverage = 21.02, Average Precision = 0.4425140100770523, Micro Precision = 0.16087516066811433, Micro Recall = 0.7575757529843894, Micro F Score = 0.2653924917962396
+=> Test : Macro Precision = 0.048031254969732415, Macro Recall = 0.26415087939755366, Macro F Score = 0.0812824066523465
+=> P@K = [ 0.          0.05757052  0.06908463]
+
+=> Training : Loss = 1.05 | Validation : Loss = 0.89 | Test : Loss = 1.26
+=> Test : Coverage = 21.04, Average Precision = 0.44288862517256766, Micro Precision = 0.16531165289253164, Micro Recall = 0.7393939349127641, Micro F Score = 0.27021011047494997
+=> Test : Macro Precision = 0.047018046598743646, Macro Recall = 0.24528296194472055, Macro F Score = 0.07890965780264123
+=> P@K = [ 0.          0.05757052  0.06908463]
+
+=> Training : Loss = 1.02 | Validation : Loss = 0.88 | Test : Loss = 1.25
+=> Test : Coverage = 21.02, Average Precision = 0.443054812842691, Micro Precision = 0.16923076899408285, Micro Recall = 0.7333333288888889, Micro F Score = 0.2749996946878367
+=> Test : Macro Precision = 0.046556602789976434, Macro Recall = 0.24056598199189008, Macro F Score = 0.07801473276314702
+=> P@K = [ 0.          0.05757052  0.06908463]
+
+=> Training : Loss = 1.00 | Validation : Loss = 0.87 | Test : Loss = 1.24
+=> Test : Coverage = 21.06, Average Precision = 0.4429319258603977, Micro Precision = 0.17163120543031035, Micro Recall = 0.7333333288888889, Micro F Score = 0.2781606115289423
+=> Test : Macro Precision = 0.046647313954826165, Macro Recall = 0.24056598199189008, Macro F Score = 0.07814204966251824
+=> P@K = [ 0.          0.05757052  0.06908463]
+
+=> Training : Loss = 1.02 | Validation : Loss = 0.86 | Test : Loss = 1.23
+=> Test : Coverage = 21.0, Average Precision = 0.44293599640465176, Micro Precision = 0.17536231858643142, Micro Recall = 0.7333333288888889, Micro F Score = 0.28304062353031695
+=> Test : Macro Precision = 0.04698793028463126, Macro Recall = 0.24056598199189008, Macro F Score = 0.0786194017775556
+=> P@K = [ 0.          0.05757052  0.06908463]
+
+=> Training : Loss = 1.03 | Validation : Loss = 0.85 | Test : Loss = 1.22
+=> Test : Coverage = 21.06, Average Precision = 0.4426811466016259, Micro Precision = 0.17991004470778105, Micro Recall = 0.7272727228650138, Micro F Score = 0.2884612197933646
+=> Test : Macro Precision = 0.04546059841963833, Macro Recall = 0.2358490020390596, Macro F Score = 0.0762277479191143
+=> P@K = [ 0.          0.05757052  0.06908463]
+
+=> Training : Loss = 1.01 | Validation : Loss = 0.84 | Test : Loss = 1.21
+=> Test : Coverage = 21.04, Average Precision = 0.4432267621163702, Micro Precision = 0.18518518489940558, Micro Recall = 0.7272727228650138, Micro F Score = 0.29520262777866096
+=> Test : Macro Precision = 0.045699524161874894, Macro Recall = 0.2358490020390596, Macro F Score = 0.07656334793151792
+=> P@K = [ 0.          0.05757052  0.06908463]
+
+=> Training : Loss = 0.99 | Validation : Loss = 0.84 | Test : Loss = 1.20
+=> Test : Coverage = 21.1, Average Precision = 0.4431620939873433, Micro Precision = 0.18749999970703124, Micro Recall = 0.7272727228650138, Micro F Score = 0.29813631930902407
+=> Test : Macro Precision = 0.04590640927973773, Macro Recall = 0.2358490020390596, Macro F Score = 0.07685348322791083
+=> P@K = [ 0.          0.05757052  0.06908463]
+
+=> Training : Loss = 0.97 | Validation : Loss = 0.83 | Test : Loss = 1.20
+=> Test : Coverage = 21.1, Average Precision = 0.4431658146694106, Micro Precision = 0.18927444765098667, Micro Recall = 0.7272727228650138, Micro F Score = 0.3003751408600985
+=> Test : Macro Precision = 0.045961578643734895, Macro Recall = 0.2358490020390596, Macro F Score = 0.0769307806939706
+=> P@K = [ 0.          0.05757052  0.06908463]
+
+=> Training : Loss = 1.00 | Validation : Loss = 0.83 | Test : Loss = 1.19
+=> Test : Coverage = 21.16, Average Precision = 0.4424563523043406, Micro Precision = 0.19138755950336914, Micro Recall = 0.7272727228650138, Micro F Score = 0.30302997240432206
+=> Test : Macro Precision = 0.04610062795835956, Macro Recall = 0.2358490020390596, Macro F Score = 0.07712546765689154
+=> P@K = [ 0.          0.05757052  0.06908463]
+
+=> Training : Loss = 0.97 | Validation : Loss = 0.82 | Test : Loss = 1.19
+=> Test : Coverage = 21.22, Average Precision = 0.4421986264903452, Micro Precision = 0.19386106592268001, Micro Recall = 0.7272727228650138, Micro F Score = 0.3061221158667958
+=> Test : Macro Precision = 0.046510800172661945, Macro Recall = 0.2358490020390596, Macro F Score = 0.07769864456281862
+=> P@K = [ 0.          0.05757052  0.06908463]
+
+=> Training : Loss = 0.96 | Validation : Loss = 0.81 | Test : Loss = 1.19
+=> Test : Coverage = 21.26, Average Precision = 0.44211043078110523, Micro Precision = 0.19417475696735476, Micro Recall = 0.7272727228650138, Micro F Score = 0.30651307653574084
+=> Test : Macro Precision = 0.046653738969940045, Macro Recall = 0.2358490020390596, Macro F Score = 0.07789799694794568
+=> P@K = [ 0.          0.05757052  0.06908463]
+
+=> Training : Loss = 0.97 | Validation : Loss = 0.81 | Test : Loss = 1.18
+=> Test : Coverage = 21.26, Average Precision = 0.4421399919791755, Micro Precision = 0.1944894648387529, Micro Recall = 0.7272727228650138, Micro F Score = 0.30690503710438244
+=> Test : Macro Precision = 0.046510800172661945, Macro Recall = 0.2358490020390596, Macro F Score = 0.07769864456281862
+=> P@K = [ 0.          0.05757052  0.06908463]
+
+=> Training : Loss = 0.95 | Validation : Loss = 0.81 | Test : Loss = 1.18
+=> Test : Coverage = 21.24, Average Precision = 0.4432989162445263, Micro Precision = 0.19292604470590669, Micro Recall = 0.7272727228650138, Micro F Score = 0.304955195142512
+=> Test : Macro Precision = 0.046269091547657314, Macro Recall = 0.2358490020390596, Macro F Score = 0.07736108129395085
+=> P@K = [ 0.          0.05757052  0.06908463]
+
+=> Training : Loss = 0.93 | Validation : Loss = 0.80 | Test : Loss = 1.18
+=> Test : Coverage = 21.14, Average Precision = 0.44386478972412613, Micro Precision = 0.1923076919995069, Micro Recall = 0.7272727228650138, Micro F Score = 0.3041821779509822
+=> Test : Macro Precision = 0.04625336827785909, Macro Recall = 0.2358490020390596, Macro F Score = 0.07733910259223815
+=> P@K = [ 0.          0.05757052  0.06908463]
+
+=> Training : Loss = 0.94 | Validation : Loss = 0.80 | Test : Loss = 1.17
+=> Test : Coverage = 21.12, Average Precision = 0.4438540269200113, Micro Precision = 0.19292604470590669, Micro Recall = 0.7272727228650138, Micro F Score = 0.304955195142512
+=> Test : Macro Precision = 0.04625336827785909, Macro Recall = 0.2358490020390596, Macro F Score = 0.07733910259223815
+=> P@K = [ 0.          0.05757052  0.06908463]
+
+=> Training : Loss = 0.93 | Validation : Loss = 0.80 | Test : Loss = 1.17
+=> Test : Coverage = 21.2, Average Precision = 0.443123837543687, Micro Precision = 0.19261637208247773, Micro Recall = 0.7272727228650138, Micro F Score = 0.3045681960534653
+=> Test : Macro Precision = 0.04625336827785909, Macro Recall = 0.2358490020390596, Macro F Score = 0.07733910259223815
+=> P@K = [ 0.          0.05757052  0.06908463]
+
+=> Training : Loss = 0.93 | Validation : Loss = 0.80 | Test : Loss = 1.17
+=> Test : Coverage = 21.24, Average Precision = 0.44461847523161196, Micro Precision = 0.19354838678459937, Micro Recall = 0.7272727228650138, Micro F Score = 0.3057321512762735
+=> Test : Macro Precision = 0.04636473937084399, Macro Recall = 0.2358490020390596, Macro F Score = 0.07749472940913436
+=> P@K = [ 0.          0.05757052  0.06908463]
+
+=> Training : Loss = 0.94 | Validation : Loss = 0.79 | Test : Loss = 1.17
+=> Test : Coverage = 21.08, Average Precision = 0.4439702443836279, Micro Precision = 0.19292604470590669, Micro Recall = 0.7272727228650138, Micro F Score = 0.304955195142512
+=> Test : Macro Precision = 0.04636473937084399, Macro Recall = 0.2358490020390596, Macro F Score = 0.07749472940913436
+=> P@K = [ 0.          0.05757052  0.06908463]
+
+=> Training : Loss = 0.93 | Validation : Loss = 0.79 | Test : Loss = 1.17
+=> Test : Coverage = 21.14, Average Precision = 0.4448426384539069, Micro Precision = 0.19169329042860497, Micro Recall = 0.7272727228650138, Micro F Score = 0.30341306982347915
+=> Test : Macro Precision = 0.04635703817747015, Macro Recall = 0.2358490020390596, Macro F Score = 0.07748397193248001
+=> P@K = [ 0.          0.05757052  0.06908463]
+
+=> Training : Loss = 0.92 | Validation : Loss = 0.79 | Test : Loss = 1.17
+=> Test : Coverage = 21.16, Average Precision = 0.44412187590729574, Micro Precision = 0.19169329042860497, Micro Recall = 0.7272727228650138, Micro F Score = 0.30341306982347915
+=> Test : Macro Precision = 0.04635703817747015, Macro Recall = 0.2358490020390596, Macro F Score = 0.07748397193248001
+=> P@K = [ 0.          0.05757052  0.06908463]
+
+=> Training : Loss = 0.95 | Validation : Loss = 0.79 | Test : Loss = 1.17
+=> Test : Coverage = 21.16, Average Precision = 0.4449952330833863, Micro Precision = 0.1919999996928, Micro Recall = 0.7272727228650138, Micro F Score = 0.30379713710979617
+=> Test : Macro Precision = 0.04635703817747015, Macro Recall = 0.2358490020390596, Macro F Score = 0.07748397193248001
+=> P@K = [ 0.          0.05757052  0.06908463]
+
+=> Training : Loss = 0.92 | Validation : Loss = 0.79 | Test : Loss = 1.16
+=> Test : Coverage = 21.3, Average Precision = 0.44527735161196064, Micro Precision = 0.19261637208247773, Micro Recall = 0.7272727228650138, Micro F Score = 0.3045681960534653
+=> Test : Macro Precision = 0.04647798639224321, Macro Recall = 0.2358490020390596, Macro F Score = 0.07765285169424725
+=> P@K = [ 0.          0.05757052  0.06908463]
+
+=> Training : Loss = 0.91 | Validation : Loss = 0.78 | Test : Loss = 1.16
+=> Test : Coverage = 21.38, Average Precision = 0.4449760785651429, Micro Precision = 0.19169329042860497, Micro Recall = 0.7272727228650138, Micro F Score = 0.30341306982347915
+=> Test : Macro Precision = 0.04647798639224321, Macro Recall = 0.2358490020390596, Macro F Score = 0.07765285169424725
+=> P@K = [ 0.          0.05757052  0.06908463]
+
+=> Training : Loss = 0.91 | Validation : Loss = 0.78 | Test : Loss = 1.16
+=> Test : Coverage = 21.38, Average Precision = 0.445634549631542, Micro Precision = 0.1919999996928, Micro Recall = 0.7272727228650138, Micro F Score = 0.30379713710979617
+=> Test : Macro Precision = 0.046620925189521316, Macro Recall = 0.2358490020390596, Macro F Score = 0.07785225041009966
+=> P@K = [ 0.          0.05757052  0.06908463]
+
+=> Training : Loss = 0.91 | Validation : Loss = 0.78 | Test : Loss = 1.16
+=> Test : Coverage = 21.22, Average Precision = 0.4481990766039271, Micro Precision = 0.1919999996928, Micro Recall = 0.7272727228650138, Micro F Score = 0.30379713710979617
+=> Test : Macro Precision = 0.04647798639224321, Macro Recall = 0.2358490020390596, Macro F Score = 0.07765285169424725
+=> P@K = [ 0.          0.05757052  0.06908463]
+
+=> Training : Loss = 5.98 | Validation : Loss = 5.82 | Test : Loss = 5.10
+=> Test : Coverage = 776.12, Average Precision = 0.15913542569739964, Micro Precision = 0.028831845237022626, Micro Recall = 0.8360302040603773, Micro F Score = 0.05574129563409412
+=> Test : Macro Precision = 0.017493472075625037, Macro Recall = 0.2985755912424871, Macro F Score = 0.03305041744878454
+=> P@K = [ 0.          0.02093145  0.01255887]
+
+=> Training : Loss = 5.07 | Validation : Loss = 4.72 | Test : Loss = 4.15
+=> Test : Coverage = 748.52, Average Precision = 0.17628937556882873, Micro Precision = 0.07295350359227852, Micro Recall = 0.6008629982730712, Micro F Score = 0.13010959430893912
+=> Test : Macro Precision = 0.011568436610341827, Macro Recall = 0.13801282249307148, Macro F Score = 0.021347352259490294
+=> P@K = [ 0.          0.02093145  0.0188383 ]
+
+=> Training : Loss = 4.49 | Validation : Loss = 4.36 | Test : Loss = 3.88
+=> Test : Coverage = 746.62, Average Precision = 0.17795002356755382, Micro Precision = 0.07719249088299349, Micro Recall = 0.5943905063706683, Micro F Score = 0.13663959811902893
+=> Test : Macro Precision = 0.011364067468522622, Macro Recall = 0.13292635708106307, Macro F Score = 0.02093796072676542
+=> P@K = [ 0.          0.02093145  0.0188383 ]
+
+=> Training : Loss = 4.26 | Validation : Loss = 4.21 | Test : Loss = 3.78
+=> Test : Coverage = 743.32, Average Precision = 0.17922806958567652, Micro Precision = 0.07640603565481398, Micro Recall = 0.6008629982730712, Micro F Score = 0.13557239319582562
+=> Test : Macro Precision = 0.011568544087737902, Macro Recall = 0.13479139545565355, Macro F Score = 0.021308146911890338
+=> P@K = [ 0.          0.02093145  0.0188383 ]
+
+=> Training : Loss = 4.12 | Validation : Loss = 4.09 | Test : Loss = 3.73
+=> Test : Coverage = 740.56, Average Precision = 0.17970870284700083, Micro Precision = 0.07582105688933355, Micro Recall = 0.6051779928746731, Micro F Score = 0.13475838964130568
+=> Test : Macro Precision = 0.011635073678688606, Macro Recall = 0.137334628670304, Macro F Score = 0.02145252050260114
+=> P@K = [ 0.          0.02093145  0.0188383 ]
+
+=> Training : Loss = 4.04 | Validation : Loss = 4.01 | Test : Loss = 3.70
+=> Test : Coverage = 740.9, Average Precision = 0.1796001077908132, Micro Precision = 0.07429400896353998, Micro Recall = 0.6073354901754742, Micro F Score = 0.13239251590991502
+=> Test : Macro Precision = 0.011531592036030758, Macro Recall = 0.13886056839563576, Macro F Score = 0.021294630953079624
+=> P@K = [ 0.          0.02093145  0.0188383 ]
+
+=> Training : Loss = 3.95 | Validation : Loss = 3.95 | Test : Loss = 3.67
+=> Test : Coverage = 740.4, Average Precision = 0.178936972592504, Micro Precision = 0.07389998693381643, Micro Recall = 0.6105717361266756, Micro F Score = 0.13184234170842551
+=> Test : Macro Precision = 0.012518270730958011, Macro Recall = 0.14089515486562687, Macro F Score = 0.022993453013683683
+=> P@K = [ 0.          0.02093145  0.0188383 ]
+
