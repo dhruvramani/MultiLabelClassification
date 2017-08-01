@@ -23,7 +23,7 @@ class Network(object):
         self.Wdisc1, self.Wdisc2, self.bDisc1, self.bDisc2 = self.init_disc_variables()
 
     def weight_variable(self, shape, name):
-        return tf.get_variable(name=name, shape=shape,  initializer=tf.contrib.layers.xavier_initializer())
+        return tf.get_variable(name=name, shape=shape, initializer=tf.contrib.layers.xavier_initializer())
 
     def bias_variable(self, shape, name):
         return tf.Variable(tf.constant(0.1, shape=shape), name=name)

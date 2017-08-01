@@ -313,3 +313,18 @@
 => Test : Macro Precision = 0.0, Macro Recall = 0.0, Macro F Score = 0.0
 
 
+=> Training : Loss = 129.543 | Validation : Loss = 94.010 | Test : Loss = 85.517
+=> Test : Coverage = 72.0, Average Precision = 0.013888888888888888, Micro Precision = 0.0, Micro Recall = 0.0, Micro F Score = 0.0
+=> Test : Macro Precision = 0.0, Macro Recall = 0.0, Macro F Score = 0.0
+
+
+=> Training : Loss = 67.629 | Validation : Loss = 64.704 | Test : Loss = 59.416
+=> Test : Coverage = 62.0, Average Precision = 0.016129032258064516, Micro Precision = 0.0, Micro Recall = 0.0, Micro F Score = 0.0
+=> Test : Macro Precision = 0.0, Macro Recall = 0.0, Macro F Score = 0.0
+
+
+=> Training : Loss = 51.039 | Validation : Loss = 53.349 | Test : Loss = 49.639
+=> Test : Coverage = 39.0, Average Precision = 0.02564102564102564, Micro Precision = 0.0, Micro Recall = 0.0, Micro F Score = 0.0
+=> Test : Macro Precision = 0.0, Macro Recall = 0.0, Macro F Score = 0.0
+
+

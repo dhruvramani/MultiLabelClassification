@@ -35,10 +35,6 @@ class Network(object):
         W2 = self.weight_variable([self.config.solver.hidden_dim, self.config.labels_dim], "weight_2")
         b1 = self.bias_variable([self.config.solver.hidden_dim], "bias_1")
         b2 = self.bias_variable([self.config.labels_dim], "bias_2")
-        self.summarizer.histogram('weight_1', W1)
-        self.summarizer.histogram('weight_2', W2)
-        self.summarizer.histogram('bias_1', b1)
-        self.summarizer.histogram('bias_2', b2)
         return W1, W2, b1, b2
 
     def accuracy(self, y_pred, y):

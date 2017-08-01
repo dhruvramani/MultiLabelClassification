@@ -28,6 +28,7 @@ class Model(object):
         self.train = self.net.train_step(self.loss)
         self.saver = tf.train.Saver()
         self.init = tf.global_variables_initializer()
+        self.local_init = tf.local_variables_initializer()
 
     def add_placeholders(self):
         self.x = tf.placeholder(tf.float32, shape=[None, self.config.features_dim])
@@ -100,6 +101,8 @@ class Model(object):
          + If patience becomes less than a certain threshold, devide learning rate by 10 and switch back to old model
          + If learning rate is lesser than a certain 
         '''
+        sess.run(self.init)
+        sess.run(self.local_init)
         max_epochs = self.config.max_epochs
         patience = self.config.patience
         patience_increase = self.config.patience_increase
@@ -127,12 +130,12 @@ class Model(object):
                     if self.config.have_patience:
                         if val_loss < best_validation_loss :
                             if val_loss < best_validation_loss * improvement_threshold :
-                                self.saver.save(sess, self.config.ckptdir_path + "model_best.ckpt")
+                                self.saver.save(sess, self.config.ckptdir_path + "/model_best.ckpt")
                                 best_validation_loss = val_loss
                                 best_step = self.epoch_count
                         else:
                             if patience < 1:
-                                self.saver.restore(sess, self.config.ckptdir_path + "model_best.ckpt")
+                                self.saver.restore(sess, self.config.ckptdir_path + "/model_best.ckpt")
                                 if learning_rate <= 0.00001 :
                                     print("=> Breaking by Patience Method")
                                     break
@@ -151,6 +154,7 @@ class Model(object):
         returnDict = {"test_loss" : test_loss, "test_accuracy" : test_accuracy, 'test_metrics' : test_metrics, "test_pak" : p_k}
         if self.config.debug == False:
             returnDict["train"] =  best_validation_loss
+        self.saver.save(sess, self.config.ckptdir_path)
         return returnDict
 
 
@@ -162,20 +166,13 @@ def init_model(config):
 
     tf_config = tf.ConfigProto(allow_soft_placement=True)#, device_count = {'GPU': 0})
     tf_config.gpu_options.allow_growth = True
-    sm = tf.train.SessionManager()
+    sess = tf.Session(config=tf_config)
 
-    if config.retrain or config.load == True:
+    if config.load == True:
         print("=> Loading model from checkpoint")
-        load_ckpt_dir = config.ckptdir_path
+        model.saver.restore(sess, config.ckptdir_path)
     else:
         print("=> No model loaded from checkpoint")
-        load_ckpt_dir = ''
-    sess = sm.prepare_session("", init_op=model.init, saver=model.saver, checkpoint_dir=load_ckpt_dir, config=tf_config)
-    if config.load == True :
-        saver = tf.train.Saver()
-        sess_ = tf.Session(config=tf.ConfigProto(allow_soft_placement=True, log_device_placement=True))
-        saver.restore(sess_, config.ckptdir_path + "/resultsmodel_best.ckpt")
-        return model, sess_
     return model, sess
 
 def train_model(config):
