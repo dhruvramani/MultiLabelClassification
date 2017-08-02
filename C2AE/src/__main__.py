@@ -119,9 +119,9 @@ class Model(object):
             duration = time.time() - start_time
             if not self.config.debug :
                 if self.epoch_count % self.config.epoch_freq == 0 :
-                    val_loss, _, _, _ = self.run_eval(sess, "validation", summarizer['val'], tr_step)
+                    val_loss, _, _, val_patk = self.run_eval(sess, "validation", summarizer['val'], tr_step)
                     test_loss, _, metrics, patk= self.run_eval(sess, "test", summarizer['test'], tr_step)
-                    output =  "=> Training : Loss = {:.2f} | Validation : Loss = {:.2f} | Test : Loss = {:.2f}".format(average_loss, val_loss, test_loss)
+                    output =  "=> Training : Loss = {:.2f} | Validation : Loss = {:.2f}, P@K = {} | Test : Loss = {:.2f}".format(average_loss, val_loss, val_patk, test_loss)
                     with open("../stdout/validation.log", "a+") as f:
                         output_ = output + "\n=> Test : Coverage = {}, Average Precision = {}, Micro Precision = {}, Micro Recall = {}, Micro F Score = {}".format(metrics['coverage'], metrics['average_precision'], metrics['micro_precision'], metrics['micro_recall'], metrics['micro_f1'])
                         output_ += "\n=> Test : Macro Precision = {}, Macro Recall = {}, Macro F Score = {}\n=> P@K = {}\n\n".format(metrics['macro_precision'], metrics['macro_recall'], metrics['macro_f1'], patk)
