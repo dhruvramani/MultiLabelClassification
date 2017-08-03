@@ -84,8 +84,9 @@ class Model(object):
                         accuracy += accuracy_val #metrics['accuracy']
             loss += loss_
             i += 1
-        #X, Y = self.data.get_test()
-        p_k = patk(predictions=Y_pred, labels=Y) #sess.run(self.patk, feed_dict={self.x: X, self.y: Y, self.keep_prob: 1})
+        if data == "test":
+            #X, Y = self.data.get_test()
+            p_k = patk(predictions=Y_pred, labels=Y) #sess.run(self.patk, feed_dict={self.x: X, self.y: Y, self.keep_prob: 1})
         return loss / i , accuracy / self.config.batch_size, metrics, p_k
     
     def add_summaries(self, sess):

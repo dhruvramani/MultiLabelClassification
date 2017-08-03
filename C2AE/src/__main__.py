@@ -39,13 +39,13 @@ class Model(object):
 
     def run_epoch(self, sess, data, summarizer, epoch):
         err = list()
-        i = 0
+        i, p_k, y_pred, Y = 0, None, None, None
         step = epoch
         merged_summary = self.summarizer.merge_all()
         for X, Y, tot in self.data.next_batch(data):
             feed_dict = {self.x : X, self.y : Y, self.keep_prob : self.config.solver.dropout}
             if not self.config.load:
-                summ, _, y_pred, loss = sess.run([merged_summary, self.train, self.y_pred, self.loss], feed_dict=feed_dict)
+                summ, _, y_pred, loss = sess.run([merged_summary, self.train, tf.nn.sigmoid(self.y_pred), self.loss], feed_dict=feed_dict)
                 err.append(loss) 
                 output = "Epoch ({}) Batch({}) - Loss : {}".format(self.epoch_count, i, loss)
                 with open("../stdout/{}_train.log".format(self.config.project_name), "a+") as log:
@@ -54,7 +54,8 @@ class Model(object):
             step = int(epoch*tot + i)
             summarizer.add_summary(summ, step)
             i += 1
-        return np.mean(err), step
+        #p_k = patk(predictions=y_pred, labels=Y)
+        return np.mean(err), step, p_k
 
     def run_eval(self, sess, data, summary_writer=None, step=0):
         y, y_pred, loss_, metrics, p_k = list(), list(), 0.0, None, None
@@ -79,8 +80,9 @@ class Model(object):
                     accuracy += accuracy_val #metrics['accuracy']
             loss += loss_
             i += 1
-        X, Y = self.data.get_test()
-        p_k = patk(sess.run(tf.nn.sigmoid(self.y_pred), feed_dict={self.x: X, self.y: Y, self.keep_prob: 1}), Y) # sess.run(self.patk, feed_dict={self.x: X, self.y: Y, self.keep_prob: 1}) #
+        if data == "test":
+            X, Y = self.data.get_test()
+            p_k = patk(sess.run(tf.nn.sigmoid(self.y_pred), feed_dict={self.x: X, self.y: Y, self.keep_prob: 1}), Y) # sess.run(self.patk, feed_dict={self.x: X, self.y: Y, self.keep_prob: 1}) #
         return loss / i , accuracy / self.config.batch_size, metrics, p_k
     
     def add_summaries(self, sess):
@@ -115,13 +117,13 @@ class Model(object):
             if(self.config.load == True):
                 break
             start_time = time.time()
-            average_loss, tr_step = self.run_epoch(sess, "train", summarizer['train'], self.epoch_count)
+            average_loss, tr_step, train_patk = self.run_epoch(sess, "train", summarizer['train'], self.epoch_count)
             duration = time.time() - start_time
             if not self.config.debug :
                 if self.epoch_count % self.config.epoch_freq == 0 :
                     val_loss, _, _, val_patk = self.run_eval(sess, "validation", summarizer['val'], tr_step)
                     test_loss, _, metrics, patk= self.run_eval(sess, "test", summarizer['test'], tr_step)
-                    output =  "=> Training : Loss = {:.2f} | Validation : Loss = {:.2f}, P@K = {} | Test : Loss = {:.2f}".format(average_loss, val_loss, val_patk, test_loss)
+                    output =  "=> Training : Loss = {:.2f} | Validation : Loss = {:.2f} | Test : Loss = {:.2f}\n=> Training : P@K = {} | Validation : P@K = {} | Test : P@K  {}".format(average_loss, val_loss, test_loss, train_patk, val_patk, patk)
                     with open("../stdout/validation.log", "a+") as f:
                         output_ = output + "\n=> Test : Coverage = {}, Average Precision = {}, Micro Precision = {}, Micro Recall = {}, Micro F Score = {}".format(metrics['coverage'], metrics['average_precision'], metrics['micro_precision'], metrics['micro_recall'], metrics['micro_f1'])
                         output_ += "\n=> Test : Macro Precision = {}, Macro Recall = {}, Macro F Score = {}\n=> P@K = {}\n\n".format(metrics['macro_precision'], metrics['macro_recall'], metrics['macro_f1'], patk)
